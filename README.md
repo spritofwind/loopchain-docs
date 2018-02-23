@@ -1,22 +1,22 @@
-#Introduction
+# Introduction
 
-##What is Loopchain?
-##loopchain의 기본 설명
+## What is Loopchain?
+## loopchain의 기본 설명
 
-##Roadmap of Loopchain
+## Roadmap of Loopchain
 
-##Community
-##Contributors
+## Community
+## Contributors
 
-#Tutorial
-##Installation
+# Tutorial
+## Installation
 
-#SCORE
-##SCORE 작성 1
-##SCORE 작성 2
+# SCORE
+## SCORE 작성 1
+## SCORE 작성 2
 
-#FAQ
+# FAQ
 
-#Reference
-##loopchain API-RESTful - peer
-##loopchain API-RESTful - radiostation
+# Reference
+## loopchain API-RESTful - peer
+## loopchain API-RESTful - radiostation
