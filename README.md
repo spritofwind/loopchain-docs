@@ -83,14 +83,25 @@ Multi Channel은 하나의 독립적인 블록체인 네트워크 안에서 업�
 
 ![Peer Network] (https://www.dropbox.com/s/bdzjajr5ucc119s/PeerNetwork.png?dl=1)
 
+_구조도는 검토가 필요함. Leader Peer는 순차적으로 돌아가기 때문에 변경이 가능하다는 것을 표시해줘야 하나?_
+
 ### RadioStation
 
-* Peer들의 인증을 담당한다. 
-* Peer들의 목록을 관리한다. 
+* Peer들의 인증을 담당하고 Peer들의 목록을 관리한다. 
+* 모든 Peer의 인증서를 보관한다. 
 * Group ID 생성. 여러 Peer들이 속할 Group ID를 생성해 준다. 
+
+#### RadioStation과 Peer의 접속 
+* RadioStation과 Peer는 시작할 때에 자신의 인증서/개인키 경로를 입력한다. 
+* Peer 인증서 발급은 RadioStation에서 진행하고 OfflLine으로 전달 (Peer 인증서/개인키, Root 인증서)및 설치한다. 
+* Peer에서 RadioStation으로 접속할 때에 보안 시퀸스를 따른다. 
+
+### Peer
+* 블록 생성, 블럭관리, 트랜젝션 생성, 조회, 원장 조회등의 기능을 처리한다. 
+* Peer가 생성될 때에 RadioStation과 연결한다. 시작할 때에 RadioStation의 접속정보(IP:Port)를 가지고 연결한다. 
+* 가장 먼저 RadioStation에 연결되는 Peer가 LeaderPeer가 된다. 
+* Peer는 RadioStation 인증서(Root)를 보관한다. 
 * 
-
-
 
 ## Roadmap of Loopchain
 
