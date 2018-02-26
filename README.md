@@ -11,13 +11,13 @@
 * 거래의 성격에 따라 합의 알고리즘, 블록생성 주기 등을 최적화하여서 빠른 속도가 필요한 거래에도 활용 가능
 
 ## What is loopchain?
-![loopchain] (https://www.dropbox.com/s/wuuqcz8tdxdm2l4/new_theloop_ci.png?dl=1)
+![loopchain] (https://www.dropbox.com/s/r2qd652own9m4k6/new_theloop_ci.png?dl=1)
 
 
 
 ### loopchain 주요 특징
 
-![loopchain 주요 특징] (https://www.dropbox.com/s/wq8qxav3ivvmtm3/loopchain_features.png?dl=1)
+![loopchain 주요 특징] (https://www.dropbox.com/s/0ppa9vju109rb5g/loopchain_features.png?dl=1)
 
 
 #### SCORE (**S**mart **C**ontract **o**n **R**eliable **E**nvironment)
@@ -28,7 +28,7 @@ SCORE는 loopchain에서 지원하는 Smart Contract을 지칭하는 것으로 �
 * SCORE store를 통한 등록, 배포 및 버전 관리를 제공합니다. 
 
 
-![SCORE] (https://www.dropbox.com/s/8mo8pzrc3k9t1un/SCORE_structure.png?dl=1)
+![SCORE] (https://www.dropbox.com/s/nxi60f9kae8xf5e/SCORE_structure.png?dl=1)
 
 #### LFT algorithm 
  LFT(loopchain Fault Tolerance) algorithm은 BFT(Byzantine Fault Tolerance) 계열의 알고리즘으로 분기가 없는 빠른 합의를  지원합니다. BFT 계열 합의 알고리즘은 머신의 개수나, 지분을 통하여 투표를 하여 합의하는 방식으로 에너지 낭비가 없고 즉각적인 합의가 가능하다는 장점이 있습니다. 
@@ -38,7 +38,7 @@ SCORE는 loopchain에서 지원하는 Smart Contract을 지칭하는 것으로 �
 * Spinning(리더를 매번 교체하는 기법) 기법을 이용하여 매 블록 생성 시 마다 리더를 교체하여 비잔틴 리더에 발생할수 있는 서비스 장애 요소(특정 노드의 트랜젝선을 거부하는 문제, 리더가 매번 시간초과 시간에 맞춰 블록을 생성하려는 시도에 대한 피해)를 최소화 
 * 기존 알고리즘들이 가지고 있는 지나치게 복잡한 리더 선정 알고리즘을 단순화
 
-![LFT] (https://www.dropbox.com/s/npcs7e3p5sfmdb3/LFT_Normal_Process.png?dl=1)
+![LFT] (https://www.dropbox.com/s/wzm9duhmujr0rey/LFT_Normal_Process.png?dl=1)
 
 
 [LFT 알고리즘의 합의 과정]
@@ -54,7 +54,7 @@ Vote 데이터를 전체 노드에게 전파하는 것은 매우 중요한데 �
 Multi Channel은 하나의 독립적인 블록체인 네트워크 안에서 업무별로 채널이라는 가상의 네트워크를 구성하여 채널 별로 거래 요청, 합의 및 Smart Contract를 수행할 수 있는 기능입니다. 
 
 하나의 노드에서 여러 업무별 당사자들만 연결된 다양한 업무별 채널을 형성하기 때문에 채널별로 무결성 보장 및 합의가 이루어집니다. 따라서 거래 데이터가 실제 거래 당사자들만 보유하게 되어 다양한 규제에 대응할 수 있습니다. 
-![Multi Channel] (https://www.dropbox.com/s/qi7g5pct0elc740/MultiChannel.png?dl=1)
+![Multi Channel] (https://www.dropbox.com/s/w175xyo3tm6x3mu/MultiChannel.png?dl=1)
 
 
 #### Tiered Channel 
@@ -70,7 +70,7 @@ Multi Channel은 하나의 독립적인 블록체인 네트워크 안에서 업�
 #### Modular Architecture
 
 모듈 방식 아키텍처를 채택하여 참여 노드 인증 및 합의 알고리즘, Smart Contract 모듈 등을 필요 시마다 추가 및 커스터마이징이 가능합니다.
-![Modular_Architecture] (https://www.dropbox.com/s/3er42ercfbcpp7i/loopchain_architecture.png?dl=1)
+![Modular_Architecture] (https://www.dropbox.com/s/3xp8lvuo21cem57/loopchain_architecture.png?dl=1)
 
 * Admin Layer는 주로 블록체인 네트워크 관리를 위해 노드의 장애 상황을 감독하고 SCORE(Smart Contract on Reliable Environment)의 버전 관리, 각 노드의 권한을 감독합니다. 
 * Engine Layer는 블록 체인 노드의 주 역활인 분산합의, 원장 저장, 스마트 계약 실행을 담당합니다. 특히 분산합의를 위한 엔진 모듈인 Blockchain 과 실제 블록체인에 올라가는 서비스와 실행환경인 SCORE 가 분리되어 있습니다. 
@@ -81,7 +81,7 @@ Multi Channel은 하나의 독립적인 블록체인 네트워크 안에서 업�
 
 ### 기본 구조도 
 
-![Peer Network] (https://www.dropbox.com/s/2p9p0zc54sfksyf/PeerNetwork.png?dl=1)
+![Peer Network] (https://www.dropbox.com/s/bdzjajr5ucc119s/PeerNetwork.png?dl=1)
 
 ### RadioStation
 
