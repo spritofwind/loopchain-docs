@@ -60,7 +60,8 @@ Vote 데이터를 전체 노드에게 전파하는 것은 매우 중요한데 �
 Multi Channel은 하나의 독립적인 블록체인 네트워크 안에서 업무별로 채널이라는 가상의 네트워크를 구성하여 채널 별로 거래 요청, 합의 및 Smart Contract를 수행할 수 있는 기능입니다. 
 
 하나의 노드에서 여러 업무별 당사자들만 연결된 다양한 업무별 채널을 형성하기 때문에 채널별로 무결성 보장 및 합의가 이루어집니다. 따라서 거래 데이터가 실제 거래 당사자들만 보유하게 되어 다양한 규제에 대응할 수 있습니다. 
-![Multi Channel] (https://www.dropbox.com/s/w175xyo3tm6x3mu/MultiChannel.png?dl=1)
+
+
 
 
 #### Tiered Channel 

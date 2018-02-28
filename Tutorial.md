@@ -4,19 +4,157 @@ loopchain을 실제 설치하고 운영하는데 있어서 가장 중요한 설�
 ## 설치 준비
 
 ### Dockcer 설치하기 
-Docker CE(Community Edition)X86_64, Docker EE(Enterprise edition) X86_64를 운용할 수 있는 최신 환경이면 됩니다.
+
+
+####  Linux에서 Docker 설치하기
+Docker CE(Community Edition)X86-64, Docker EE(Enterprise edition) X86-64를 운용할 수 있는 최신 환경이면 됩니다.
 
 * Docker CE: 무료 사용버전
 * Docker EE: 상용 버전, 무료 Hosted Trial 사용 가능. 각종 OS들에 대한 지원 추가제공.
 * 모든 상황에서 방법이 없으면 [Docker를 Binary로부터 설치할 수 있는 방법](https://docs.docker.com/install/linux/docker-ce/binaries/)이 있습니다.  
 
-
-#### linux에서 Docker 설치하기 
-
 |Platform|Docker CE X86_64|Docker EE X86_64|Note |
 |----|----|----|----|
-|CentOS|O|O|CentOS 7이상. [Installation Guide](https://docs.docker.com/install/linux/centos/) |
+|CentOS|O|O| CentOS 7이상. [Installation Guide](https://docs.docker.com/install/linux/centos/) |
 |Devian|O||Stretch (stable) / Raspbian Stretch Jessie 8.0 (LTS) / Raspbian Jessie Wheezy 7.7 (LTS). [Installation Guide](https://docs.docker.com/install/linux/docker-ce/debian/) |
+|Fedora|O||Fedora 24, 25 [Installation Guide](https://docs.docker.com/install/linux/docker-ce/fedora/) |
+|Windows Server 2016||O| [Installation Guide](https://docs.docker.com/install/windows/docker-ee/) |
+|Oracle Linux||O| 7.3 이상 [Installation Guide](https://docs.docker.com/install/linux/docker-ee/oracle/) |
+|Red Hat Enterprise Linux||O|64bit version Redhat Enterprise linux 7 on an X86 or S390x [Installation Guide](https://docs.docker.com/install/linux/docker-ee/rhel/) |
+|SUSE Linux Enterprise server||O|SUSE 12.x version (OpenSUSE지원 안함) [Installation Guide](https://docs.docker.com/install/linux/docker-ee/suse/) |
+|Ubuntu|O|O| EE : Xenial 16.04 (LTS) / Trusty 14.04 (LTS) , CE : Zesty 17.04 / Xenial 16.04 (LTS) / Trusty 14.04 (LTS) [Installation Guide](https://docs.docker.com/install/linux/ubuntu/)|
+
+자세한 정보는 Docker 홈페이지의 <https://docs.docker.com/install/> 페이지를 참조하여서 설치하시면 됩니다. 
+
+TIP: 
+
+*  Docker 사용자 설정
+
+> **Add the docker group if it doesn't already exist:**  
+> $ sudo groupadd docker  
+> 
+> **Add the connected user "$USER" to the docker group. Change the user name to match your preferred user if you do not want to use your current user:**  
+> $ sudo gpasswd -a $USER docker  
+> 
+> **Either do a "newgrp docker" or log out/in to activate the changes to groups.**
+
+#### Windows / Mac에서 Docker 설치하기
+
+Docker 홈페이지의 <https://docs.docker.com/install/> 페이지를 참조하여서 설치하시면 됩니다. 
+
+
+#### Docker 동작 확인 하기 
+
+ "docker version" 명령어로 Docker 가 정상 설치되었는지 확인합니다.  다음의 화면을 참고하셔서 확인하십시오. 
+
+![Docker Version] (https://www.dropbox.com/s/obmdwd4rdd56i1i/Docker_Version.png?dl=1)
+
+### loopchain Docker Image
+
+##### loopchain Docker Image 종류 
+
+loopchain의 Docker image는 다음의 3종류가 있습니다. 
+
+* looprs: RadioStation docker image
+* looppeer: Peer docker image
+* loopchain-fluentd: log를 저장하기 위해서 수정한 fluentd image
+
+#### Docker image 받기 
+
+아래 화면과 같이 "docker pull"명령을 이용하여서 Docker hub로부터 loopchain docker image들을 다운 받아옵니다. 
+
+> $ docker pull loopchain/looprs  
+> $ docker pull loopchain/looppeer  
+> $ docker pull loopchain/loopchain-fluentd
+
+![Docker pull] (https://www.dropbox.com/s/vxl15gqzajj0vm4/docker_image_pull.png?dl=1)
+
+## 설정 가이드 
+### loopchain network 설정 유의 사항
+* RadioStation을 제일 먼저 실행시키고 Peer들을 실행하여 주세요. 
+* 모든 Peer들은 N:N으로 연결됩니다. 따라서 모든 Peer들이 서로 IP:Port로 연결할 수 있어야 합니다. 
+* RadioStation 이나 Peer에서 외부 Host file과 연결을 해주실 폴더들이 있습니다. 이 설정이 없으면 Docker container 가 죽었을 때에 데이터를 잃어버리실 수가 있습니다. **"/storage"**:  RadioStation, Peer들의 데이터를 보관하는 폴더. **"/conf"** : 설정 파일들이 담긴 폴더. **"/score"** SCORE를 zip해서 띄울 때에, SCORE 파일이 담긴 zip파일의 위치
+* Multi Channel 설정 / SCORE 설정은 설정파일을 잘 확인해 주세요. 설정파일에 오류가 있으면 찾기 힘듭니다. 
+* 서로 다른 Host 들에서 띄울 때는 LOOPCHAIN_HOST 설정을 이용해서 RadioStation이 다른 Node들에게 Peer 목록을 띄울 때, 외부 서버들에서 해당 Node에 접근 할 수 있게 해주세요. 
+* **최소 노드 수** : 제대로 된 Blockchain network를 구성하기 위해서 약 **4개 이상의 Node**들을 띄우셔야 합니다. 예제들에서 1개 혹은 2개만 띄운 것은 일종의 예제로 보시면 됩니다.
+
+### 포트 열기
+loopchain을 사용하기 위해 다음의 Port가 열려야 합니다.  Port는 설정에서 변경이 가능합니다.   
+RadioStation  
+
+* 7102: gRPC port  
+* 9002: RESTful port  
+
+Peer
+
+* 7100:gRPC port
+* 9000: RESTful port    
+
+---
+
+### 설정 파일
+설정파일은 JSON형식으로 된 파일입니다. 예를 들어 아래처럼 만듭니다.
+
+{  
+  "Variable 1":"Value1",  
+  "Variable 2":"Value2",  
+  "Variable 3":"Value3",  
+  .....  
+} 
+특정한 JSON파일을 만들고 그 안에 내용을 집어넣고 Peer를 아래와 같이 -o option을 줘서 해당 파일을 읽게 해서 peer를 올립니다.  
+> python3 peer.py -o peer_conf.json .....   
+
+이 문서에서 각종 상황별로, 문제별로 어떤 옵션을 가지고 설정 파일을 만드는지 정리하여서 작성할 것입니다. 
+자세한 것은 각 상황별 **설정 파일**에서 확인하시면 됩니다. 
+
+##### Log level 설정하기
+_해당 내용이 실제 설정파일에 예제가 없음. 이 옵션 값을 설정파일에서 어떻게 사용하는지 내용 추가 필요_   
+
+LOOPCHAIN _ LOG _LEVEL을 이용하세요. 아래증 하나의 String값을 가지면 됩니다. 기본값은 "DEBUG"입니다. (제일 많이 모든 로그를 보여줍니다.)
+
+> 옵션값: CRITICAL ,ERROR , WARNING, INFO , DEBUG (오른쪽에서 왼쪽으로 갈수로 더 많은 로그를 남김)
+
+#### Peer의 외부 IP 설정
+**LOOPCHAIN_HOST**에 IP값을 설정해줍니다.
+
+기본적으로 Peer는 시작할 때, 해당 Peer가 속한 Network에서 사설 IP(Private IP) 가지고 다른 Peer들과 통신하려고 합니다. 외부와 통신하지 않고 내부 Network로만 동작하는 경우에는 문제가 없습니다. 그러나 상황에 따라서 공용 IP(Public IP)를 가지고 통신하는 것이 나을 수 있습니다.
+
+예를 들어, Network를 구성하는 Node들이 기존 인터넷 망을 이용하거나 VPN을 이용해서 통신을 하는 경우, Peer의 IP는 기존 인터넷망이나 VPN에서 접근 가능한 IP여야 합니다. 하지만, 안타깝게도 Docker상에서는 이런 상황에서 IP를 가져올 수가 없습니다. 그래서 LOOPCHAIN_HOST를 이용해서 다른 Peer들과 통신을 하기 위해 사용할 공용 IP를 지정할 수 있습니다.
+
+{   
+  'LOOPCHAIN_HOST':'$현재 node가 보여주어야 하는 IP'   
+}   
+
+
+#### SCORE 불러오는 Repository URL 바꾸기
+DEFAULT_ SCORE_ HOST:현재 Blockchain 서비스에서 SCORE를 가져오기 위해 사용할 Git repository의 URL을 설정해주면 됩니다.
+
+_예제 추가 필요_
+
+#### RESTful응답의 성능 높이기
+USE_ GUNICORN _ HA _ SERVER : 실제 운영단계에 들어가는 Node가 많은 RESTful API에 대한 Request들을 잘 받을 수 있게 gunicorn web service에서 쓸지 말지 결정해주는 변수입니다. 기본값은 False입니다. 실제 서비스에 올릴 때는 반드시 True로 설정되어야 합니다.
+
+#### Network가 느릴 경우 조절해야 하는 것들
+상황에 따라서 느린 네트워크에 운용을 하게 된다면 여러가지 네트워크 속도에 장애가 있는지 아닌지 확인하고 설정을 바꿔야 합니다.
+
+**Case 1. RadioStaion의 Hart beat의 시간조절**   
+RadioStation은 리더 장애를 파악하기 위해 주기적으로 Peer들에게 HeartBeat를 보내고 허용된 횟수만큼 리더가 응답이 없을 경우 리더를 교체하는 과정을 수행합니다. 그러나 네트워크 사정이 설치되는 환경에 따라 다를 것이기 때문에 아래의 변수들을 RadioStation에서 설정해주셔야 합니다.    
+
+* **SLEEP_ SECONDS_ IN_ RADIOSTATION_ HEARTBEAT** : RadioStation이 Peer의 Status를 확인하는 시간. 단위는 Second. 기본값은 30초.
+* **NO_ RESPONSE_ COUNT_ ALLOW_ BY_ HEARTBEAT**: RadioStation이 Status 확인이 안되는 Leader를 교체할 횟수. 기본값은 5회.
+
+**"SLEEP_ SECONDS_ IN_ RADIOSTATION_ HEARTBEAT"** X **"NO_ RESPONSE_ COUNT_ ALLOW_ BY_ HEARTBEAT"**  횟수 만큼 리더 응답이 없으면  RadioStation이 리더를 교체합니다.
+
+**Case 2. Peer들의 연결 Timeout 설정하기**   
+네트워크 상태에 따라서 아래 변수들을 수정해야 할 수 있습니다. 보통의 경우에는 설정할 필요가 없지만 네트워크가 매우 안좋은 상황에는 시도해볼 수 있습니다.
+
+* **GRPC_TIMEOUT**: gRPC 연결하는 시간의 Timeout 한계치. 단위는 Second.   
+* **GRPC_ TIMEOUT_ BROADCAST_ RETRY**: gRPC로 data를 broadcasting하는 시간의 Timeout 한계치. 단위는 Second.
+
+
+
+
+----
 
 
 
@@ -24,16 +162,7 @@ Docker CE(Community Edition)X86_64, Docker EE(Enterprise edition) X86_64를 운�
 
 
 
-
-
-
-
-
-
-
-
-
-
+____
 
 
 Donghanui-MacBook-Pro:~ donghanlee$ cat delete.sh 
