@@ -13,9 +13,15 @@
 ## What is loopchain?
 ![loopchain] (https://www.dropbox.com/s/r2qd652own9m4k6/new_theloop_ci.png?dl=1)
 
+![Modular_Architecture] (https://www.dropbox.com/s/3xp8lvuo21cem57/loopchain_architecture.png?dl=1)
 
+* Admin Layer는 주로 블록체인 네트워크 관리를 위해 노드의 장애 상황을 감독하고 SCORE(Smart Contract on Reliable Environment)의 버전 관리, 각 노드의 권한을 감독합니다. 
+* Engine Layer는 블록 체인 노드의 주 역활인 분산합의, 원장 저장, 스마트 계약 실행을 담당합니다. 특히 분산합의를 위한 엔진 모듈인 Blockchain 과 실제 블록체인에 올라가는 서비스와 실행환경인 SCORE 가 분리되어 있습니다. 
+* Interface Layer는 다른 비지니스 어플리케이션이 블록체인 네트워크에 접속할수 있는 환경을 만들어 줍니다. 
 
 ### loopchain 주요 특징
+
+
 
 ![loopchain 주요 특징] (https://www.dropbox.com/s/0ppa9vju109rb5g/loopchain_features.png?dl=1)
 
@@ -35,7 +41,7 @@ SCORE는 loopchain에서 지원하는 Smart Contract을 지칭하는 것으로 �
 
 * plug-in 형태로 합의 알고리즘이 구현되어 있기 때문에 필요에 따라 PBFT(Pratical Byzantine Fault Tolerance)와 같은 다른 합의 알고리즘을 사용 가능 
 * 기존 PBFT를 사용하는 합의 알고리즘에서 발생하는 통신 오버헤드를 Piggybacking(네트워크에서 메시지를 통합하여 통신 오버헤드를 감소시키는 방법)을 이용하여 감소
-* Spinning(리더를 매번 교체하는 기법) 기법을 이용하여 매 블록 생성 시 마다 리더를 교체하여 비잔틴 리더에 발생할수 있는 서비스 장애 요소(특정 노드의 트랜젝선을 거부하는 문제, 리더가 매번 시간초과 시간에 맞춰 블록을 생성하려는 시도에 대한 피해)를 최소화 
+* Spinning(리더를 매번 교체하는 기법) 기법을 이용하여 일정한 갯수의 블록 생성 시 마다 리더를 교체하여 비잔틴 리더에 발생할수 있는 서비스 장애 요소(특정 노드의 트랜젝선을 거부하는 문제, 리더가 매번 시간초과 시간에 맞춰 블록을 생성하려는 시도에 대한 피해)를 최소화 
 * 기존 알고리즘들이 가지고 있는 지나치게 복잡한 리더 선정 알고리즘을 단순화
 
 ![LFT] (https://www.dropbox.com/s/wzm9duhmujr0rey/LFT_Normal_Process.png?dl=1)
@@ -69,12 +75,10 @@ Multi Channel은 하나의 독립적인 블록체인 네트워크 안에서 업�
 
 #### Modular Architecture
 
-모듈 방식 아키텍처를 채택하여 참여 노드 인증 및 합의 알고리즘, Smart Contract 모듈 등을 필요 시마다 추가 및 커스터마이징이 가능합니다.
+모듈 방식 아키텍처를 채택하여 참여 노드 인증 및 합의 알고리즘, Smart Contract 모듈 등을 필요한 경우에 추가 및 커스터마이징이 가능합니다.
 ![Modular_Architecture] (https://www.dropbox.com/s/3xp8lvuo21cem57/loopchain_architecture.png?dl=1)
 
-* Admin Layer는 주로 블록체인 네트워크 관리를 위해 노드의 장애 상황을 감독하고 SCORE(Smart Contract on Reliable Environment)의 버전 관리, 각 노드의 권한을 감독합니다. 
-* Engine Layer는 블록 체인 노드의 주 역활인 분산합의, 원장 저장, 스마트 계약 실행을 담당합니다. 특히 분산합의를 위한 엔진 모듈인 Blockchain 과 실제 블록체인에 올라가는 서비스와 실행환경인 SCORE 가 분리되어 있습니다. 
-* Interface Layer는 다른 비지니스 어플리케이션이 블록체인 네트워크에 접속할수 있는 환경을 만들어 줍니다. 
+
 
 
 ## loopchain의 기본 설명
@@ -99,14 +103,24 @@ _구조도는 검토가 필요함. Leader Peer는 순차적으로 돌아가기 �
 ### Peer
 * 블록 생성, 블럭관리, 트랜젝션 생성, 조회, 원장 조회등의 기능을 처리한다. 
 * Peer가 생성될 때에 RadioStation과 연결한다. 시작할 때에 RadioStation의 접속정보(IP:Port)를 가지고 연결한다. 
-* 가장 먼저 RadioStation에 연결되는 Peer가 LeaderPeer가 된다. 
+* **가장 먼저 RadioStation에 연결되는 Peer가 Leader Peer가 된다.**
 * Peer는 RadioStation 인증서(Root)를 보관한다. 
-* 
 
-## Roadmap of Loopchain
+#### Leader Peer 
+* 일정 시간마다 Transaction 들을 모아 Block을 만들고 보낸 다음 검증을 Peer 들에게 받아서 공표한다(검증 주기는 설정 가능하다.)
+* 다른 Peer를 Subscription(구독)한 다음에 Transaction / Block data를 동기화한다.
+* Leader Peer의 변경은 등록된 Peer의 순서대로 Leade 권한을 준다(Round Robin). 1000개의 Block을 만들고 다음 Peer에게 Leader권한을 넘긴다.(주의: 이 block 생성 갯수 기준은 성능에 따라서 변경 가능하다.)
+* Leader peer 변경시 검증을 보내지 못한 Block이 있는 경우에 처리하지 못한 Block이 있다면, Block안의 Transaction을 모두 다음 Leader peer에게 보낸다. 
 
-## Community
-## Contributors
+#### Leader Peer의 업무처리 순서
+* Leader Peer가 Boradcast message 를 보낸다.
+* 다른 Peer들은 Leader Peer의 Broadcast Message를  Subscribe(구독)한다)
+* Leader Peer를 Subscribe 한 모든 Peer는 Leader의 Broadcast Message를 받게 된다. 
+* Leader Peer를 제외한 모든 Peer는 Transaction을 Leader에게 전송한다. 
+* Leader Peer는 일정시간마다 Transaction을 모아 Block을 만들고 보낸 다음 검증을 Peer들에게 받아서 공표한다.(검증 주기는 설정이 가능하다)
+
+
+
 
 # Tutorial
 ## Installation
