@@ -75,8 +75,7 @@ $ mv fluent.conf ./fluentd/etc
 ```
 
 #### `channel_manage_data.json` 작성
-이 설정 파일은 multichannel을 사용할 때에 설정하는 파일입니다. 해당 파일은 RadioStation과 Peer 모두에게 필요합니다.
-_channel_manage_data.json파일은 RadioStation에만 필요한 것이 아닌지 확인이 필요하다._
+이 설정 파일은 multichannel을 사용할 때에 설정하는 파일입니다. 해당 파일은 RadioStation에서 사용된다.
 
  1. `channel_manage_data.json` 파일을 아래와 같이 작성합니다.
  ```
