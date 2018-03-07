@@ -1,3 +1,5 @@
+# SCORE(Smart Contract On Reliable Environment)
+
 ## Loopchain SCORE?
 * Loopchain의 Smart Contract입니다.
 * 현재는 별도의 VM(Virtual Machine)이 없이 노드 운영환경에서 직접 실행됩니다.
@@ -12,7 +14,7 @@
 ![SCORE 구조](https://www.dropbox.com/s/8cu9gq182jgp92l/SCORE_Structure_2.png?dl=1)
 
 _SCORE container를 Git Project로 관리하는 이유에 대해서 간결한 설명 추가 필요._
-_Package.json, SCORE code(*.py)파일 별로 사용되는 목적(용도)에 대해서 간결한 설명 추가_
+_Package.json, SCORE code(*.py)파일 별로 사용되는 목적(용도)에 대해서 간결한 설명 추가필요_
 _SCORE container를 엔터프라이즈 별(고객별)로 수정해야 할 것으로 생각되는데 SCORE 심화 튜토리얼로 추가 필요하다고 생각됨_
 
 ## SCORE 실행 순서
@@ -40,5 +42,5 @@ _SCORE container를 엔터프라이즈 별(고객별)로 수정해야 할 것으
     python3 peer.py -o /conf/peer_conf.json  -r radio_station:7102
   ```
 
-3. peer가 시작될 때 Git servie에서 SCORE가 있는 Repository[Package.json, SCORE code(*.py)]를 pull합니다.
+3. peer가 시작하면서 Git servie에서 SCORE가 있는 Repository[Package.json, SCORE code(*.py)]를 pull합니다.
 4. Pull받은 코드 중에 Package.json에서 모듈들을 읽어서 다른 Process로 실행한다.
