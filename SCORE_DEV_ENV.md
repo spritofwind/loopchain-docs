@@ -45,5 +45,5 @@
 ### 환경설정
 `Local computer에서 RadioStation과 2개의 Peer로 Blockchain network 구성하기` 내용을 기반으로 SCORE 환경을 설정하겠습니다.
 
-[Local computer에서 RadioStation과 2개의 Peer로 Blockchain network 구성하기](.Tutorial_1R2P.md "Title") inline link.   
+[Local computer에서 RadioStation과 2개의 Peer로 Blockchain network 구성하기](Tutorial_1R2P.md "Title") inline link.   
 1.
