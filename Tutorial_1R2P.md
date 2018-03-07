@@ -45,7 +45,7 @@ $ mkdir conf			# RadioStation과  Peer의 설정파일을 따로 보관할 폴�
 #### log 서버의 설정
 log 서버의 설정 파일을 작성하고 설정 파일 위치로 이동합니다. 이것은 모든 log 들을 파일로 남기는 설정입니다.
 
- 1. ```fluent.conf```을 아래와 같이 만듭니다.
+ 1. `fluent.conf`을 아래와 같이 만듭니다.
 
  ```
  <source>
@@ -74,10 +74,11 @@ log 서버의 설정 파일을 작성하고 설정 파일 위치로 이동합니
 $ mv fluent.conf ./fluentd/etc
 ```
 
-#### ```channel_manage_data.json``` 작성
+#### `channel_manage_data.json` 작성
 이 설정 파일은 multichannel을 사용할 때에 설정하는 파일입니다. 해당 파일은 RadioStation과 Peer 모두에게 필요합니다.
+_channel_manage_data.json파일은 RadioStation에만 필요한 것이 아닌지 확인이 필요하다._
 
- 1. ```channel_manage_data.json``` 파일을 아래와 같이 작성합니다.
+ 1. `channel_manage_data.json` 파일을 아래와 같이 작성합니다.
  ```
  {
  	"channel1": {
@@ -93,10 +94,10 @@ $ mv fluent.conf ./fluentd/etc
 mv channel_manage_data.json ./conf
 ```
 
-#### ```rs_conf.json``` 작성
+#### `rs_conf.json` 작성
 이 설정 파일은 RadioStation의 설정들을 담고 있는 파일입니다.
 
- 1. ```rs_conf.json``` 파일을 아래와 같이 작성합니다.
+ 1. `rs_conf.json`파일을 아래와 같이 작성합니다.
  ```
  {
 	"CHANNEL_MANAGE_DATA_PATH": "/conf/channel_manage_data.json",
@@ -114,10 +115,10 @@ $ mv rs_conf.json ./conf
 ```
 
 
-#### ```peer_conf0.json``` 작성
+#### `peer_conf0.json` 작성
 이 설정 파일은 Peer0의 설정을 담고 있는 파일입니다.
 
- 1. ```peer_conf0.json``` 파일을 아래와 같이 작성합니다.
+ 1. `peer_conf0.json` 파일을 아래와 같이 작성합니다.
  ```
  {
  	"LOOPCHAIN_DEFAULT_CHANNEL": "channel1",
@@ -132,10 +133,10 @@ $ mv rs_conf.json ./conf
 $ mv peer_conf.json ./conf
 ```
 
-#### ```peer_conf1.json``` 작성
+#### `peer_conf1.json` 작성
 이 설정 파일은 Peer1의 설정을 담고 있는 파일입니다.
 
- 1. ```peer_conf1.json``` 파일을 아래와 같이 작성합니다.
+ 1. `peer_conf1.json` 파일을 아래와 같이 작성합니다.
  ```
  {
  	"LOOPCHAIN_DEFAULT_CHANNEL": "channel1",
