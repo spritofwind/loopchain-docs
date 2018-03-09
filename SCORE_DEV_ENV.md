@@ -153,8 +153,8 @@
 2. peer 목록 조회
   ```
   $ curl http://localhost:9002/api/v1/peer/list | python -m json.tool
-    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                   Dload  Upload   Total   Spent    Left  Speed
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                     Dload  Upload   Total   Spent    Left  Speed
   100  1573  100  1573    0     0  24681      0 --:--:-- --:--:-- --:--:-- 24968
   {
       "data": {
@@ -206,7 +206,7 @@
           ]
       },
       "response_code": 0
-  }
+    }
   $
   ```
 3. peer 상태 조회
