@@ -4,7 +4,7 @@
 ## 목적
 자신의 컴퓨터상에서 Docker를 이용하여 RadioStation과 Peer 1개로 구성된 네트워크 환경을 구성하고 정상적으로 동작하는지 테스트를 합니다. 다음의 그림과 같은 구조로 네트워크가 구성이 됩니다.
 
-![RadioStation & 1 peer](https://www.dropbox.com/s/72mzupkeq5snre1/1Radio1Peer.png?dl=1)
+![RadioStation & 1 peer](images/1Radio1Peer.png)
 
 ## 디렉토리 구성
 이 문서의 내용을 따라하게 되면 다음과 같은 디렉토리 구성이 만들어지게 됩니다.
@@ -72,7 +72,7 @@ $ mv fluent.conf ./fluentd/etc
 ```
 
 #### `channel_manage_data.json` 작성
-이 설정 파일은 multichannel을 사용할 때에 설정하는 파일입니다. 해당 파일은 RadioStation에서 사용된다. 
+이 설정 파일은 multichannel을 사용할 때에 설정하는 파일입니다. 해당 파일은 RadioStation에서 사용된다.
 
  1. `channel_manage_data.json` 파일을 아래와 같이 작성합니다.
  ```

@@ -1,18 +1,7 @@
 # Introduction
 
-## Why Private blockchain
-비트코인이나 이더리움과 같이 공개된 블록체인 기술은 실제 엔터프라이즈 서비스에 적용하기 부족한 낮은 성능 및 데이터 공개 이슈가 있습니다.  이러한 문제를 해결하기 위해서 R3 Corda와 같은 프라이빗 블록체인이 개발되어지고 있습니다.
-
-프라이빗 블록체인의 특징
-
-* 금융, 공공 등 규제 기반 거래에 적합한 거래방식 지원
-* 허가된 사용자들의 합의과정을 통해 거래가 확정되므로 거래 확정의 주체가 명확하다.
-* 규제 및 컴플라이언스 요소들을 만족시킬 수 있도록 커스터마이징 가능하게 설계
-* 거래의 성격에 따라 합의 알고리즘, 블록생성 주기 등을 최적화하여서 빠른 속도가 필요한 거래에도 활용 가능
-
 ## What is loopchain?
-![loopchain] (https://www.dropbox.com/s/r2qd652own9m4k6/new_theloop_ci.png?dl=1)
-![loopchain] (./images/new_theloop_ci.png)
+![loopchain](/images/new_theloop_ci.png)
 
 
 
@@ -25,8 +14,8 @@ SCORE는 loopchain에서 지원하는 Smart Contract을 지칭하는 것으로 �
 * SCORE는 블록체인 프로세스와 별도의 프로세스로 동작하면서 다양한 업무를 개발할 수 있도록 지원합니다.
 * SCORE store를 통한 등록, 배포 및 버전 관리를 제공합니다.
 
+![SCORE](/images/SCORE_structure.png)
 
-![SCORE] (https://www.dropbox.com/s/nxi60f9kae8xf5e/SCORE_structure.png?dl=1)
 
 #### LFT algorithm
  LFT(loopchain Fault Tolerance) algorithm은 BFT(Byzantine Fault Tolerance) 계열의 알고리즘으로 분기가 없는 빠른 합의를  지원합니다. BFT 계열 합의 알고리즘은 머신의 개수나, 지분을 통하여 투표를 하여 합의하는 방식으로 에너지 낭비가 없고 즉각적인 합의가 가능하다는 장점이 있습니다.
@@ -36,16 +25,22 @@ SCORE는 loopchain에서 지원하는 Smart Contract을 지칭하는 것으로 �
 * Spinning(리더를 매번 교체하는 기법) 기법을 이용하여 일정한 갯수의 블록 생성 시 마다 리더를 교체하여 비잔틴 리더에 발생할수 있는 서비스 장애 요소(특정 노드의 트랜젝선을 거부하는 문제, 리더가 매번 시간초과 시간에 맞춰 블록을 생성하려는 시도에 대한 피해)를 최소화
 * 기존 알고리즘들이 가지고 있는 지나치게 복잡한 리더 선정 알고리즘을 단순화
 
-![LFT] (https://www.dropbox.com/s/wzm9duhmujr0rey/LFT_Normal_Process.png?dl=1)
+![LFT](/images/LFT_Normal_Process.png)
 
-
-#####LFT 알고리즘의 합의 과정
+##### LFT 알고리즘의 합의 과정
 
 *  네트워크가 시작되면 검증노드(검증을 통해 합의에 참여 하는 노드)들은 사전에 결정되어 있는 리더 노드에게 처리를 원하는 트랜젝션을 전송
 *  리더 노드는 수집한 트랜잭션을 이용하여 블록을 생성하고 자신의 서명과 함께 모든 검증 노드에게 전송
-*  각 검증 노드들은 블록을 받으면 다음의 순서로 블록을 검증합니다. **1) 현재의 리더가 블록을 생성했는지 확인. 2) 블록 높이와 이전 블록 해시가 올바른지 확인. 3) 블록의 데이터가 올바른지 확인.** 검증 노드는 검증과정이 옳다면 Vote 데이터를 생성하여 네트워크의 모든 노드들에게 전파합니다.
+*  각 검증 노드들은 블록을 받으면 다음의 순서로 블록을 검증합니다.
+  1. 현재의 리더가 블록을 생성했는지 확인.
+  2. 블록 높이와 이전 블록 해시가 올바른지 확인.
+  3. 블록의 데이터가 올바른지 확인.
 
-Vote 데이터를 전체 노드에게 전파하는 것은 매우 중요한데 이는 리더 노드가 비잔틴일 경우 정족 수 이상의 노드들에게만 블록을 전파하여 특정 노드들을 네트워크로부터 분리하도록 시도할 수 있기 때문입니다. 이러한 문제를 방지하기 위해 모든 Peer에게 Vote 데이터를 전파하며 이는 기존 Raft 알고리즘과의 다른 점입니다. 이 과정에서 블록을 못받은 노드는 블록이 생성되었는지에 대한 정보를 알 수 있고 다른 노드에게 블록을 요청할수 있습니다.
+검증 노드는 검증과정이 옳다면 Vote 데이터를 생성하여 네트워크의 모든 노드들에게 전파합니다.
+
+Vote 데이터를 전체 노드에게 전파하는 것은 매우 중요한데 이는 리더 노드가 비잔틴일 경우 정족 수 이상의 노드들에게만 블록을 전파하여 특정 노드들을 네트워크로부터 분리하도록 시도할 수 있기 때문입니다.
+
+이러한 문제를 방지하기 위해 모든 Peer에게 Vote 데이터를 전파하며 이는 기존 Raft 알고리즘과의 다른 점입니다. 이 과정에서 블록을 못받은 노드는 블록이 생성되었는지에 대한 정보를 알 수 있고 다른 노드에게 블록을 요청할수 있습니다.
 
 #### Multi Channel
 
@@ -69,4 +64,5 @@ Multi Channel은 하나의 독립적인 블록체인 네트워크 안에서 업�
 #### Modular Architecture
 
 모듈 방식 아키텍처를 채택하여 참여 노드 인증 및 합의 알고리즘, Smart Contract 모듈 등을 필요한 경우에 추가 및 커스터마이징이 가능합니다.
-![Modular_Architecture] (https://www.dropbox.com/s/3xp8lvuo21cem57/loopchain_architecture.png?dl=1)
+
+![Modular_Architecture](/images/loopchain_architecture.png)
