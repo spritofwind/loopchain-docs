@@ -1,4 +1,5 @@
 1. [Introduction](./README.md)
+  1. [LFT](./LFT.md)
 2. [loopchain의 기본 구조](./structure.md)
 3. [설정 가이드](./Configuration.md)
 4. [설치 Tutorial](./Tutorial)

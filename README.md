@@ -28,6 +28,8 @@ SCORE는 loopchain에서 지원하는 Smart Contract을 지칭하는 것으로 �
 
 **loopchain은 plug-in 형태로 합의 알고리즘이 구현되어 있기 때문에 필요에 따라 PBFT(Pratical Byzantine Fault Tolerance)와 같은 다른 합의 알고리즘을 사용 가능**
 
+LFT algorithm에 대한 조금 더 자세한 설명은 [링크](./LFT.md)를 참고하십시오. 
+
 #### Multi Channel
 
 Multi Channel은 하나의 독립적인 블록체인 네트워크 안에서 업무별로 채널이라는 가상의 네트워크를 구성하여 채널 별로 거래 요청, 합의 및 Smart Contract를 수행할 수 있는 기능입니다.
