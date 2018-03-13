@@ -1,349 +1,99 @@
-## Local computer에서 SCORE개발 환경 만들기 Tutorial
+# loopchain SCORE 개발
 
-### SCORE 저장소 생성
+## SCORE 개발
 
-1. Github에서 SCORE Sample 프로젝트(https://github.com/theloopkr/contract_sample) 를 fork 하여서 SCORE 개발 환경을 위한 테스트용 SCORE 저장소를 생성합니다. ![github](/images/github_contract-sample.png)
-2. SCORE 저장소와 SSH통신을 위해 SSH 키쌍을 생성합니다. `ssh-keygen`명령어를 사용하셔서 `id_tutorial`이라는 이름으로 생성합니다. 아래 화면을 참고하시고 Github의 자신의 이메일주소로 SSH키를 생성하셔야 합니다. 상세한 내용은 다음의 링크를 참고해주세요. 만약 Sierra 10.12.2 혹은 그 이후의 MacOS를 사용하시는 분들은 꼭 아래 내용을 참고하셔서 추가적으로 진행하셔야 하는 내용이 있으니 꼭 확인하여 주세요.
-  https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
+SCORE의 개발은 3단계로 나뉘어 집니다.
+  1. 비지니스 모델 타당성 검증
+  2. 모델 구현 및 Unit Test
+  3. Integration Test 및 모델 배포
 
-  ```
-  $ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
-  Generating public/private rsa key pair.
-  Enter file in which to save the key (/Users/donghanlee/.ssh/id_rsa): /Users/donghanlee/.ssh/id_tutorial
-  Enter passphrase (empty for no passphrase):
-  Enter same passphrase again:
-  Your identification has been saved in /Users/donghanlee/.ssh/id_tutorial.
-  Your public key has been saved in /Users/donghanlee/.ssh/id_tutorial.pub.
-  The key fingerprint is:
-  The key fingerprint is:
-  SHA256:oBGzxiaAM0etn1jMyyAFRq4aQPWa64WPhTpRKpUmU/0 your_email@example.com
-  The key's randomart image is:
-  +---[RSA 4096]----+
-  |=*o+o            |
-  |B.+.++           |
-  |.B.=*o.          |
-  |* *=*oE.         |
-  |o*oO.o  S        |
-  |o+. O            |
-  |o .+ o           |
-  | .o =            |
-  | ..o .           |
-  +----[SHA256]-----+
-  $ ls -la ~/.ssh/ | grep id_tutorial
-  -rw-------   1 donghanlee  staff  1679  3  7 09:45 id_tutorial
-  -rw-r--r--   1 donghanlee  staff   420  3  7 09:45 id_tutorial.pub
-  $
-  ```
+### 비지니스 모델 타당성 검증
+SCORE 안에서는 다음과 같은 내용을 통한 비지니스 모델은 불가능합니다.
+* **랜덤 값에 의존하는 비지니스 모델**: SCORE 안에서 랜덤값을 생성하거나, 실행하는 모델은 불가하나, 블록의 해쉬 혹은 트랜잭션을 이용한 랜덤값 이용은 가능합니다.
+* **외부의 데이터에 의존성이 있는 비지니스 모델**: SCORE 안에서 다른 사이트를 호출하거나, 외부의 데이터를 요구하는 모델은 아직 불가능하나 향후 고려되고 있습니다.
+* **시간에 따라 행동하는 혹은 실행시간에 따라 내용이 바뀌는 모델**: 현재 시간(실행시간)은 사용 불가능하며, 블록의 시간 혹은 트랜잭션 시간으로 대체는 가능합니다.
+* **부동 소수점 처리 불가**: CPU에 따라 부동 소수점 표현 방식이 달라질 수 있으므로 모든 연산은 정수 단위에서 처리해야 합니다.
+* **내부 변수 재사용 금지**: 특정한 변수를 Cache해 놓았다가 쓰는 것은 금지되어야 합니다.
 
-3. Github SCORE 저장소에 SSH public key 내용을 (예:id_tutorial.pub)를 등록합니다.
-  ```
-  $ cat .ssh/id_tutorial.pub
-  ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCgVxiE+wlEbxdWXzaV5v9Q/LdMG0E0UBxX8j9ImSus4bSSn4ylKsjxKUONMT2eZuzYjz4uCnmLl4OUkEU4RV8lE6F8VOZyxjQebaZJuk2S+6Tk03Oy/zs7nHsbW8BUEoqNB4UTpmhMkqi/iQGLf6UvfhwwEiWIZB3CYQgbghMkm1z/xKYdgMMNO/MxxBnOlkJzhc9BgcpWAnDn79f9feufGZ8Iafdrb38ire0X9kGB6K6lFbHGNk/FUa2FQgnQ1ELC41QS+A2ooLRW6vZm4JKlU8gX5CWWbaKAALgoxzZO09PulDkRRl0FCc//x353QkZmPKf6wl1u42r21veQH4dKL2d1rWkXVP0FLH5kW/rl/YURo4Oxw6p6WQwGWGjcf9+uxPec0S+gtJ9TktMfLGJpwav8Rl8VLw3IYdHKAVtL3NSN5wYn2BGhExxQ760TlAXc1W0prlxfzeh4KglMCXKEZUI5qoOvWWDvE/pRGOOtDY4u5+n5bJebipXqr9V/xDtrsfcz54Zs9qFliUDhhMSTVGdQsVZIlCZS54khL0urrD0c7R7YovL/gugAbIHaHRGG4CQJ7krVhVP3iymwCW7WDpVBGAJ3mSr43ONQqa2OsGrvoo5817yzjlcyvYBx/NNPhBQygz1MJg9tHqQsRsCcsQHUkJAQfMHQx8RZSAHn3Q== your_email@example.com
-  $
-  ```
-  ![ssh public key](/images/github_add_sshkey.png)
+### 구현
+* SCORE를 작성하거나, 개발할때는 coverage 90% 이상을 목표로 개발 하여야 하며, 퍼포먼스도 고려되어야 합니다.
+
+#### 폴더 및 실행구조
+* / score / 회사명(기관명) / 패키지명 ```ex) /score/loopchain/default/```
+* deploy 폴더명은 사용 불가
+* 원격 리파지토리를 사용하지 않을 경우 다음과 같이 가능합니다.
+  * 회사명(기관명)_패키지명.zip 으로 리파지토리 전체를 압축하여 score에 저장하여 실행
+* 패키지 설명 및 실행에 대한 상세내용은 package.json 파일로 정의하며, package.json 정의에 대한 내용은 **[다른 가이드](./package_guide.md)**에서 설명합니다.
 
 
 
-### 환경설정
-[`Local computer에서 RadioStation과 2개의 Peer로 Blockchain network 구성하기`](Tutorial_1R2P.md) 내용을 기반으로 SCORE 환경설정을 하겠습니다. 해당 내용을 복사하여서 다른 디렉토리로 만들고 아래 내용대로 추가 하거나 수정합니다.
+### Unit Test
+* 모든 테스트 코드는 SCORE의 패키지 루트에 있어야 하며, 차후 리파지토리 등록 전에 실행됩니다.
+* SCORE와 분리해서 논리적인 별도의 Module을 만들어서 Unit Test를 만들어서 수행해야 합니다.
 
-1. RadioStation 설정 - `channel_manage_data.json`
 
-  SCORE 저장소 경로 설정 "score_package":"{your_github_id}/contract_sample"
-  **기존 `channel_manage_data.json` 파일 내용**
+### Integration Test
+* RadioStation / Peer를 실행 합니다.
+* POST로 /api/v1/transactions로 아래처럼 데이터를 보냅니다.
   ```
   {
-  	"channel1": {
-  		"score_package": "loopchain/default"
-  	}
-  }
-  ```
-  **변경 `channel_manage_data.json`파일 내용**
-  ```
-  {
-    "channel1":
-      {
-        "score_package": "{your_github_id}/contract_sample"
-      }
-  }
-  ```
-2.  시작 스크립트인 start.sh 스크립트의 peer 부분을 수정
-  1. 환경변수 추가 등록 `export SSH_KEY_FOLDER=/Users/{user_id}/.ssh/id_tutorial`
-  2. SSH key 경로설정 `-v "${SSH_KEY_FOLDER}:/root/.ssh/id_tutorial"`
-  2. SCORE 저장소 도메인 설정 `-e "DEFAULT_SCORE_HOST=github.com"`
-
-  **기존 `start.sh` 파일의 일부 내용**
-
-  ```
-  ##############################################
-  #           Peer0 실행
-  ##############################################
-  docker run -d --name peer0 \
-  -v $(pwd)/conf:/conf \
-  -v $(pwd)/storage0:/.storage \
-  --link radio_station:radio_station \
-  --log-driver fluentd --log-opt fluentd-address=localhost:24224 \
-  -p 7100:7100 -p 9000:9000 \
-  loopchain/looppeer:${TAG} \
-  python3 peer.py -o /conf/peer_conf0.json -p 7100 -r radio_station:7102
-
-  ##############################################
-  #           Peer1 실행
-  ##############################################
-  docker run -d --name peer1 \
-  -v $(pwd)/conf:/conf \
-  -v $(pwd)/storage1:/.storage \
-  --link radio_station:radio_station \
-  --log-driver fluentd --log-opt fluentd-address=localhost:24224 \
-  -p 7200:7200 -p 9100:9100 \
-  loopchain/looppeer:${TAG} \
-  python3 peer.py -o /conf/peer_conf1.json -p 7200 -r radio_station:7102
-  ```
-  **추가되고 변경된  `start.sh`파일 내용**
-
-    ```
-    ##############################################
-    #           환경변수등록
-    ##############################################
-    export SSH_KEY_FOLDER=/Users/{user_id}/.ssh/id_tutorial
-
-    ##############################################
-    #           Peer0 실행
-    ##############################################
-    docker run -d --name peer0 \
-    -v $(pwd)/conf:/conf \
-    -v $(pwd)/storage0:/.storage \
-    -v ${SSH_KEY_FOLDER}:/root/.ssh/id_rsa \
-    -e "DEFAULT_SCORE_HOST=github.com" \
-    --link radio_station:radio_station \
-    --log-driver fluentd --log-opt fluentd-address=localhost:24224 \
-    -p 7100:7100 -p 9000:9000 \
-    loopchain/looppeer:${TAG} \
-    python3 peer.py -o /conf/peer_conf0.json -p 7100 -r radio_station:7102
-
-    ##############################################
-    #           Peer1 실행
-    ##############################################
-    docker run -d --name peer1 \
-    -v $(pwd)/conf:/conf \
-    -v $(pwd)/storage1:/.storage \
-    -v ${SSH_KEY_FOLDER}:/root/.ssh/id_rsa \
-    -e "DEFAULT_SCORE_HOST=github.com" \
-    --link radio_station:radio_station \
-    --log-driver fluentd --log-opt fluentd-address=localhost:24224 \
-    -p 7200:7200 -p 9100:9100 \
-    loopchain/looppeer:${TAG} \
-    python3 peer.py -o /conf/peer_conf1.json -p 7200 -r radio_station:7102
-    ```
-
-
-
-### 테스트
-
-1. loopchain 도커 컨테이너를 모두 실행: `start.sh`
-  ```
-  $ ./start.sh
-  7bbbac55f38b99b5206e2d84dec027b1d08e6cd7099bba2ca89f9c6f23d9841a
-  3811b3c6193d79a4dff3535d57b7d1c635023e7dc971eeba5564138971673f9d
-  395e37133d60fd7852b31f4fa8a05c9e1882f8126f529221e72e5efb9609c65d
-  6457ba6460052cfcd9ec0cc71135bb68d6ed1bf77fdb3add1f33ae12ed325d4f
-  $
-  ```
-2. peer 목록 조회
-  ```
-  $ curl http://localhost:9002/api/v1/peer/list | python -m json.tool
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                     Dload  Upload   Total   Spent    Left  Speed
-  100  1573  100  1573    0     0  24681      0 --:--:-- --:--:-- --:--:-- 24968
-  {
-      "data": {
-          "connected_peer_count": 2,
-          "connected_peer_list": [
-              {
-                  "cert": "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAE+HQPBowjyJnyinsYjiztl5i6hQ1JiWdpRmyFR1T283M4liQia7weerQQ4Qw6jDVwd+RkwHeenvR0xxovUFCTQg==",
-                  "group_id": "d0060308-22b2-11e8-b58b-0242ac110004",
-                  "order": 1,
-                  "peer_id": "d0060308-22b2-11e8-b58b-0242ac110004",
-                  "peer_type": 1,
-                  "status": 1,
-                  "status_update_time": "2018-03-08 09:27:06.400219",
-                  "target": "172.17.0.4:7100"
-              },
-              {
-                  "cert": "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAE+HQPBowjyJnyinsYjiztl5i6hQ1JiWdpRmyFR1T283M4liQia7weerQQ4Qw6jDVwd+RkwHeenvR0xxovUFCTQg==",
-                  "group_id": "d0581aee-22b2-11e8-bab0-0242ac110005",
-                  "order": 2,
-                  "peer_id": "d0581aee-22b2-11e8-bab0-0242ac110005",
-                  "peer_type": 0,
-                  "status": 1,
-                  "status_update_time": "2018-03-08 09:27:07.162296",
-                  "target": "172.17.0.5:7200"
-              }
-          ],
-          "registered_peer_count": 2,
-          "registered_peer_list": [
-              {
-                  "cert": "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAE+HQPBowjyJnyinsYjiztl5i6hQ1JiWdpRmyFR1T283M4liQia7weerQQ4Qw6jDVwd+RkwHeenvR0xxovUFCTQg==",
-                  "group_id": "d0060308-22b2-11e8-b58b-0242ac110004",
-                  "order": 1,
-                  "peer_id": "d0060308-22b2-11e8-b58b-0242ac110004",
-                  "peer_type": 1,
-                  "status": 1,
-                  "status_update_time": "2018-03-08 09:27:06.400219",
-                  "target": "172.17.0.4:7100"
-              },
-              {
-                  "cert": "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAE+HQPBowjyJnyinsYjiztl5i6hQ1JiWdpRmyFR1T283M4liQia7weerQQ4Qw6jDVwd+RkwHeenvR0xxovUFCTQg==",
-                  "group_id": "d0581aee-22b2-11e8-bab0-0242ac110005",
-                  "order": 2,
-                  "peer_id": "d0581aee-22b2-11e8-bab0-0242ac110005",
-                  "peer_type": 0,
-                  "status": 1,
-                  "status_update_time": "2018-03-08 09:27:07.162296",
-                  "target": "172.17.0.5:7200"
-              }
-          ]
-      },
-      "response_code": 0
+      "jsonrpc": "2.0",
+      "id": 1,
+      "method": "foo",
+      "params": {
+  	"param1":"value1”
+  	...
     }
-  $
-  ```
-3. peer 상태 조회
-  ```
-  $ curl http://localhost:9000/api/v1/status/peer | python -m json.tool
-    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                   Dload  Upload   Total   Spent    Left  Speed
-  100   264  100   264    0     0  17697      0 --:--:-- --:--:-- --:--:-- 18857
-  {
-      "audience_count": "0",
-      "block_height": 0,
-      "consensus": "siever",
-      "leader_complaint": 1,
-      "made_block_count": 0,
-      "peer_id": "d0060308-22b2-11e8-b58b-0242ac110004",
-      "peer_target": "172.17.0.4:7100",
-      "peer_type": "1",
-      "status": "Service is online: 1",
-      "total_tx": 0
   }
-  $
   ```
-4. SCORE 버전 조회
-  ```
-  $ curl http://localhost:9000/api/v1/status/score | python -m json.tool
-    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                   Dload  Upload   Total   Spent    Left  Speed
-  100  1047  100  1047    0     0  35738      0 --:--:-- --:--:-- --:--:-- 36103
-  {
-      "all_version": [
-          "f58b8b3e955984a09674a1f74c493001678d706c",
-          "b39064b358b84798f20f024fca066a113ec88b18",
-          "99923ce139350cf8f37ef9f72fddf3f327da4d7a",
-          "e25e2fba404bbc42b010c552d280063c704a0917",
-          "909b1ee00a00f12f744f3d669232c6f4549e945f",
-          "51f258059bcc4f1fa46ba3df8762b953e27fcdee",
-          "359b1f79b8bf2064ce0605d4b081da43a845beda",
-          "3d7195e1e98e38bdddab93fd03ee0c7aa0a20765",
-          "669b6db3a6c085b3de96d7bd13bc19efc26162ae",
-          "5136f28e83e3aaf6fabb0c0556b505ca5b95a44c",
-          "a74476425197c2b2b009a180f24f52efec932da8",
-          "95c0dd33b826c9b529a9f8b6b349e1b002bb9835",
-          "71afe3ca44fa46acced9b12c80ad1951fe83e4bd",
-          "f01986ae06e402a97e48bfddb31d5aeebe1dc07b",
-          "99ece33bb62b8b1c61182d074351b5062311d2f5",
-          "eabe94b94545faac1c8951fb31ef62a9f549cc5f",
-          "f5aab582d9f390f5378daf08f54d08c071f15d0c",
-          "f79c480fc7af6d02c79e1fe3191bbc471962166f",
-          "e38140e76766f2e51f30858a0ee3c82a90b9c258",
-          "af7c49743fecd315d4e4491751fbdae9b92dead7",
-          "bcc0d0f05d1a219cd4ed47955a86b0e16d1b2778"
-      ],
-      "id": "spritofwind/contract_sample",
-      "status": 0,
-      "version": "f58b8b3e955984a09674a1f74c493001678d706c"
-  }
-  $
-  ```
-5. SCORE Transaction 생성
-  ```
-  $ curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc":"2.0","method":"propose","params":{"proposer":"RealEstateAgent" , "counterparties": ["leaseholder","jinho"], "content": "Theloop APT 101-3001, lease for 3 months from 3th April,2018", "quorum": "3"}}'  http://localhost:9000/api/v1/transactions | python -m json.tool
-    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                   Dload  Upload   Total   Spent    Left  Speed
-  100   329  100   119  100   210   6361  11226 --:--:-- --:--:-- --:--:-- 11666
-  {
-      "more_info": "",
-      "response_code": "0",
-      "tx_hash": "7bc856e972da62a6cba3deff71e74e848174fc1e28feaae66f58ff2447875f0a"
-  }
-  $
-  ```
-6. SCORE Transaction 조회 - `tx_hash` 사용 (7bc856e972da62a6cba3deff71e74e848174fc1e28feaae66f58ff2447875f0a)
-  ```
-  $ curl http://localhost:9000/api/v1/transactions/result?hash=7bc856e972da62a6cba3deff71e74e848174fc1e28feaae66f58ff2447875f0a | python -m json.tool
-    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                   Dload  Upload   Total   Spent    Left  Speed
-  100    66  100    66    0     0   4023      0 --:--:-- --:--:-- --:--:--  4125
-  {
-      "response": {
-          "code": 0,
-          "jsonrpc": "2.0"
-      },
-      "response_code": "0"
-  }
-  $
-  ```
+  * packages.json에서 얻은 정의한 함수의 이름과 데이터에 맞춰 Transaction을 만들어준다.
+  * 형식은 JSON 2.0 RPC방식에 맞춰준다.
+* Invoke / Query 모두 같은 방식으로 호출된다.
+  * 함수 이름으로 구분한다.
 
-7. SCORE Transaction 실행 결과 조회 (Query)
+
+### SCORE 배포 및 관리
+
+#### local develop folder를 사용하는 방법
+1. configure_user.py 파일을 추가합니다. (configure_default.py 와 같은 위치)
   ```
-  $ curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc": "2.0","channel":"channel1","method":"get_user_contracts","id":"11233","params":{"user_id":"jinho"}}' http://localhost:9000/api/v1/query | python -m json.tool
-    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                   Dload  Upload   Total   Spent    Left  Speed
-  100   445  100   334  100   111  20982   6973 --:--:-- --:--:-- --:--:-- 22266
-  {
-      "response": {
-          "code": 0,
-          "id": "11233",
-          "jsonrpc": "2.0",
-          "response": {
-              "user_contracts": [
-                  {
-                      "approvers": [
-                          "RealEstateAgent"
-                      ],
-                      "content": "Theloop APT 101-3001, lease for 3 months from 3th April,2018",
-                      "contract_id": 1,
-                      "counterparties": [
-                          "leaseholder",
-                          "jinho"
-                      ],
-                      "proposer": "RealEstateAgent",
-                      "quorum": "3"
-                  }
-              ]
-          }
-      },
-      "response_code": "0"
-  }
-  $
+  ALLOW_LOAD_SCORE_IN_DEVELOP = 'allow'
+  DEVELOP_SCORE_PACKAGE_ROOT = 'develop'
+  DEFAULT_SCORE_PACKAGE = 'develop/[package]'
   ```
-8. peer 상태 조회(block_height, made_block_count,total_tx 변화 확인)
+2. /score/develop/[package] 폴더를 만듭니다 [package] 는 원하는 이름으로 작성합니다. (sample 을 사용하는 경우 test_score 로 합니다.)
+3. /score/sample-test_score/* 파일을 새로운 폴더로 복사합니다.
+4. loopchain 네트워크를 실행하여 확인합니다.
+
+#### zip 파일을 사용하는 방법
+1. 임의의 폴더에서 score 를 작성합니다. ("local develop folder를 사용하는 방법"에서 작성한 SCORE 복사하여도 됩니다.)
+2. package.json 의 "id" 값을 "[company_name]-[package]" 로 수정합니다.
+3. $ git init . 으로 해당 폴더를 local git repository 로 설정합니다.
+4. $ git add . 으로 폴더의 모든 파일을 repository 에 추가 합니다.
+5. $ git commmit -a 로 SCORE 파일들을 git 에 commit 합니다.
+6. $ zip -r ../[company_name]_[package].zip ./ 으로 repository 를 zip 으로 압축합니다.
+7. zip 파일을 /score/ 아래에 둡니다. (/score/[company_name]_[package].zip)
+8. configure_user.py 파일을 추가합니다. (configure_default.py 와 같은 위치)
   ```
-  $ curl http://localhost:9000/api/v1/status/peer | python -m json.tool
-    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                   Dload  Upload   Total   Spent    Left  Speed
-  100   264  100   264    0     0  17697      0 --:--:-- --:--:-- --:--:-- 18857
-  {
-      "audience_count": "0",
-      "block_height": 1,
-      "consensus": "siever",
-      "leader_complaint": 1,
-      "made_block_count": 1,
-      "peer_id": "d0060308-22b2-11e8-b58b-0242ac110004",
-      "peer_target": "172.17.0.4:7100",
-      "peer_type": "1",
-      "status": "Service is online: 1",
-      "total_tx": 1
-  }
-  $
+  DEFAULT_SCORE_PACKAGE = '[company_name]/[package]'
   ```
+9. loopchain 네트워크를 실행하여 확인합니다.
+
+#### repository 를 사용하는 방법
+* 스코어의 배포는 특별히 관리되는 repository 를 사용할 수 있습니다.
+  * 차후 다수의 repository 를 검색하여, 순위별로 배포하는 방안도 검토 중입니다.
+* remote repository 에서 관리하지 않는 스코어는 내부 repository 가 포함된 zip 파일에서 관리 할 수 있습니다.
+* peer 에서 스코어의 배포는 다음의 명령어를 사용합니다.
+  * Docker에서 실행시
+  ```
+  $ docker run -d ${DOCKER_LOGDRIVE} --name ${PEER_NAME} --link radio_station:radio_station -p ${PORT}:${PORT}  looppeer:${DOCKER_TAG}  python3 peer.py -c ${DEPLOY_SCORE}  -r radio_station -d -p ${PORT}
+  ```
+  * Local에서 실행시
+  ```
+  $ python3 peer.py -c ${DEPLOY_SCORE}  -r radio_station -d -p ${PORT}
+  ```
+  * 참조
+    * DEPLOY_SCORE 는 기관명/패키지명 입니다.
+    * PEER_NAME은 Peer의 이름을 지칭합니다.
+    * PORT는 radio_station 의 위치 IP:PORT 로 설정됩니다.
+    * /deploy/launch_containers_in_local_demo.sh 파일을 참조 바랍니다

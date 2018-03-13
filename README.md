@@ -18,16 +18,15 @@ SCORE는 loopchain에서 지원하는 Smart Contract을 지칭하는 것으로 �
 
 
 #### LFT algorithm
- LFT(loopchain Fault Tolerance) algorithm은 BFT(Byzantine Fault Tolerance) 계열의 알고리즘으로 분기가 없는 빠른 합의를  지원합니다. BFT 계열 합의 알고리즘은 머신의 개수나, 지분을 통하여 투표를 하여 합의하는 방식으로 에너지 낭비가 없고 즉각적인 합의가 가능하다는 장점이 있습니다.
+ LFT algorithm은 BFT(Byzantine Fault Tolerance) 계열의 알고리즘으로 분기가 없는 빠른 합의를  지원합니다. BFT 계열 합의 알고리즘은 머신의 개수나, 지분을 통하여 투표를 하여 합의하는 방식으로 에너지 낭비가 없고 즉각적인 합의가 가능하다는 장점이 있습니다.
 
-* plug-in 형태로 합의 알고리즘이 구현되어 있기 때문에 필요에 따라 PBFT(Pratical Byzantine Fault Tolerance)와 같은 다른 합의 알고리즘을 사용 가능
 * 기존 PBFT를 사용하는 합의 알고리즘에서 발생하는 통신 오버헤드를 Piggybacking(네트워크에서 메시지를 통합하여 통신 오버헤드를 감소시키는 방법)을 이용하여 감소
 * Spinning(리더를 매번 교체하는 기법) 기법을 이용하여 일정한 갯수의 블록 생성 시 마다 리더를 교체하여 비잔틴 리더에 발생할수 있는 서비스 장애 요소(특정 노드의 트랜젝선을 거부하는 문제, 리더가 매번 시간초과 시간에 맞춰 블록을 생성하려는 시도에 대한 피해)를 최소화
 * 기존 알고리즘들이 가지고 있는 지나치게 복잡한 리더 선정 알고리즘을 단순화
 
 ![LFT](/images/LFT_Normal_Process.png)
 
-
+**loopchain은 plug-in 형태로 합의 알고리즘이 구현되어 있기 때문에 필요에 따라 PBFT(Pratical Byzantine Fault Tolerance)와 같은 다른 합의 알고리즘을 사용 가능**
 
 #### Multi Channel
 
@@ -35,6 +34,7 @@ Multi Channel은 하나의 독립적인 블록체인 네트워크 안에서 업�
 
 하나의 노드에서 여러 업무별 당사자들만 연결된 다양한 업무별 채널을 형성하기 때문에 채널별로 무결성 보장 및 합의가 이루어집니다. 따라서 거래 데이터가 실제 거래 당사자들만 보유하게 되어 다양한 규제에 대응할 수 있습니다.
 
+![Multi Channel](/images/MultiChannel.png)
 
 
 

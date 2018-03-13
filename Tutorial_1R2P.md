@@ -33,7 +33,7 @@
 
 ## 설정 파일 생성
 ###  디렉토리 생성
-먼저 로그서버의 설정 파일 폴더를 생성하고 로그를 따로 저장할 폴더를 생성한다. 그리고 RadioStation과  Peer의 설정파일을 따로 보관할 폴더를 만든다.
+먼저 로그서버의 설정 파일 폴더를 생성하고 로그를 따로 저장할 폴더를 생성합니다. 그리고 RadioStation과  Peer의 설정파일을 따로 보관할 폴더를 만듭니다.
 ```
 $ mkdir -p fluentd/etc.   	# 로그서버의 설정 파일 폴더를 생성.
 $ mkdir logs.			# 로그를 따로 저장할 폴더를 생성.
@@ -75,7 +75,7 @@ $ mv fluent.conf ./fluentd/etc
 ```
 
 #### `channel_manage_data.json` 작성
-이 설정 파일은 multichannel을 사용할 때에 설정하는 파일입니다. 해당 파일은 RadioStation에서 사용된다.
+이 설정 파일은 multichannel을 사용할 때에 설정하는 파일입니다. 해당 파일은 RadioStation에서 사용됩니다.
 
  1. `channel_manage_data.json` 파일을 아래와 같이 작성합니다.
  ```
@@ -86,7 +86,7 @@ $ mv fluent.conf ./fluentd/etc
  }
  ```
    - ‘channel1’이라는 channel에서 loopchain/default라는 SCORE를 이용합니다.
-   - loopchain/default는 기본적으로 각 peer들이 가지고 있는 SCORE 파일 입니다.
+   - loopchain/default는 기본적으로 각 peer들이 가지고 있는 SCORE 파일입니다.
 
  2. 작성된 `channel_manage_data.json`를 `/conf` 디렉토리로 이동합니다.
 ```
