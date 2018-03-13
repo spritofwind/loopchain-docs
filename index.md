@@ -1,5 +1,4 @@
 1. [Introduction](./README.md)
-  1. [LFT](./LFT.md)
 2. [loopchain의 기본 구조](./structure.md)
 3. [설정 가이드](./Configuration.md)
 4. [설치 Tutorial](./Tutorial)
@@ -8,4 +7,3 @@
 5. [SCORE(Smart Contract On Reliable Environment)](./SCORE.MD)
   1. [Local computer에서 SCORE 환경 만들기 Tutorial](./SCORE_ENV.md)
   2. [loopchain SCORE 개발](./SCORE_DEV_ENV.MD)
-    1. [Loopchain SCORE package guide](./package_guide.md)
