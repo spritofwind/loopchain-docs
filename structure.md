@@ -27,4 +27,4 @@
 #### Leader Peer
 * 일정 시간마다 Transaction 들을 모아 Block을 만들고 보낸 다음 검증을 Peer 들에게 받아서 공표한다(검증 주기는 설정 가능하다.)
 * 다른 Peer를 Subscription(구독)한 다음에 Transaction / Block data를 동기화한다.
-* Leader Peer의 변경은 등록된 Peer의 순서대로 Leader 권한을 준다(Round Robin). (주의: block 생성 갯수 기준은 성능에 따라서 변경 가능하다.)
+* Leader Peer의 변경은 등록된 Peer의 순서대로 Leader 권한을 준다(Round Robin). (주의: block 생성 개수 기준은 성능에 따라서 변경 가능하다.)
