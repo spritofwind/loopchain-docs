@@ -6,5 +6,5 @@
   2. [Local computer에서 RadioStation과 2개의 Peer로 Blockchain network 구성하기](./Tutorial_1R2P.md)
 5. [SCORE(Smart Contract On Reliable Environment)](./SCORE.MD)
   1. [Local computer에서 SCORE 환경 만들기 Tutorial](./SCORE_ENV.MD)
-  2. [loopchain SCORE 개발](./SCORE_DEV_ENV.MD)
+  2. [loopchain SCORE 개발](./SCORE_DEV_ENV.md)
     1. [Loopchain SCORE package guide](./package_guide.md)
