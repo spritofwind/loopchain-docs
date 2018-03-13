@@ -16,19 +16,18 @@ SCORE 안에서는 다음과 같은 내용을 통한 비지니스 모델은 불�
 * **내부 변수 재사용 금지**: 특정한 변수를 Cache해 놓았다가 쓰는 것은 금지되어야 합니다.
 
 ### 구현
-* SCORE를 작성하거나, 개발할때는 coverage 90% 이상을 목표로 개발 하여야 하며, 퍼포먼스도 고려되어야 합니다.
+* SCORE를 작성하거나, 개발할 때는 coverage 90% 이상을 목표로 개발 하여야 하며, 퍼포먼스도 고려되어야 합니다.
 
 #### 폴더 및 실행구조
 * / score / 회사명(기관명) / 패키지명 ```ex) /score/loopchain/default/```
 * deploy 폴더명은 사용 불가
-* 원격 리파지토리를 사용하지 않을 경우 다음과 같이 가능합니다.
-  * 회사명(기관명)_패키지명.zip 으로 리파지토리 전체를 압축하여 score에 저장하여 실행
+* 원격 repository를 사용하지 않을 경우 다음과 같이 가능합니다.
+  * 회사명(기관명)_패키지명.zip 으로 repository 전체를 압축하여 score에 저장하여 실행
 * 패키지 설명 및 실행에 대한 상세내용은 package.json 파일로 정의하며, package.json 정의에 대한 내용은 **[다른 가이드](./package_guide.md)**에서 설명합니다.
 
 
-
 ### Unit Test
-* 모든 테스트 코드는 SCORE의 패키지 루트에 있어야 하며, 차후 리파지토리 등록 전에 실행됩니다.
+* 모든 테스트 코드는 SCORE의 패키지 루트에 있어야 하며, 차후 repository 등록 전에 실행됩니다.
 * SCORE와 분리해서 논리적인 별도의 Module을 만들어서 Unit Test를 만들어서 수행해야 합니다.
 
 
@@ -80,8 +79,8 @@ SCORE 안에서는 다음과 같은 내용을 통한 비지니스 모델은 불�
 9. loopchain 네트워크를 실행하여 확인합니다.
 
 #### repository 를 사용하는 방법
-* 스코어의 배포는 특별히 관리되는 repository 를 사용할 수 있습니다.
-  * 차후 다수의 repository 를 검색하여, 순위별로 배포하는 방안도 검토 중입니다.
+* SCORE의 배포는 특별히 관리되는 repository 를 사용할 수 있습니다.
+  * 차후 다수의 repository 를 검색하여, 순위 별로 배포하는 방안도 검토 중입니다.
 * remote repository 에서 관리하지 않는 스코어는 내부 repository 가 포함된 zip 파일에서 관리 할 수 있습니다.
 * peer 에서 스코어의 배포는 다음의 명령어를 사용합니다.
   * Docker에서 실행시
@@ -96,4 +95,3 @@ SCORE 안에서는 다음과 같은 내용을 통한 비지니스 모델은 불�
     * DEPLOY_SCORE 는 기관명/패키지명 입니다.
     * PEER_NAME은 Peer의 이름을 지칭합니다.
     * PORT는 radio_station 의 위치 IP:PORT 로 설정됩니다.
-    * /deploy/launch_containers_in_local_demo.sh 파일을 참조 바랍니다
