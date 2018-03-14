@@ -47,7 +47,7 @@ loopchain을 사용하기 위해 다음의 Port가 열려야 합니다.  Port는
 ##### Log level 설정하기
 _해당 내용이 실제 설정파일에 예제가 없음. 이 옵션 값을 설정파일에서 어떻게 사용하는지 내용 추가 필요_
 
-LOOPCHAIN\_LOG\_LEVEL을 이용하세요. 아래증 하나의 String값을 가지면 됩니다. 기본값은 "DEBUG"입니다. (제일 많이 모든 로그를 보여줍니다.)
+LOOPCHAIN\_LOG\_LEVEL을 이용하세요. 아래 중 하나의 String값을 가지면 됩니다. 기본값은 "DEBUG"입니다. (제일 많이 모든 로그를 보여줍니다.)
 
 > 옵션값: CRITICAL ,ERROR , WARNING, INFO , DEBUG (오른쪽에서 왼쪽으로 갈수로 더 많은 로그를 남김)
 

@@ -26,9 +26,10 @@ SCORE는 loopchain에서 지원하는 Smart Contract을 지칭하는 것으로 �
 
 ![LFT](/images/LFT_Normal_Process.png)
 
-**loopchain은 plug-in 형태로 합의 알고리즘이 구현되어 있기 때문에 필요에 따라 PBFT(Pratical Byzantine Fault Tolerance)와 같은 다른 합의 알고리즘을 사용 가능**
+LFT algorithm에 대한 조금 더 자세한 설명은 [**링크**](./LFT.md)를 참고하십시오.
 
-LFT algorithm에 대한 조금 더 자세한 설명은 [링크](./LFT.md)를 참고하십시오. 
+참고적으로 loopchain은 plug-in 형태로 합의 알고리즘이 구현되어 있기 때문에 필요에 따라 PBFT(Pratical Byzantine Fault Tolerance)와 같은 다른 합의 알고리즘을 사용 가능
+
 
 #### Multi Channel
 
