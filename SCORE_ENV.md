@@ -141,7 +141,7 @@
 
 ### 환경 설정 확인
 
-1. loopchain 도커 컨테이너를 모두 실행: **start.sh**
+1. loopchain 도커 컨테이너를 모두 실행: **start.sh**      
 ```
 $ ./start.sh
 7bbbac55f38b99b5206e2d84dec027b1d08e6cd7099bba2ca89f9c6f23d9841a
