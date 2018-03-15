@@ -142,210 +142,208 @@
 ### 환경 설정 확인
 
 1. loopchain 도커 컨테이너를 모두 실행: `start.sh`
-
-  ```
-  $ ./start.sh
-  7bbbac55f38b99b5206e2d84dec027b1d08e6cd7099bba2ca89f9c6f23d9841a
-  3811b3c6193d79a4dff3535d57b7d1c635023e7dc971eeba5564138971673f9d
-  395e37133d60fd7852b31f4fa8a05c9e1882f8126f529221e72e5efb9609c65d
-  6457ba6460052cfcd9ec0cc71135bb68d6ed1bf77fdb3add1f33ae12ed325d4f
-  $
-  ```
-  
+```
+$ ./start.sh
+7bbbac55f38b99b5206e2d84dec027b1d08e6cd7099bba2ca89f9c6f23d9841a
+3811b3c6193d79a4dff3535d57b7d1c635023e7dc971eeba5564138971673f9d
+395e37133d60fd7852b31f4fa8a05c9e1882f8126f529221e72e5efb9609c65d
+6457ba6460052cfcd9ec0cc71135bb68d6ed1bf77fdb3add1f33ae12ed325d4f
+$
+```
 2. peer 목록 조회
-  ```
-  $ curl http://localhost:9002/api/v1/peer/list | python -m json.tool
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                     Dload  Upload   Total   Spent    Left  Speed
-  100  1573  100  1573    0     0  24681      0 --:--:-- --:--:-- --:--:-- 24968
-  {
-      "data": {
-          "connected_peer_count": 2,
-          "connected_peer_list": [
-              {
-                  "cert": "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAE+HQPBowjyJnyinsYjiztl5i6hQ1JiWdpRmyFR1T283M4liQia7weerQQ4Qw6jDVwd+RkwHeenvR0xxovUFCTQg==",
-                  "group_id": "d0060308-22b2-11e8-b58b-0242ac110004",
-                  "order": 1,
-                  "peer_id": "d0060308-22b2-11e8-b58b-0242ac110004",
-                  "peer_type": 1,
-                  "status": 1,
-                  "status_update_time": "2018-03-08 09:27:06.400219",
-                  "target": "172.17.0.4:7100"
-              },
-              {
-                  "cert": "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAE+HQPBowjyJnyinsYjiztl5i6hQ1JiWdpRmyFR1T283M4liQia7weerQQ4Qw6jDVwd+RkwHeenvR0xxovUFCTQg==",
-                  "group_id": "d0581aee-22b2-11e8-bab0-0242ac110005",
-                  "order": 2,
-                  "peer_id": "d0581aee-22b2-11e8-bab0-0242ac110005",
-                  "peer_type": 0,
-                  "status": 1,
-                  "status_update_time": "2018-03-08 09:27:07.162296",
-                  "target": "172.17.0.5:7200"
-              }
-          ],
-          "registered_peer_count": 2,
-          "registered_peer_list": [
-              {
-                  "cert": "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAE+HQPBowjyJnyinsYjiztl5i6hQ1JiWdpRmyFR1T283M4liQia7weerQQ4Qw6jDVwd+RkwHeenvR0xxovUFCTQg==",
-                  "group_id": "d0060308-22b2-11e8-b58b-0242ac110004",
-                  "order": 1,
-                  "peer_id": "d0060308-22b2-11e8-b58b-0242ac110004",
-                  "peer_type": 1,
-                  "status": 1,
-                  "status_update_time": "2018-03-08 09:27:06.400219",
-                  "target": "172.17.0.4:7100"
-              },
-              {
-                  "cert": "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAE+HQPBowjyJnyinsYjiztl5i6hQ1JiWdpRmyFR1T283M4liQia7weerQQ4Qw6jDVwd+RkwHeenvR0xxovUFCTQg==",
-                  "group_id": "d0581aee-22b2-11e8-bab0-0242ac110005",
-                  "order": 2,
-                  "peer_id": "d0581aee-22b2-11e8-bab0-0242ac110005",
-                  "peer_type": 0,
-                  "status": 1,
-                  "status_update_time": "2018-03-08 09:27:07.162296",
-                  "target": "172.17.0.5:7200"
-              }
-          ]
-      },
-      "response_code": 0
-    }
-  $
-  ```
+```
+$ curl http://localhost:9002/api/v1/peer/list | python -m json.tool
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                   Dload  Upload   Total   Spent    Left  Speed
+100  1573  100  1573    0     0  24681      0 --:--:-- --:--:-- --:--:-- 24968
+{
+    "data": {
+        "connected_peer_count": 2,
+        "connected_peer_list": [
+            {
+                "cert": "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAE+HQPBowjyJnyinsYjiztl5i6hQ1JiWdpRmyFR1T283M4liQia7weerQQ4Qw6jDVwd+RkwHeenvR0xxovUFCTQg==",
+                "group_id": "d0060308-22b2-11e8-b58b-0242ac110004",
+                "order": 1,
+                "peer_id": "d0060308-22b2-11e8-b58b-0242ac110004",
+                "peer_type": 1,
+                "status": 1,
+                "status_update_time": "2018-03-08 09:27:06.400219",
+                "target": "172.17.0.4:7100"
+            },
+            {
+                "cert": "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAE+HQPBowjyJnyinsYjiztl5i6hQ1JiWdpRmyFR1T283M4liQia7weerQQ4Qw6jDVwd+RkwHeenvR0xxovUFCTQg==",
+                "group_id": "d0581aee-22b2-11e8-bab0-0242ac110005",
+                "order": 2,
+                "peer_id": "d0581aee-22b2-11e8-bab0-0242ac110005",
+                "peer_type": 0,
+                "status": 1,
+                "status_update_time": "2018-03-08 09:27:07.162296",
+                "target": "172.17.0.5:7200"
+            }
+        ],
+        "registered_peer_count": 2,
+        "registered_peer_list": [
+            {
+                "cert": "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAE+HQPBowjyJnyinsYjiztl5i6hQ1JiWdpRmyFR1T283M4liQia7weerQQ4Qw6jDVwd+RkwHeenvR0xxovUFCTQg==",
+                "group_id": "d0060308-22b2-11e8-b58b-0242ac110004",
+                "order": 1,
+                "peer_id": "d0060308-22b2-11e8-b58b-0242ac110004",
+                "peer_type": 1,
+                "status": 1,
+                "status_update_time": "2018-03-08 09:27:06.400219",
+                "target": "172.17.0.4:7100"
+            },
+            {
+                "cert": "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAE+HQPBowjyJnyinsYjiztl5i6hQ1JiWdpRmyFR1T283M4liQia7weerQQ4Qw6jDVwd+RkwHeenvR0xxovUFCTQg==",
+                "group_id": "d0581aee-22b2-11e8-bab0-0242ac110005",
+                "order": 2,
+                "peer_id": "d0581aee-22b2-11e8-bab0-0242ac110005",
+                "peer_type": 0,
+                "status": 1,
+                "status_update_time": "2018-03-08 09:27:07.162296",
+                "target": "172.17.0.5:7200"
+            }
+        ]
+    },
+    "response_code": 0
+  }
+$
+```
 3. peer 상태 조회
-  ```
-  $ curl http://localhost:9000/api/v1/status/peer | python -m json.tool
-    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                   Dload  Upload   Total   Spent    Left  Speed
-  100   264  100   264    0     0  17697      0 --:--:-- --:--:-- --:--:-- 18857
-  {
-      "audience_count": "0",
-      "block_height": 0,
-      "consensus": "siever",
-      "leader_complaint": 1,
-      "made_block_count": 0,
-      "peer_id": "d0060308-22b2-11e8-b58b-0242ac110004",
-      "peer_target": "172.17.0.4:7100",
-      "peer_type": "1",
-      "status": "Service is online: 1",
-      "total_tx": 0
-  }
-  $
-  ```
+```
+$ curl http://localhost:9000/api/v1/status/peer | python -m json.tool
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   264  100   264    0     0  17697      0 --:--:-- --:--:-- --:--:-- 18857
+{
+    "audience_count": "0",
+    "block_height": 0,
+    "consensus": "siever",
+    "leader_complaint": 1,
+    "made_block_count": 0,
+    "peer_id": "d0060308-22b2-11e8-b58b-0242ac110004",
+    "peer_target": "172.17.0.4:7100",
+    "peer_type": "1",
+    "status": "Service is online: 1",
+    "total_tx": 0
+}
+$
+```
 4. SCORE 버전 조회
-  ```
-  $ curl http://localhost:9000/api/v1/status/score | python -m json.tool
-    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                   Dload  Upload   Total   Spent    Left  Speed
-  100  1047  100  1047    0     0  35738      0 --:--:-- --:--:-- --:--:-- 36103
-  {
-      "all_version": [
-          "f58b8b3e955984a09674a1f74c493001678d706c",
-          "b39064b358b84798f20f024fca066a113ec88b18",
-          "99923ce139350cf8f37ef9f72fddf3f327da4d7a",
-          "e25e2fba404bbc42b010c552d280063c704a0917",
-          "909b1ee00a00f12f744f3d669232c6f4549e945f",
-          "51f258059bcc4f1fa46ba3df8762b953e27fcdee",
-          "359b1f79b8bf2064ce0605d4b081da43a845beda",
-          "3d7195e1e98e38bdddab93fd03ee0c7aa0a20765",
-          "669b6db3a6c085b3de96d7bd13bc19efc26162ae",
-          "5136f28e83e3aaf6fabb0c0556b505ca5b95a44c",
-          "a74476425197c2b2b009a180f24f52efec932da8",
-          "95c0dd33b826c9b529a9f8b6b349e1b002bb9835",
-          "71afe3ca44fa46acced9b12c80ad1951fe83e4bd",
-          "f01986ae06e402a97e48bfddb31d5aeebe1dc07b",
-          "99ece33bb62b8b1c61182d074351b5062311d2f5",
-          "eabe94b94545faac1c8951fb31ef62a9f549cc5f",
-          "f5aab582d9f390f5378daf08f54d08c071f15d0c",
-          "f79c480fc7af6d02c79e1fe3191bbc471962166f",
-          "e38140e76766f2e51f30858a0ee3c82a90b9c258",
-          "af7c49743fecd315d4e4491751fbdae9b92dead7",
-          "bcc0d0f05d1a219cd4ed47955a86b0e16d1b2778"
-      ],
-      "id": "spritofwind/contract_sample",
-      "status": 0,
-      "version": "f58b8b3e955984a09674a1f74c493001678d706c"
-  }
-  $
-  ```
+```
+$ curl http://localhost:9000/api/v1/status/score | python -m json.tool
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  1047  100  1047    0     0  35738      0 --:--:-- --:--:-- --:--:-- 36103
+{
+    "all_version": [
+        "f58b8b3e955984a09674a1f74c493001678d706c",
+        "b39064b358b84798f20f024fca066a113ec88b18",
+        "99923ce139350cf8f37ef9f72fddf3f327da4d7a",
+        "e25e2fba404bbc42b010c552d280063c704a0917",
+        "909b1ee00a00f12f744f3d669232c6f4549e945f",
+        "51f258059bcc4f1fa46ba3df8762b953e27fcdee",
+        "359b1f79b8bf2064ce0605d4b081da43a845beda",
+        "3d7195e1e98e38bdddab93fd03ee0c7aa0a20765",
+        "669b6db3a6c085b3de96d7bd13bc19efc26162ae",
+        "5136f28e83e3aaf6fabb0c0556b505ca5b95a44c",
+        "a74476425197c2b2b009a180f24f52efec932da8",
+        "95c0dd33b826c9b529a9f8b6b349e1b002bb9835",
+        "71afe3ca44fa46acced9b12c80ad1951fe83e4bd",
+        "f01986ae06e402a97e48bfddb31d5aeebe1dc07b",
+        "99ece33bb62b8b1c61182d074351b5062311d2f5",
+        "eabe94b94545faac1c8951fb31ef62a9f549cc5f",
+        "f5aab582d9f390f5378daf08f54d08c071f15d0c",
+        "f79c480fc7af6d02c79e1fe3191bbc471962166f",
+        "e38140e76766f2e51f30858a0ee3c82a90b9c258",
+        "af7c49743fecd315d4e4491751fbdae9b92dead7",
+        "bcc0d0f05d1a219cd4ed47955a86b0e16d1b2778"
+    ],
+    "id": "spritofwind/contract_sample",
+    "status": 0,
+    "version": "f58b8b3e955984a09674a1f74c493001678d706c"
+}
+$
+```
 5. SCORE Transaction 생성
-  ```
-  $ curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc":"2.0","method":"propose","params":{"proposer":"RealEstateAgent" , "counterparties": ["leaseholder","jinho"], "content": "Theloop APT 101-3001, lease for 3 months from 3th April,2018", "quorum": "3"}}'  http://localhost:9000/api/v1/transactions | python -m json.tool
-    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                   Dload  Upload   Total   Spent    Left  Speed
-  100   329  100   119  100   210   6361  11226 --:--:-- --:--:-- --:--:-- 11666
-  {
-      "more_info": "",
-      "response_code": "0",
-      "tx_hash": "7bc856e972da62a6cba3deff71e74e848174fc1e28feaae66f58ff2447875f0a"
-  }
-  $
-  ```
+```
+$ curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc":"2.0","method":"propose","params":{"proposer":"RealEstateAgent" , "counterparties": ["leaseholder","jinho"], "content": "Theloop APT 101-3001, lease for 3 months from 3th April,2018", "quorum": "3"}}'  http://localhost:9000/api/v1/transactions | python -m json.tool
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   329  100   119  100   210   6361  11226 --:--:-- --:--:-- --:--:-- 11666
+{
+    "more_info": "",
+    "response_code": "0",
+    "tx_hash": "7bc856e972da62a6cba3deff71e74e848174fc1e28feaae66f58ff2447875f0a"
+}
+$
+```
 6. SCORE Transaction 조회 - `tx_hash` 사용     (7bc856e972da62a6cba3deff71e74e848174fc1e28feaae66f58ff2447875f0a)
-  ```
-  $ curl http://localhost:9000/api/v1/transactions/result?hash=7bc856e972da62a6cba3deff71e74e848174fc1e28feaae66f58ff2447875f0a | python -m json.tool
-    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                   Dload  Upload   Total   Spent    Left  Speed
-  100    66  100    66    0     0   4023      0 --:--:-- --:--:-- --:--:--  4125
-  {
+```
+$ curl http://localhost:9000/api/v1/transactions/result?hash=7bc856e972da62a6cba3deff71e74e848174fc1e28feaae66f58ff2447875f0a | python -m json.tool
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100    66  100    66    0     0   4023      0 --:--:-- --:--:-- --:--:--  4125
+{
       "response": {
-          "code": 0,
-          "jsonrpc": "2.0"
-      },
-      "response_code": "0"
-  }
-  $
-  ```
+      "code": 0,
+        "jsonrpc": "2.0"
+    },
+    "response_code": "0"
+}
+$
+```
 
 7. SCORE Transaction 실행 결과 조회 (Query)
-  ```
-  $ curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc": "2.0","channel":"channel1","method":"get_user_contracts","id":"11233","params":{"user_id":"jinho"}}' http://localhost:9000/api/v1/query | python -m json.tool
-    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                   Dload  Upload   Total   Spent    Left  Speed
-  100   445  100   334  100   111  20982   6973 --:--:-- --:--:-- --:--:-- 22266
-  {
-      "response": {
-          "code": 0,
-          "id": "11233",
-          "jsonrpc": "2.0",
-          "response": {
-              "user_contracts": [
-                  {
-                      "approvers": [
-                          "RealEstateAgent"
-                      ],
-                      "content": "Theloop APT 101-3001, lease for 3 months from 3th April,2018",
-                      "contract_id": 1,
-                      "counterparties": [
-                          "leaseholder",
-                          "jinho"
-                      ],
-                      "proposer": "RealEstateAgent",
-                      "quorum": "3"
-                  }
-              ]
-          }
-      },
-      "response_code": "0"
-  }
-  $
-  ```
+```
+$ curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc": "2.0","channel":"channel1","method":"get_user_contracts","id":"11233","params":{"user_id":"jinho"}}' http://localhost:9000/api/v1/query | python -m json.tool
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   445  100   334  100   111  20982   6973 --:--:-- --:--:-- --:--:-- 22266
+{
+    "response": {
+        "code": 0,
+        "id": "11233",
+        "jsonrpc": "2.0",
+        "response": {
+            "user_contracts": [
+                {
+                    "approvers": [
+                        "RealEstateAgent"
+                    ],
+                    "content": "Theloop APT 101-3001, lease for 3 months from 3th April,2018",
+                    "contract_id": 1,
+                    "counterparties": [
+                        "leaseholder",
+                        "jinho"
+                    ],
+                    "proposer": "RealEstateAgent",
+                    "quorum": "3"
+                }
+            ]
+        }
+    },
+    "response_code": "0"
+}
+$
+```
 8. peer 상태 조회(block_height, made_block_count,total_tx 변화 확인)
-  ```
-  $ curl http://localhost:9000/api/v1/status/peer | python -m json.tool
-    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                   Dload  Upload   Total   Spent    Left  Speed
-  100   264  100   264    0     0  17697      0 --:--:-- --:--:-- --:--:-- 18857
-  {
-      "audience_count": "0",
-      "block_height": 1,
-      "consensus": "siever",
-      "leader_complaint": 1,
-      "made_block_count": 1,
-      "peer_id": "d0060308-22b2-11e8-b58b-0242ac110004",
-      "peer_target": "172.17.0.4:7100",
-      "peer_type": "1",
-      "status": "Service is online: 1",
-      "total_tx": 1
-  }
-  $
-  ```
+```
+$ curl http://localhost:9000/api/v1/status/peer | python -m json.tool
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   264  100   264    0     0  17697      0 --:--:-- --:--:-- --:--:-- 18857
+{
+    "audience_count": "0",
+    "block_height": 1,
+    "consensus": "siever",
+    "leader_complaint": 1,
+    "made_block_count": 1,
+    "peer_id": "d0060308-22b2-11e8-b58b-0242ac110004",
+    "peer_target": "172.17.0.4:7100",
+    "peer_type": "1",
+    "status": "Service is online: 1",
+    "total_tx": 1
+}
+$
+```
