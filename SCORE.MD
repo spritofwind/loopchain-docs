@@ -13,10 +13,8 @@
 
 ![SCORE 구조](./images/SCORE_Structure_2.png)
 
-<<<<<<< HEAD
+
 * Github가 현재 SCORE STORE를 대신하고 있습니다.
-=======
->>>>>>> Jinhoyoo/loopchain-document-website-master
 * SCORE container
   * `Package.json`: Function의 정의가 작성되어 있다. 그리고, 실제 SCORE code가 어떤 파일인지 정의되어 있음. Package.json파일에 정의되어 있는 형식으로 Client가 peer와 통신을 한다.
   * `SCORE code(*.py)`: Python으로 구현된 SCORE용 코드
@@ -33,13 +31,11 @@
 
 
 ![SCORE 동작](./images/Peer_SCORE.png)
-<<<<<<< HEAD
 
 내부에 여러 실제 작업들에 대한 함수들이 있고 이것을 JSON-RPC 방식으로 호출한다.(Python으로 작성되어 있음)
 작업된 결과는 SCORE DB에 저장한다.(NoSQL 방식으로 Key-value로 저장)
 * invoke() : 검증되고 합의된 transaction 을 가지고 실제 계약 업무를 실행하는 작업
 * query() : SCORE DB에 저장된 결과를 읽어오는 작업
-=======
 * 내부에 여러 실제 작업들에 대한 함수들이 있고 이것을 JSON-RPC 방식으로 호출한다.
 * 실제 구현은 Python으로 작성되어 있다.
 * 작업된 결과는 SCORE DB에 저장한다.
@@ -47,7 +43,7 @@
 * 외부에 노출된 함수
   * invoke() : 검증되고 합의된 transaction 을 가지고 실제 계약 업무를 실행하는 작업
   * query() : SCORE DB에 저장된 결과를 읽어오는 작업
->>>>>>> Jinhoyoo/loopchain-document-website-master
+
 
 
 
