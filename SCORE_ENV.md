@@ -142,6 +142,7 @@
 ### 환경 설정 확인
 
 1. loopchain 도커 컨테이너를 모두 실행: `start.sh`
+
   ```
   $ ./start.sh
   7bbbac55f38b99b5206e2d84dec027b1d08e6cd7099bba2ca89f9c6f23d9841a
@@ -150,6 +151,7 @@
   6457ba6460052cfcd9ec0cc71135bb68d6ed1bf77fdb3add1f33ae12ed325d4f
   $
   ```
+  
 2. peer 목록 조회
   ```
   $ curl http://localhost:9002/api/v1/peer/list | python -m json.tool
