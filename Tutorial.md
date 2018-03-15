@@ -106,6 +106,8 @@ $ ./run_test.sh
 #### loopchain 실행
 이전의 "**설정 가이드**"에서 언급을 하였듯이 RadioStation을 제일 먼저 실행시키고 Peer들을 실행합니다.
 
+
+
 1.**RadioStation을 실행합니다.**
   ```
   $  ./radiostation.py  # Execute RadioStation.
@@ -159,14 +161,14 @@ $ ./run_test.sh
   $ curl http://localhost:9001/api/v1/status/peer # Shows the current status of peer1
   ```
 
-4. **새로운 Transaction 생성**
+4.**새로운 Transaction 생성**
   RESTful API를 사용하여서 peer0에 새로운 Transaction을 보냅니다.
   ```
   $ curl -H "Content-Type: application/json" -d '{"data":"hello"}' http://localhost:9000/api/v1/transactions
   {"response_code": "0", "tx_hash": "71a3414d77dbdb34b92757ba75e51d9aa498f6a06609419cdf31327da4e9bf38", "more_info": ""}
   $
   ```
-5. **새로 생성된 Transaction의 Height를 체크한다**
+5.**새로 생성된 Transaction의 Height를 체크한다**
   ```
   $ $ curl http://localhost:9000/api/v1/blocks | python -m json.tool
     % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
