@@ -59,12 +59,12 @@
   }
   ```
 2. docker로 Peer를 실행할 때의 `DEFAULT_SCORE_HOST`옵션으로 SCORE를 가져올 Git service URL을 지정합니다.
-  ```
-  $ docker run -d --name peer0 \
-    .....
-    -e "DEFAULT_SCORE_HOST=github.com" \
-    .....
-  ```
+```
+$ docker run -d --name peer0 \
+   .....
+   -e "DEFAULT_SCORE_HOST=github.com" \
+   .....
+```
 
 3. Peer가 시작하면서 Git servie에서 SCORE가 있는 Repository[Package.json, SCORE code(*.py)]를 pull합니다.
 4. Pull받은 코드 중에 Package.json에서 모듈들을 읽어서 다른 Process로 실행합니다.
