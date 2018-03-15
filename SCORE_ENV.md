@@ -278,7 +278,7 @@
   }
   $
   ```
-6. SCORE Transaction 조회 - `tx_hash` 사용 (7bc856e972da62a6cba3deff71e74e848174fc1e28feaae66f58ff2447875f0a)
+6. SCORE Transaction 조회 - `tx_hash` 사용     (7bc856e972da62a6cba3deff71e74e848174fc1e28feaae66f58ff2447875f0a)
   ```
   $ curl http://localhost:9000/api/v1/transactions/result?hash=7bc856e972da62a6cba3deff71e74e848174fc1e28feaae66f58ff2447875f0a | python -m json.tool
     % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -347,6 +347,3 @@
   }
   $
   ```
-
-
-###  
