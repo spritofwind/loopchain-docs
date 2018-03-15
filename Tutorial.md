@@ -1,5 +1,56 @@
 # Tutorial
 loopchain을 실제 설치하고 운영하는데 있어서 가장 중요한 설치 과정을 연습해보는 과정에 대해서 설명합니다.
+이 문서는 로컬 컴퓨터 상에서 loopchain 을 어떻게 설치 하는지에 대해서 설명합니다.
+
+## 필요 환경
+* 추천 OS : Linux(CentOS 7 이상, Ubuntu), MacOS 10.12 이상, Windows 10
+* Python : v3.6 이상
+* Vituralenv: v15.1.0 이상
+* Docker: 17.x이상
+
+## 설치
+
+### Python 설치
+이 문서에서는 MacOS를 기준으로 먼저 설명을 하도록 하겠습니다.
+
+일반적으로 MacOS에 기본으로 설치되어 있는 Python은 2.7.x입니다.따라서 Python 3.6이상의 버전으로 설치를 해야만 합니다.
+버전 확인 방법은 다음과 같습니다.
+```
+$ python -V
+Python 2.7.10
+$
+```
+맥에서 가장 쉽게 Python 3.6이상의 버전을 설치하는 방법은 Homebrew를 이용하는 방법입니다. Homebrew를 설치하는 것은 매우 간단합니다. 터미널에서 다음의 명령어를 복사하여서 붙여넣고 실행하시면 됩니다.
+
+```
+$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+설치 중에 비밀번호를 입력하는 부분이 있는데, 컴퓨터 비밀번호를 입력해주면 됩니다.
+
+
+
+### ghksrudtjf
+
+1. 먼저 Github의 loopchain 프로젝트(https://github.com/theloopkr/loopchain.git)를 clone 합니다.
+2. 프로젝트 폴더로 이동한 다음 사용자 환경을 구축합니다.
+```
+$ virtualenv -p python3 .  # Create a virtual environment
+$ source bin/activate    # Enter the virtual environment
+$ pip3 install -r requirements.txt  # Install necessary packages in the virtual environment
+$ ./generate_code.sh #  gRPC generates codes necessary for communication
+```
+혹은, 다음의 방법으로 더 쉽게 설정할 수도 있습니다.
+```
+$ ./setup.sh
+$ source bin/activate
+$ ./setup.sh
+$ ./generate_code.sh
+```
+
+
+
+
+
 
 ## 설치 준비
 

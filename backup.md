@@ -63,3 +63,197 @@ CPU 연산비용|낮음|높음|중간 정도, PoW 보다 낮음
 Vote 데이터를 전체 노드에게 전파하는 것은 매우 중요한데 이는 리더 노드가 비잔틴일 경우 정족 수 이상의 노드들에게만 블록을 전파하여 특정 노드들을 네트워크로부터 분리하도록 시도할 수 있기 때문입니다.
 
 이러한 문제를 방지하기 위해 모든 Peer에게 Vote 데이터를 전파하며 이는 기존 Raft 알고리즘과의 다른 점입니다. 이 과정에서 블록을 못받은 노드는 블록이 생성되었는지에 대한 정보를 알 수 있고 다른 노드에게 블록을 요청할수 있습니다.
+
+
+
+$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+
+
+```
+$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+==> This script will install:
+/usr/local/bin/brew
+/usr/local/share/doc/homebrew
+/usr/local/share/man/man1/brew.1
+/usr/local/share/zsh/site-functions/_brew
+/usr/local/etc/bash_completion.d/brew
+/usr/local/Homebrew
+==> The following existing directories will be made group writable:
+/usr/local/bin
+/usr/local/share
+/usr/local/share/man
+/usr/local/share/man/man1
+/usr/local/share/man/man3
+/usr/local/share/man/man5
+/usr/local/share/man/man7
+==> The following existing directories will have their owner set to donghanlee:
+/usr/local/bin
+/usr/local/share
+/usr/local/share/man
+/usr/local/share/man/man1
+/usr/local/share/man/man3
+/usr/local/share/man/man5
+/usr/local/share/man/man7
+==> The following existing directories will have their group set to admin:
+/usr/local/bin
+/usr/local/share
+/usr/local/share/man
+/usr/local/share/man/man1
+/usr/local/share/man/man3
+/usr/local/share/man/man5
+/usr/local/share/man/man7
+==> The following new directories will be created:
+/usr/local/Cellar
+/usr/local/Homebrew
+/usr/local/Frameworks
+/usr/local/etc
+/usr/local/include
+/usr/local/lib
+/usr/local/opt
+/usr/local/sbin
+/usr/local/share/zsh
+/usr/local/share/zsh/site-functions
+/usr/local/var
+==> The Xcode Command Line Tools will be installed.
+
+Press RETURN to continue or any other key to abort
+==> /usr/bin/sudo /bin/chmod u+rwx /usr/local/bin /usr/local/share /usr/local/share/man /usr/local/share/man/man1 /usr/local/share/man/man3 /usr/local/share/man/man5 /usr/local/share/man/man7
+Password:
+==> /usr/bin/sudo /bin/chmod g+rwx /usr/local/bin /usr/local/share /usr/local/share/man /usr/local/share/man/man1 /usr/local/share/man/man3 /usr/local/share/man/man5 /usr/local/share/man/man7
+==> /usr/bin/sudo /usr/sbin/chown donghanlee /usr/local/bin /usr/local/share /usr/local/share/man /usr/local/share/man/man1 /usr/local/share/man/man3 /usr/local/share/man/man5 /usr/local/share/man/man7
+==> /usr/bin/sudo /usr/bin/chgrp admin /usr/local/bin /usr/local/share /usr/local/share/man /usr/local/share/man/man1 /usr/local/share/man/man3 /usr/local/share/man/man5 /usr/local/share/man/man7
+==> /usr/bin/sudo /bin/mkdir -p /usr/local/Cellar /usr/local/Homebrew /usr/local/Frameworks /usr/local/etc /usr/local/include /usr/local/lib /usr/local/opt /usr/local/sbin /usr/local/share/zsh /usr/local/share/zsh/site-functions /usr/local/var
+==> /usr/bin/sudo /bin/chmod g+rwx /usr/local/Cellar /usr/local/Homebrew /usr/local/Frameworks /usr/local/etc /usr/local/include /usr/local/lib /usr/local/opt /usr/local/sbin /usr/local/share/zsh /usr/local/share/zsh/site-functions /usr/local/var
+==> /usr/bin/sudo /bin/chmod 755 /usr/local/share/zsh /usr/local/share/zsh/site-functions
+==> /usr/bin/sudo /usr/sbin/chown donghanlee /usr/local/Cellar /usr/local/Homebrew /usr/local/Frameworks /usr/local/etc /usr/local/include /usr/local/lib /usr/local/opt /usr/local/sbin /usr/local/share/zsh /usr/local/share/zsh/site-functions /usr/local/var
+==> /usr/bin/sudo /usr/bin/chgrp admin /usr/local/Cellar /usr/local/Homebrew /usr/local/Frameworks /usr/local/etc /usr/local/include /usr/local/lib /usr/local/opt /usr/local/sbin /usr/local/share/zsh /usr/local/share/zsh/site-functions /usr/local/var
+==> /usr/bin/sudo /bin/mkdir -p /Users/donghanlee/Library/Caches/Homebrew
+==> /usr/bin/sudo /bin/chmod g+rwx /Users/donghanlee/Library/Caches/Homebrew
+==> /usr/bin/sudo /usr/sbin/chown donghanlee /Users/donghanlee/Library/Caches/Homebrew
+==> /usr/bin/sudo /bin/mkdir -p /Library/Caches/Homebrew
+==> /usr/bin/sudo /bin/chmod g+rwx /Library/Caches/Homebrew
+==> /usr/bin/sudo /usr/sbin/chown donghanlee /Library/Caches/Homebrew
+==> Searching online for the Command Line Tools
+==> /usr/bin/sudo /usr/bin/touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+==> Installing Command Line Tools (macOS High Sierra version 10.13) for Xcode-9.2
+==> /usr/bin/sudo /usr/sbin/softwareupdate -i Command\ Line\ Tools\ (macOS\ High\ Sierra\ version\ 10.13)\ for\ Xcode-9.2
+Software Update Tool
+
+
+Downloading Command Line Tools (macOS High Sierra version 10.13) for Xcode
+Downloaded Command Line Tools (macOS High Sierra version 10.13) for Xcode
+Installing Command Line Tools (macOS High Sierra version 10.13) for Xcode
+Done with Command Line Tools (macOS High Sierra version 10.13) for Xcode
+Done.
+==> /usr/bin/sudo /bin/rm -f /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+==> /usr/bin/sudo /usr/bin/xcode-select --switch /Library/Developer/CommandLineTools
+==> Downloading and installing Homebrew...
+remote: Counting objects: 98251, done.
+remote: Compressing objects: 100% (13/13), done.
+remote: Total 98251 (delta 4), reused 6 (delta 2), pack-reused 98236
+Receiving objects: 100% (98251/98251), 22.43 MiB | 1.68 MiB/s, done.
+Resolving deltas: 100% (71407/71407), done.
+From https://github.com/Homebrew/brew
+ * [new branch]          master     -> origin/master
+ * [new tag]             0.1        -> 0.1
+ * [new tag]             0.2        -> 0.2
+ * [new tag]             0.3        -> 0.3
+ * [new tag]             0.4        -> 0.4
+ * [new tag]             0.5        -> 0.5
+ * [new tag]             0.6        -> 0.6
+ * [new tag]             0.7        -> 0.7
+ * [new tag]             0.7.1      -> 0.7.1
+ * [new tag]             0.8        -> 0.8
+ * [new tag]             0.8.1      -> 0.8.1
+ * [new tag]             0.9        -> 0.9
+ * [new tag]             0.9.1      -> 0.9.1
+ * [new tag]             0.9.2      -> 0.9.2
+ * [new tag]             0.9.3      -> 0.9.3
+ * [new tag]             0.9.4      -> 0.9.4
+ * [new tag]             0.9.5      -> 0.9.5
+ * [new tag]             0.9.8      -> 0.9.8
+ * [new tag]             0.9.9      -> 0.9.9
+ * [new tag]             1.0.0      -> 1.0.0
+ * [new tag]             1.0.1      -> 1.0.1
+ * [new tag]             1.0.2      -> 1.0.2
+ * [new tag]             1.0.3      -> 1.0.3
+ * [new tag]             1.0.4      -> 1.0.4
+ * [new tag]             1.0.5      -> 1.0.5
+ * [new tag]             1.0.6      -> 1.0.6
+ * [new tag]             1.0.7      -> 1.0.7
+ * [new tag]             1.0.8      -> 1.0.8
+ * [new tag]             1.0.9      -> 1.0.9
+ * [new tag]             1.1.0      -> 1.1.0
+ * [new tag]             1.1.1      -> 1.1.1
+ * [new tag]             1.1.10     -> 1.1.10
+ * [new tag]             1.1.11     -> 1.1.11
+ * [new tag]             1.1.12     -> 1.1.12
+ * [new tag]             1.1.13     -> 1.1.13
+ * [new tag]             1.1.2      -> 1.1.2
+ * [new tag]             1.1.3      -> 1.1.3
+ * [new tag]             1.1.4      -> 1.1.4
+ * [new tag]             1.1.5      -> 1.1.5
+ * [new tag]             1.1.6      -> 1.1.6
+ * [new tag]             1.1.7      -> 1.1.7
+ * [new tag]             1.1.8      -> 1.1.8
+ * [new tag]             1.1.9      -> 1.1.9
+ * [new tag]             1.2.0      -> 1.2.0
+ * [new tag]             1.2.1      -> 1.2.1
+ * [new tag]             1.2.2      -> 1.2.2
+ * [new tag]             1.2.3      -> 1.2.3
+ * [new tag]             1.2.4      -> 1.2.4
+ * [new tag]             1.2.5      -> 1.2.5
+ * [new tag]             1.2.6      -> 1.2.6
+ * [new tag]             1.3.0      -> 1.3.0
+ * [new tag]             1.3.1      -> 1.3.1
+ * [new tag]             1.3.2      -> 1.3.2
+ * [new tag]             1.3.3      -> 1.3.3
+ * [new tag]             1.3.4      -> 1.3.4
+ * [new tag]             1.3.5      -> 1.3.5
+ * [new tag]             1.3.6      -> 1.3.6
+ * [new tag]             1.3.7      -> 1.3.7
+ * [new tag]             1.3.8      -> 1.3.8
+ * [new tag]             1.3.9      -> 1.3.9
+ * [new tag]             1.4.0      -> 1.4.0
+ * [new tag]             1.4.1      -> 1.4.1
+ * [new tag]             1.4.2      -> 1.4.2
+ * [new tag]             1.4.3      -> 1.4.3
+ * [new tag]             1.5.0      -> 1.5.0
+ * [new tag]             1.5.1      -> 1.5.1
+ * [new tag]             1.5.10     -> 1.5.10
+ * [new tag]             1.5.2      -> 1.5.2
+ * [new tag]             1.5.3      -> 1.5.3
+ * [new tag]             1.5.4      -> 1.5.4
+ * [new tag]             1.5.5      -> 1.5.5
+ * [new tag]             1.5.6      -> 1.5.6
+ * [new tag]             1.5.7      -> 1.5.7
+ * [new tag]             1.5.8      -> 1.5.8
+ * [new tag]             1.5.9      -> 1.5.9
+HEAD is now at 96fd1a8c2 Merge pull request #3923 from reitermarkus/rubocop-cask
+==> Tapping homebrew/core
+Cloning into '/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core'...
+remote: Counting objects: 4688, done.
+remote: Compressing objects: 100% (4486/4486), done.
+remote: Total 4688 (delta 48), reused 653 (delta 17), pack-reused 0
+Receiving objects: 100% (4688/4688), 3.81 MiB | 1.53 MiB/s, done.
+Resolving deltas: 100% (48/48), done.
+Tapped 4486 formulae (4,730 files, 11.9MB)
+==> Cleaning up /Library/Caches/Homebrew...
+==> Migrating /Library/Caches/Homebrew to /Users/donghanlee/Library/Caches/Homebrew...
+==> Deleting /Library/Caches/Homebrew...
+Already up-to-date.
+==> Installation successful!
+
+==> Homebrew has enabled anonymous aggregate user behaviour analytics.
+Read the analytics documentation (and how to opt-out) here:
+  https://docs.brew.sh/Analytics.html
+
+==> Next steps:
+- Run `brew help` to get started
+- Further documentation:
+    https://docs.brew.sh
+Donghanui-MacBook-Pro:~ donghanlee$
+
+```

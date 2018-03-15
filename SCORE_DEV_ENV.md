@@ -85,7 +85,11 @@ SCORE 안에서는 다음과 같은 내용을 통한 비지니스 모델은 불�
 * peer 에서 스코어의 배포는 다음의 명령어를 사용합니다.
   * Docker에서 실행시
   ```
-  $ docker run -d ${DOCKER_LOGDRIVE} --name ${PEER_NAME} --link radio_station:radio_station -p ${PORT}:${PORT}  looppeer:${DOCKER_TAG}  python3 peer.py -c ${DEPLOY_SCORE}  -r radio_station -d -p ${PORT}
+  $ docker run -d ${DOCKER_LOGDRIVE} \
+  --name ${PEER_NAME} --link radio_station:radio_station \
+  -p ${PORT}:${PORT}  looppeer:${DOCKER_TAG}  \
+  python3 peer.py -c ${DEPLOY_SCORE}  \
+  -r radio_station -d -p ${PORT}
   ```
   * Local에서 실행시
   ```
