@@ -107,28 +107,24 @@ $ ./run_test.sh
 기본적으로 loopchain 설정은 파일에 의해서 관리됩니다.
 
 * **./loopchain/configure_default.py**
-  * This is the file that records the default setting of loopchain.
-  * It's an essential file that must exists.
+  * 이 파일은 loopchain의 기본 설정을 저장하고 있는 파일입니다.
+  * 반드시 존재해야 하는 필수 파일입니다.
 * **./loopchain/configure_user.py**
-  * This is the file that records the custom settings of loopchain.
-  * You can add this file if necessary. It's not a required file.
-  * It has a higher priority over the configure_default.py file.
-  * You can record the configurations that need to be changed depending on your development environment.
-  * For example, if you want to change the value of "IP_LOCAL", add the configuration you want to change to the configure_user.py file. : IP_LOCAL = '123.456.789.10'
+  * 이 파일은 loopchain의 사용자 정의 설정을 기록하는 파일입니다.
+  * 필요하다면 추가할수 있는 파일이고 필수 파일은 아닙니다.
+  * 이 파일은 configure_default.py 파일 보다는 높은 우선 순위를 가지고 있습니다.
+  * 개발 환경에 따라 변화하는 환경설정을 기록할 수 있습니다.
+  * 예를 들어서 "IP_LOCAL"의 값을 바꾸고 싶다면 configure_user.py 파일에 바꾸기 원하는 환경 설정을 추가하십시오 : IP_LOCAL = '123.456.789.10'
 * **./loopchain/configure.json**
-  * This file is also a configuration file that can be customized depending on your development environment.
-  * You can add the configuration settings according to the json format.
-  * It has the highest priority of all configuation files (configure_default.py, configure_user.py, etc.).
-  * When you run peer.py or radiostation.py, you can apply it by appending -o {JSON FILE PATH} or --configure_file_path {JSON FILE PATH} option.
-
-
+  * 이 파일은 개발 환경에 따라서 사용자 정의할수 있는 환경설정 파일입니다.
+  * json 형식에 따라서 환경 설정 파일을 기록할 수 있습니다.
+  * 이 파일은 모든 설정 파일보다 우선 순위가 높습니다(configure_default.py, configure_user.py, etc.).
+  * peer.py 혹은 radiostation.py를 실행시킬 때 -o -o {JSON FILE PATH} 혹은 --configure_file_path {JSON FILE PATH} option으로 적용시킬수 있습니다.
 
 ### Deplyment
 
 #### loopchain 실행
 이전의 "**설정 가이드**"에서 언급을 하였듯이 RadioStation을 제일 먼저 실행시키고 Peer들을 실행합니다.
-
-
 
 1.**RadioStation을 실행합니다.**
   ```
@@ -278,7 +274,7 @@ $
 
 ### loopchain Docker Image
 
-##### loopchain Docker Image 종류
+#### loopchain Docker Image 종류
 
 loopchain의 Docker image는 다음의 3종류가 있습니다.
 
@@ -295,6 +291,6 @@ $ docker pull loopchain/looprs
 $ docker pull loopchain/looppeer
 $ docker pull loopchain/loopchain-fluentd
 ```
-
-### [Local computer에서 RadioStation과 1개의 Peer로 Blockchain network 구성하기](./Tutorial_1R1P.md)
-### [Local computer에서 RadioStation과 2개의 Peer로 Blockchain network 구성하기](./Tutorial_1R2P.md)
+### Docker image를 이용하여서 로컬 컴퓨터에서 loopchain 네트워크 구성
+1. [**Local computer에서 RadioStation과 1개의 Peer로 Blockchain network 구성하기**](./Tutorial_1R1P.md)
+2. [**Local computer에서 RadioStation과 2개의 Peer로 Blockchain network 구성하기**](./Tutorial_1R2P.md)
