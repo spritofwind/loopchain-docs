@@ -1,6 +1,10 @@
 # Tutorial
-loopchain을 실제 설치하고 운영하는데 있어서 가장 중요한 설치 과정을 연습해보는 과정에 대해서 설명합니다.
-이 문서는 로컬 컴퓨터 상에서 loopchain 을 어떻게 설치 하는지에 대해서 설명합니다.
+이 문서는 loopchain을 실제 설치하고 운영하는데 있어서 가장 중요한 설치 과정을 로컬 컴퓨터에서 연습하는 것을 설명합니다.
+
+설치를 하는 방법은 크게 2가지 방법이 있습니다.
+1. Github에서 프로젝트를 가져다가 직접 설치하고 실행하는 방법입니다.
+2. 제공되는 docker 이미지를 이용하여서 실행하는 방법입니다.
+
 
 ## 필요 환경
 * 추천 OS : Linux(CentOS 7 이상, Ubuntu), MacOS 10.12 이상, Windows 10
@@ -8,26 +12,25 @@ loopchain을 실제 설치하고 운영하는데 있어서 가장 중요한 설�
 * Vituralenv: v15.1.0 이상
 * Docker: 17.x이상
 
-## 설치
+## Github으로부터 설치 - MacOS 기준
+이 문서에서는 MacOS를 기준으로 먼저 설명을 하도록 하겠습니다. 다른 운영체제에서의 설치 방법에 대해서는 추후에 추가될 예정입니다.
 
 ### Python 설치
-이 문서에서는 MacOS를 기준으로 먼저 설명을 하도록 하겠습니다.
-
-일반적으로 MacOS에 기본으로 설치되어 있는 Python은 2.7.x입니다.따라서 Python 3.6이상의 버전으로 설치를 해야만 합니다.
+일반적으로 MacOS에 기본으로 설치되어 있는 Python은 2.7.x입니다.따라서, Python 3.6이상의 버전으로 설치를 해야만 합니다.
 버전 확인 방법은 다음과 같습니다.
 ```
 $ python -V
 Python 2.7.10
 $
 ```
-맥에서 가장 쉽게 Python 3.6이상의 버전을 설치하는 방법은 Homebrew를 이용하는 방법입니다. Homebrew를 설치하는 것은 매우 간단합니다. 터미널에서 다음의 명령어를 복사하여서 붙여 넣고 실행하시면 됩니다.
+맥에서 가장 쉽게 Python 3.6이상의 버전을 설치하는 방법은 Homebrew를 이용하는 방법입니다. Homebrew를 설치하는 것은 매우 간단합니다. 터미널에서 다음의 명령어를 복사하여서 붙여 넣고 실행하시면 됩니다. 맥에 기본적으로 설치되어 있는 ruby를 사용하여서 Homebrew를 설치하는 것입니다.
 
 ```
 $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 설치 중에 비밀번호를 입력하는 부분이 있는데, 컴퓨터 비밀번호를 입력 됩니다.
 
-이제 python3를 Homebrew를 이용해서 설치합니다. 터미널에서 "brew install python3" 명령어를 입력합니다.  
+이제 python3를 Homebrew를 이용해서 설치합니다. 터미널에서 "brew install python3" 명령어를 입력합니다.
 
 ```
 $ brew install python3
@@ -64,19 +67,27 @@ See: https://docs.brew.sh/Homebrew-and-Python
 $
 ```
 
+Python3가 설치완료가 정상적으로 되었는지 버전을 확인합니다.
+```
+$ python3 -V
+Python 3.6.4
+
+```
 
 
-### ghksrudtjf
 
-1. 먼저 Github의 loopchain 프로젝트(https://github.com/theloopkr/loopchain.git)를 clone 합니다.
-2. 프로젝트 폴더로 이동한 다음 사용자 환경을 구축합니다.
+
+### 사용자 환경 구축
+
+1. 먼저 Github에 공개되어 있는  [**loopchain 프로젝트**](https://github.com/theloopkr/loopchain.git)를 clone 합니다.
+2. 프로젝트 폴더로 이동한 다음에 터미널창에서 다음의 명령어로 사용자 환경을 구축합니다.
 ```
 $ virtualenv -p python3 .  # Create a virtual environment
 $ source bin/activate    # Enter the virtual environment
 $ pip3 install -r requirements.txt  # Install necessary packages in the virtual environment
 $ ./generate_code.sh #  gRPC generates codes necessary for communication
 ```
-혹은, 다음의 방법으로 더 쉽게 설정할 수도 있습니다.
+혹은, 프로젝트에 포함되어 있는 스크립트를 사용하는 방법으로 더 쉽게 설정할 수도 있습니다.
 ```
 $ ./setup.sh
 $ source bin/activate
@@ -84,95 +95,93 @@ $ ./setup.sh
 $ ./generate_code.sh
 ```
 
-
-
-
-
-
-## 설치 준비
-
-### Docker 설치하기
-
-
-####  Linux에서 Docker 설치하기
-Docker CE(Community Edition)X86-64, Docker EE(Enterprise edition) X86-64를 운용할 수 있는 최신 환경이면 됩니다.
-
-* Docker CE: 무료 사용버전
-* Docker EE: 상용 버전, 무료 Hosted Trial 사용 가능. 각종 OS들에 대한 지원 추가제공.
-* 모든 상황에서 방법이 없으면 [Docker를 Binary로부터 설치할 수 있는 방법](https://docs.docker.com/install/linux/docker-ce/binaries/)이 있습니다.
-
-|Platform|Docker CE X86_64|Docker EE X86_64|Note |
-|----|----|----|----|
-|CentOS|O|O| CentOS 7이상. [Installation Guide](https://docs.docker.com/install/linux/centos/) |
-|Devian|O||Stretch (stable) / Raspbian Stretch Jessie 8.0 (LTS) / Raspbian Jessie Wheezy 7.7 (LTS). [Installation Guide](https://docs.docker.com/install/linux/docker-ce/debian/) |
-|Fedora|O||Fedora 24, 25 [Installation Guide](https://docs.docker.com/install/linux/docker-ce/fedora/) |
-|Windows Server 2016||O| [Installation Guide](https://docs.docker.com/install/windows/docker-ee/) |
-|Oracle Linux||O| 7.3 이상 [Installation Guide](https://docs.docker.com/install/linux/docker-ee/oracle/) |
-|Red Hat Enterprise Linux||O|64bit version Redhat Enterprise linux 7 on an X86 or S390x [Installation Guide](https://docs.docker.com/install/linux/docker-ee/rhel/) |
-|SUSE Linux Enterprise server||O|SUSE 12.x version (OpenSUSE지원 안함) [Installation Guide](https://docs.docker.com/install/linux/docker-ee/suse/) |
-|Ubuntu|O|O| EE : Xenial 16.04 (LTS) / Trusty 14.04 (LTS) , CE : Zesty 17.04 / Xenial 16.04 (LTS) / Trusty 14.04 (LTS) [Installation Guide](https://docs.docker.com/install/linux/ubuntu/)|
-
-자세한 정보는 Docker 홈페이지의 <https://docs.docker.com/install/> 페이지를 참조하여서 설치하시면 됩니다.
-
-TIP:
+### Unit Test 실행.
+설치가 완료되면 전체 Unit Test를 실행하여서 정상 작동 여부를 확인합니다.
 ```
-Docker 사용자 설정
-
-Add the docker group if it doesn't already exist:
-$ sudo groupadd docker
-
-Add the connected user "$USER" to the docker group. Change the user name to match your preferred user if you do not want to use your current user:
-$ sudo gpasswd -a $USER docker
-
-Either do a "newgrp docker" or log out/in to activate the changes to groups.
+$ ./run_test.sh
 ```
 
-#### Windows / Mac에서 Docker 설치하기
+### Deplyment
 
-Docker 홈페이지의 <https://docs.docker.com/install/> 페이지를 참조하여서 설치하시면 됩니다.
+#### loopchain 실행
+이전의 "**설정 가이드**"에서 언급을 하였듯이 RadioStation을 제일 먼저 실행시키고 Peer들을 실행합니다.
 
+1.**RadioStation을 실행합니다.**
+  ```
+  $  ./radiostation.py  # Execute RadioStation.
+  ```
+  RadioStation을 실행하면 다음과 같은 로그를 확인할 수 있습니다. 이 로그의 의미는 로컬에서 9002번 포트로 다른 Peer들의 연결을 기다리고 있다는 의미입니다. 이제 RadioStation 서비스를 성공적으로 시작한 것입니다.
+  ```
+  $ ./radiostation.py
+  '2018-03-15 18:19:06,184 DEBUG Popen(['git', 'version'], cwd=/Users/donghanlee/loopchain, universal_newlines=False, shell=None)'
+  '2018-03-15 18:19:06,220 DEBUG Popen(['git', 'version'], cwd=/Users/donghanlee/loopchain, universal_newlines=False, shell=None)'
+  '2018-03-15 18:19:06,564 INFO RadioStation main got argv(list): []'
+  '2018-03-15 18:19:06,565 INFO Set RadioStationService IP: 127.0.0.1'
+  '2018-03-15 18:19:06,602 INFO (Broadcast Process) Start.'
+  '2018-03-15 18:19:06,604 DEBUG (Broadcast Process) Status, param() audience(0)'
+  '2018-03-15 18:19:07,599 DEBUG wait start broadcast process....'
+  '2018-03-15 18:19:07,601 DEBUG Broadcast Process start({"result": "success", "Audience": "0"})'
+  ```
+2.**여러 개의 Peer들을 실행합니다.**
 
-#### Docker 동작 확인 하기
+  새로운 터미널 화면을 열고 loopchain 프로젝트 폴더로 이동합니다. 그리고 다음의 명령어를 입력하여서 **첫번째 peer**를 실행합니다.
+  ```
+  $ source bin/activate  # Open python virtual workspace.
+  $ ./peer.py            # Launch peer.
+  ```
+  추가적인 설정을 "configure.json"파일에 작성을 하였고 이를 이용해서 peer를 실행시킨 다면 다음과 같은 명령어 입력으로 peer를 실행 할수 있습니다. (configure.json파일의 위치는 loopchain프로젝트 안에 있는 loopchain 폴더 안에 있습니다. )
+  ```
+  $ ./peer.py -o ./loopchain/configure.json
+  ```
+  다음과 같은 로그를 확인하실수 있습니다.
+  ```
+  ...........
+  '2017-07-20 16:05:13,480 DEBUG peer list update: 1:192.168.18.153:7100 PeerStatus.connected c3c5f2f0-6d19-11e7-875d-14109fdb09f5 (<class 'str'>)'
+  '2017-07-20 16:05:13,480 DEBUG peer_id: c3c5f2f0-6d19-11e7-875d-14109fdb09f5'
+  '2017-07-20 16:05:13,480 DEBUG peer_self: <loopchain.baseservice.peer_list.Peer object at 0x106249b00>'
+  '2017-07-20 16:05:13,481 DEBUG peer_leader: <loopchain.baseservice.peer_list.Peer object at 0x106249b00>'
+  '2017-07-20 16:05:13,481 DEBUG Set Peer Type Block Generator!'
+  '2017-07-20 16:05:13,481 INFO LOAD SCORE AND CONNECT TO SCORE SERVICE!'
+  ```
 
- "docker version" 명령어로 Docker 가 정상 설치되었는지 확인합니다.  다음의 화면을 참고하셔서 확인하십시오.
-```
-$ docker version
-Client:
- Version:	17.12.0-ce
- API version:	1.35
- Go version:	go1.9.2
- Git commit:	c97c6d6
- Built:	Wed Dec 27 20:03:51 2017
- OS/Arch:	darwin/amd64
+  **두번째 peer**를 동일한 방법으로 실행합니다. 이번에는 RadioStation에 연결하는 다른 포트를 사용해야만 합니다.(동일한 로컬 컴퓨터에서 실행되기 때문에 동일한 포트는 사용이 안됩니다.)
+  ```
+  $ source bin/activate # Open python virtual workspace.
+  $ ./peer.py -p 7101   # Launch peer with 7101 port
+  ```
+  각 peer는 RadioStation에 연결될 때 7100 port부터 시작되는 새로운 포트를 수신합니다. 새 peer가 연결될 때마다 RadioStation은 기존 peer 목록을 새 peer에 전달하고 기존 peer에 새로운 peer가 추가되었음을 알립니다.
 
-Server:
- Engine:
-  Version:	17.12.0-ce
-  API version:	1.35 (minimum version 1.12)
-  Go version:	go1.9.2
-  Git commit:	c97c6d6
-  Built:	Wed Dec 27 20:12:29 2017
-  OS/Arch:	linux/amd64
-  Experimental:	true
-$
-```
+3.**각 peer들의 상태 체크**
+  RESTful API를 이용하여서 RadioStation 및 각 peer의 상태를 확인할 수 있습니다.
+  ```
+  $ curl http://localhost:9002/api/v1/peer/list  # Shows a list of peers that are currently configuring the blockchain network in Radiostation.
+  $ curl http://localhost:9000/api/v1/status/peer # Shows the current status of peer0
+  $ curl http://localhost:9001/api/v1/status/peer # Shows the current status of peer1
+  ```
 
-### loopchain Docker Image
-
-##### loopchain Docker Image 종류
-
-loopchain의 Docker image는 다음의 3종류가 있습니다.
-
-* looprs: RadioStation docker image
-* looppeer: Peer docker image
-* loopchain-fluentd: log를 저장하기 위해서 수정한 fluentd image
-
-#### Docker image 받기
-
-아래 화면과 같이 ```docker pull``` 명령을 이용하여서 Docker hub로부터 loopchain docker image들을 다운 받아옵니다.
-
-```
-$ docker pull loopchain/looprs
-$ docker pull loopchain/looppeer
-$ docker pull loopchain/loopchain-fluentd
-```
+4. **새로운 Transaction 생성**
+  RESTful API를 사용하여서 peer0에 새로운 Transaction을 보냅니다.
+  ```
+  $ curl -H "Content-Type: application/json" -d '{"data":"hello"}' http://localhost:9000/api/v1/transactions
+  {"response_code": "0", "tx_hash": "71a3414d77dbdb34b92757ba75e51d9aa498f6a06609419cdf31327da4e9bf38", "more_info": ""}
+  $
+  ```
+5. **새로 생성된 Transaction의 Height를 체크한다**
+  ```
+  $ $ curl http://localhost:9000/api/v1/blocks | python -m json.tool
+    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                   Dload  Upload   Total   Spent    Left  Speed
+  100   404  100   404    0     0  32625      0 --:--:-- --:--:-- --:--:-- 33666
+  {
+      "response_code": 0,
+      "block_hash": "33f84bc5c48339943ec802ecb65e11bdb003c3442e42b1a9581f32459f36f582",
+      "block_data_json": {
+          "prev_block_hash": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "merkle_tree_root_hash": "71a3414d77dbdb34b92757ba75e51d9aa498f6a06609419cdf31327da4e9bf38",
+          "time_stamp": "1521111197115569",
+          "height": "1",
+          "peer_id": "e54b340a-2824-11e8-bf1c-acde48001122"
+      }
+  }
+  $
+  ```
