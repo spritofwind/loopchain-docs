@@ -20,12 +20,49 @@ $ python -V
 Python 2.7.10
 $
 ```
-맥에서 가장 쉽게 Python 3.6이상의 버전을 설치하는 방법은 Homebrew를 이용하는 방법입니다. Homebrew를 설치하는 것은 매우 간단합니다. 터미널에서 다음의 명령어를 복사하여서 붙여넣고 실행하시면 됩니다.
+맥에서 가장 쉽게 Python 3.6이상의 버전을 설치하는 방법은 Homebrew를 이용하는 방법입니다. Homebrew를 설치하는 것은 매우 간단합니다. 터미널에서 다음의 명령어를 복사하여서 붙여 넣고 실행하시면 됩니다.
 
 ```
 $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
-설치 중에 비밀번호를 입력하는 부분이 있는데, 컴퓨터 비밀번호를 입력해주면 됩니다.
+설치 중에 비밀번호를 입력하는 부분이 있는데, 컴퓨터 비밀번호를 입력 됩니다.
+
+이제 python3를 Homebrew를 이용해서 설치합니다. 터미널에서 "brew install python3" 명령어를 입력합니다.  
+
+```
+$ brew install python3
+Updating Homebrew...
+==> Auto-updated Homebrew!
+Updated 1 tap (homebrew/core).
+==> Updated Formulae
+abyss              calabash           dmenu              erlang@18          heroku             octave             pipenv             sonar-scanner
+bedops             dfmt               dynare             erlang@19          libfabric          paket              prometheus         xmrig
+
+.....(중간 생략)....
+
+Python has been installed as
+  /usr/local/bin/python3
+
+Unversioned symlinks `python`, `python-config`, `pip` etc. pointing to
+`python3`, `python3-config`, `pip3` etc., respectively, have been installed into
+  /usr/local/opt/python/libexec/bin
+
+If you need Homebrew's Python 2.7 run
+  brew install python@2
+
+Pip, setuptools, and wheel have been installed. To update them run
+  pip3 install --upgrade pip setuptools wheel
+
+You can install Python packages with
+  pip3 install <package>
+They will install into the site-package directory
+  /usr/local/lib/python3.6/site-packages
+
+See: https://docs.brew.sh/Homebrew-and-Python
+==> Summary
+🍺  /usr/local/Cellar/python/3.6.4_4: 4,615 files, 97.4MB
+$
+```
 
 
 
