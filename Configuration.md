@@ -44,7 +44,7 @@ loopchain을 사용하기 위해 다음의 Port가 열려야 합니다.  Port는
 이 문서에서 각종 상황별로, 문제별로 어떤 옵션을 가지고 설정 파일을 만드는지 정리하여서 작성할 것입니다.
 자세한 것은 각 상황별 **설정 파일**에서 확인하시면 됩니다.
 
-##### Log level 설정하기
+#### Log level 설정하기
 _해당 내용이 실제 설정파일에 예제가 없음. 이 옵션 값을 설정파일에서 어떻게 사용하는지 내용 추가 필요_
 
 LOOPCHAIN\_LOG\_LEVEL을 이용하세요. 아래 중 하나의 String값을 가지면 됩니다. 기본값은 "DEBUG"입니다. (제일 많이 모든 로그를 보여줍니다.)
@@ -67,6 +67,97 @@ LOOPCHAIN\_LOG\_LEVEL을 이용하세요. 아래 중 하나의 String값을 가�
 DEFAULT\_SCORE\_HOST:현재 Blockchain 서비스에서 SCORE를 가져오기 위해 사용할 Git repository의 URL을 설정해주면 됩니다.
 
 _예제 추가 필요_
+
+#### Multichannel
+
+Multichannel을 사용하기 위해서는 SCORE와 Peer의 정보에 대해서 알고 있어야 합니다.
+
+1. `channel_manage_data.json`을 수정합니다. channel의 이름, channel에서 실행되는 SCORE의 이름 그리고, channel에 join하는 peer들의 목록을 작성합니다.
+  ```
+  {
+    "%CHANNEL_NAME1%": { // 1st channel name
+      "score_package": "your_score_package", // 이 채널에서 실행되는 SCORE의 이름
+      "peers": [
+        {
+          "peer_target": "%IP%:%PORT%" // 채널에 포함되는 peer의 정보 & 리스트
+        },
+       ........
+      ]
+    },
+    "%CHANNEL_NAME2%": {  // 2nd channel name
+      "score_package": "your_score_package", // 이 채널에서 실행되는 SCORE의 이름
+      "peers": [
+        {
+          "peer_target": ""%IP%:%PORT%"   // 채널에 포함되는 peer의 정보 & 리스트
+        },
+        .......
+      ]
+    }
+  }
+  ```
+  예를 들어서 `wework_0`,`wework_1` 채널이 각각 SCORE `score/code1`,`score/code2`을 사용한다면 다음과 같이 작성이 될 것입니다.
+  ```
+  {
+   "wework_0": {
+     "score_package": "score/code1",
+     "peers": [
+       {
+         "peer_target": "~~~~"
+       },
+       ......
+     ]
+   },
+   "wework_1": {
+     "score_package": "score/code2",
+     "peers": [
+       {
+         "peer_target": "~~~~"
+       },
+       ........
+     ]
+   }
+  }
+  ```
+2. RadioStation을 설정 파일을 사용하여서 실행합니다.
+  추후에 Docker로 blockchain을 로컬 컴퓨터에서 구현하는 예제에서 자세히 다시 설명이 되겠지만 다음과 같은 순서로 RadioStaion이 설정파일을 읽으면서 실행이 됩니다.
+  ```
+  $ ./radiostation.py -o rs_config.json
+  ```
+  1. RadioStaion이 실행 될 때 가장 먼저 `rs_conf.json`설정 파일이 먼저 로딩됩니다. `rs_conf.json` 파일에 `channel_manage_data.json`파일의 위치가 있습니다.
+  ```
+  {
+   "CHANNEL_MANAGE_DATA_PATH" : "./channel_manage_data.json",
+   "ENABLE_CHANNEL_AUTH" : true
+  }
+  ```
+  각각의 parameter는 다음과 같은 의미가 있습니다.
+    * `CHANNEL_MANAGE_DATA_PATH`: MultiChannel을 위한 환경 설정 파일의 위치와 이름
+    * `ENABLE_CHANNEL_AUTH`
+        * `true` = channel에 등록된 채널만 join이 가능하다.
+        * `false`= 어떤 peer도 등록이 가능하다. 따로 peer 목록이 없는 경우에 사용.
+  2. `channel_manage_data.json`파일에서 MultiChannel에 대한 환경 설정을 읽어옵니다.
+3. Peer를 설정 파일을 이용하여서 실행합니다.
+  `peer_config.json`파일이 peer에서 사용하는 설정 파일입니다.
+  ```
+  {
+      "LOOPCHAIN_DEFAULT_CHANNEL" : "wework_0",
+      "DEFAULT_SCORE_BRANCH": "master"
+  }
+  ```
+  각각의 parameter들은 다음과 같은 의미가 있습니다.
+    * LOOPCHAIN_DEFAULT_CHANNEL : 이 peer에서 사용하는 기본 채널
+    * DEFAULT_SCORE_BRANCH : 사용하는 SCORE의 Branch. 기본값은 master입니다.
+
+  터미널에서 다음과 같은 명령어로 실행하면 됩니다.
+  ```
+  $ ./peer.py -o peer_config.json
+  ```
+
+
+
+
+
+
 
 #### RESTful응답의 성능 높이기
 USE\_GUNICORN\_HA\_SERVER : 실제 운영단계에 들어가는 Node가 많은 RESTful API에 대한 Request들을 잘 받을 수 있게 gunicorn web service에서 쓸지 말지 결정해주는 변수입니다. 기본값은 False입니다. 실제 서비스에 올릴 때는 반드시 True로 설정되어야 합니다.
