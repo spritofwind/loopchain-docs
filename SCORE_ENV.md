@@ -1,7 +1,8 @@
 ## Local computer에서 SCORE를 불러오는 Tutorial
 
 ### 요약
- 이 Tutorial에서는 Github에 올라가 있는 SCORE를 사용자의 컴퓨터에서 Docker로 loopchain을 띄워서 올려서 테스트 합니다.
+ 이 Tutorial에서는 사용자의 컴퓨터에서 Docker로 loopchain을 실행하면서 Github에 있는 SCORE를 사용하는 것을 실습하여 봅니다.
+
 
 ### SCORE 저장소 생성
 
@@ -13,7 +14,7 @@ Github에서 SCORE Sample 프로젝트(https://github.com/theloopkr/contract_sam
 
  `ssh-keygen`명령어를 사용하셔서 `id_tutorial`이라는 이름으로 생성합니다.
 
-  아래 화면을 참고하시고 Github의 자신의 이메일주소로 SSH키를 생성하셔야 합니다. 상세한 내용은 [다음의 링크](  https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/)를 참고해주세요. 만약 Sierra 10.12.2 혹은 그 이후의 MacOS를 사용하시는 분들은 링크의 내용을 참고하셔서 추가적으로 진행하셔야 하는 내용이 있으니 꼭 확인하시고 따라 하십시오.
+  아래 화면을 참고하시고 Github의 자신의 이메일주소로 SSH키를 생성하셔야 합니다. 상세한 내용은 [외부 링크](  https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/)를 참고해주세요. 만약 Sierra 10.12.2 혹은 그 이후의 MacOS를 사용하시는 분들은 링크의 내용을 참고하셔서 추가적으로 진행하셔야 하는 내용이 있으니 꼭 확인하시고 따라 하십시오.
 
 
   ```
