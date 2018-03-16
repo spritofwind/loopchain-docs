@@ -1,7 +1,7 @@
 ## Local computer에서 SCORE를 불러오는 Tutorial
 
 ### 요약
- 이 Tutorial에서는 Github에 올라가 있는 SCORE를 사용자의 컴퓨터에서 Docker로 loopchain을 띄워서 올려서 테스트 해볼것입니다.
+ 이 Tutorial에서는 Github에 올라가 있는 SCORE를 사용자의 컴퓨터에서 Docker로 loopchain을 띄워서 올려서 테스트 합니다.
 
 ### SCORE 저장소 생성
 
@@ -13,7 +13,7 @@ Github에서 SCORE Sample 프로젝트(https://github.com/theloopkr/contract_sam
 
  `ssh-keygen`명령어를 사용하셔서 `id_tutorial`이라는 이름으로 생성합니다.
 
-  아래 화면을 참고하시고 Github의 자신의 이메일주소로 SSH키를 생성하셔야 합니다. 상세한 내용은 [다음의 링크](  https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/)를 참고해주세요. 만약 Sierra 10.12.2 혹은 그 이후의 MacOS를 사용하시는 분들은 꼭 아래 내용을 참고하셔서 추가적으로 진행하셔야 하는 내용이 있으니 꼭 확인하여 주세요.
+  아래 화면을 참고하시고 Github의 자신의 이메일주소로 SSH키를 생성하셔야 합니다. 상세한 내용은 [다음의 링크](  https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/)를 참고해주세요. 만약 Sierra 10.12.2 혹은 그 이후의 MacOS를 사용하시는 분들은 링크의 내용을 참고하셔서 추가적으로 진행하셔야 하는 내용이 있으니 꼭 확인하시고 따라 하십시오.
 
 
   ```
@@ -67,6 +67,7 @@ Github에서 SCORE Sample 프로젝트(https://github.com/theloopkr/contract_sam
   2. SSH key 경로설정 `-v "${SSH_KEY_FOLDER}:/root/.ssh/id_tutorial"`
   3. SCORE 저장소 도메인 설정 `-e "DEFAULT_SCORE_HOST=github.com"`
 
+
   **변경된  `start.sh`파일 내용**
 
     ```
@@ -104,9 +105,9 @@ Github에서 SCORE Sample 프로젝트(https://github.com/theloopkr/contract_sam
 
 1. loopchain 도커 컨테이너를 모두 실행: **start.sh**
 
-```
-$ ./start.sh
-```
+  ```
+  $ ./start.sh
+  ```
 
 2. peer 목록 조회
 ```
@@ -135,8 +136,8 @@ $ curl http://localhost:9002/api/v1/peer/list | python -m json.tool
     "response_code": 0
   }
 ```
-  * 이것은 현재 Blockchain network에 연결된 Peer들을 보여줍니다.
-  * ```connected_peer_count```와 ```registered_peer_count```의 값이 같아야 합니다.
+  * 현재 Blockchain network에 연결된 Peer들을 보여줍니다.
+  * `connected_peer_count`와 `registered_peer_count`의 값이 같아야 합니다.
 
 3. Peer 상태 조회
 ```
@@ -154,52 +155,52 @@ $ curl http://localhost:9000/api/v1/status/peer | python -m json.tool
     "total_tx": 0
 }
 ```
- 이것은 Peer의 block들의 높이, 상태, Tx의 갯수등을 보여줍니다.
+ Peer의 block들의 높이, 상태, Tx의 갯수등을 보여줍니다.
 
 4. SCORE 버전 조회
-```
-$ curl http://localhost:9000/api/v1/status/score | python -m json.tool
-{
-    "all_version": [
-        "f58b8b3e955984a09674a1f74c493001678d706c",
-        "b39064b358b84798f20f024fca066a113ec88b18",
-        "99923ce139350cf8f37ef9f72fddf3f327da4d7a",
-        "e25e2fba404bbc42b010c552d280063c704a0917",
-        "909b1ee00a00f12f744f3d669232c6f4549e945f",
-        "51f258059bcc4f1fa46ba3df8762b953e27fcdee",
-        "359b1f79b8bf2064ce0605d4b081da43a845beda",
-        "3d7195e1e98e38bdddab93fd03ee0c7aa0a20765",
-        "669b6db3a6c085b3de96d7bd13bc19efc26162ae",
-        "5136f28e83e3aaf6fabb0c0556b505ca5b95a44c",
-        "a74476425197c2b2b009a180f24f52efec932da8",
-        "95c0dd33b826c9b529a9f8b6b349e1b002bb9835",
-        "71afe3ca44fa46acced9b12c80ad1951fe83e4bd",
-        "f01986ae06e402a97e48bfddb31d5aeebe1dc07b",
-        "99ece33bb62b8b1c61182d074351b5062311d2f5",
-        "eabe94b94545faac1c8951fb31ef62a9f549cc5f",
-        "f5aab582d9f390f5378daf08f54d08c071f15d0c",
-        "f79c480fc7af6d02c79e1fe3191bbc471962166f",
-        "e38140e76766f2e51f30858a0ee3c82a90b9c258",
-        "af7c49743fecd315d4e4491751fbdae9b92dead7",
-        "bcc0d0f05d1a219cd4ed47955a86b0e16d1b2778"
-    ],
-    "id": "{your_github_id}/contract_sample",
-    "status": 0,
-    "version": "f58b8b3e955984a09674a1f74c493001678d706c"
-}
-```
-이것은 현재 올라온 SCORE의 버전들을 보여줍니다. SCORE는 내부에서 Git으로 버전을 괂리하기 때문에 Git상에서 각 버전의 SHA-1 hash를 보여줍니다.
+  ```
+  $ curl http://localhost:9000/api/v1/status/score | python -m json.tool
+  {
+      "all_version": [
+          "f58b8b3e955984a09674a1f74c493001678d706c",
+          "b39064b358b84798f20f024fca066a113ec88b18",
+          "99923ce139350cf8f37ef9f72fddf3f327da4d7a",
+          "e25e2fba404bbc42b010c552d280063c704a0917",
+          "909b1ee00a00f12f744f3d669232c6f4549e945f",
+          "51f258059bcc4f1fa46ba3df8762b953e27fcdee",
+          "359b1f79b8bf2064ce0605d4b081da43a845beda",
+          "3d7195e1e98e38bdddab93fd03ee0c7aa0a20765",
+          "669b6db3a6c085b3de96d7bd13bc19efc26162ae",
+          "5136f28e83e3aaf6fabb0c0556b505ca5b95a44c",
+          "a74476425197c2b2b009a180f24f52efec932da8",
+          "95c0dd33b826c9b529a9f8b6b349e1b002bb9835",
+          "71afe3ca44fa46acced9b12c80ad1951fe83e4bd",
+          "f01986ae06e402a97e48bfddb31d5aeebe1dc07b",
+          "99ece33bb62b8b1c61182d074351b5062311d2f5",
+          "eabe94b94545faac1c8951fb31ef62a9f549cc5f",
+          "f5aab582d9f390f5378daf08f54d08c071f15d0c",
+          "f79c480fc7af6d02c79e1fe3191bbc471962166f",
+          "e38140e76766f2e51f30858a0ee3c82a90b9c258",
+          "af7c49743fecd315d4e4491751fbdae9b92dead7",
+          "bcc0d0f05d1a219cd4ed47955a86b0e16d1b2778"
+      ],
+      "id": "{your_github_id}/contract_sample",
+      "status": 0,
+      "version": "f58b8b3e955984a09674a1f74c493001678d706c"
+  }
+  ```
+  현재 올라온 SCORE의 버전들을 보여줍니다. SCORE는 내부에서 Git으로 버전을 관리하기 때문에 Git상에서 각 버전의 SHA-1 hash를 보여줍니다.
 
 5. SCORE Transaction 생성
-```
-$ curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc":"2.0","method":"propose","params":{"proposer":"RealEstateAgent" , "counterparties": ["leaseholder","jinho"], "content": "Theloop APT 101-3001, lease for 3 months from 3th April,2018", "quorum": "3"}}'  http://localhost:9000/api/v1/transactions | python -m json.tool
-{
-    "more_info": "",
-    "response_code": "0",
-    "tx_hash": "7bc856e972da62a6cba3deff71e74e848174fc1e28feaae66f58ff2447875f0a"
-}
-```
- 새로운 Transaction을 만들기 위해서, 해당 SCORE의 invoke()아래 구현된 함수를 부릅니다. 이를 위해, 해당 함수를 부를 수 있는 json-rpc 2.0 형태의 JSON을 만들어 부릅니다. 여기서는 ```propose```라는 함수를 불러본 것입니다. 이 결과로 Tx의 Hash값을 되돌려줍니다.
+  ```
+  $ curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc":"2.0","method":"propose","params":{"proposer":"RealEstateAgent" , "counterparties": ["leaseholder","jinho"], "content": "Theloop APT 101-3001, lease for 3 months from 3th April,2018", "quorum": "3"}}'  http://localhost:9000/api/v1/transactions | python -m json.tool
+  {
+      "more_info": "",
+      "response_code": "0",
+      "tx_hash": "7bc856e972da62a6cba3deff71e74e848174fc1e28feaae66f58ff2447875f0a"
+  }
+  ```
+ 새로운 Transaction을 만들기 위해서, 해당 SCORE의 invoke()아래 구현된 함수를 부릅니다. 이를 위해, 해당 함수를 부를 수 있는 json-rpc 2.0 형태의 JSON을 만들어 부릅니다. 여기서는 `propose`라는 함수를 불러본 것입니다. 이 결과로 Tx의 Hash값을 되돌려줍니다.
 
 6. SCORE Transaction 조회 - `tx_hash` 사용     (7bc856e972da62a6cba3deff71e74e848174fc1e28feaae66f58ff2447875f0a)
 ```
@@ -243,7 +244,7 @@ $ curl http://localhost:9000/api/v1/transactions/result?hash=7bc856e972da62a6cba
       "response_code": "0"]
   }
   ```
-  만든 Transaction을 만들기 위해서, 해당 SCORE의 query()아래 구현된 함수를 부릅니다. 이를 위해, 해당 함수를 부를 수 있는 json-rpc 2.0 형태의 JSON을 만들어 부릅니다. 여기서는 ```user_contracts``` 라는 함수를 불러본 것입니다.
+  만들어진 Transaction을 찾기 위해서, 해당 SCORE의 query()아래 구현된 함수를 부릅니다. 이를 위해, 해당 함수를 부를 수 있는 json-rpc 2.0 형태의 JSON을 만들어 부릅니다. 여기서는 `user_contracts` 라는 함수를 불러본 것입니다.
 
 8. peer 상태 조회(block_height, made_block_count,total_tx 변화 확인)
   ```
@@ -262,4 +263,4 @@ $ curl http://localhost:9000/api/v1/transactions/result?hash=7bc856e972da62a6cba
   }
   ```
 
-  앞서 만든 Tx로 ```total_tx```가 증가된 것을 확인할 수 있습니다. 
+  앞서 만든 Tx로 `total_tx`가 증가된 것을 확인할 수 있습니다.

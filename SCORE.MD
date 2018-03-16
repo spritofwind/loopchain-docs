@@ -6,7 +6,7 @@
   - Python Code로 직접 작성할 수 있어 높은 생산성을 가지고 있습니다.
 * Blockchain 프로세스와 별도의 프로세스로 동작하면서 다양한 업무의 지원이 가능합니다.
 * 각 Peer에서 독립적으로 실행되며, Block이 확정되는 시점에서 실행됩니다.
-* Blockchain으로 구성하는 비지니스 로직을 구현한다.
+* Blockchain으로 구성하는 비지니스 로직을 구현합니다.
 * Python 언어로 개발되며, loopchain의 dependency 를 따릅니다.
 
 ## SCORE 구조
@@ -16,28 +16,28 @@
 
 * Github가 현재 SCORE STORE를 대신하고 있습니다.
 * SCORE container
-  * `Package.json`: Function의 정의가 작성되어 있다. 그리고, 실제 SCORE code가 어떤 파일인지 정의되어 있음. Package.json파일에 정의되어 있는 형식으로 Client가 peer와 통신을 한다.
+  * `Package.json`: Function의 정의가 작성되어 있다. 그리고, 실제 SCORE code가 어떤 파일인지 정의되어 있음. Package.json파일에 정의되어 있는 형식으로 Client가 peer와 통신을 합니다.
   * `SCORE code(*.py)`: Python으로 구현된 SCORE용 코드
   * 해당 Project는 Git을 통해서 배포해야 합니다. 아니면 파일로 해당 프로젝트를 압축해서 따로 올려야 합니다.
 
 
 ## SCORE 동작 과정
 
-1. Tx가 만들어지고 합의가 이뤄진다.
-2. 합의에 의해 Block이 검증된다.
-3. 검증된 Block내 Tx 데이터를 가지고 invoke()를 수행
-5. invoke()한 결과를 내부 DB(SCORE DB)에 저장
-6. invoke() 과정에서 저장한 결과는 query()로 찾음
+1. Tx가 만들어지고 합의가 이뤄집니다.
+2. 합의에 의해 Block이 검증됩니다.
+3. 검증된 Block내 Tx 데이터를 가지고 invoke()를 수행합니다.
+5. invoke()한 결과를 내부 DB(SCORE DB)에 저장합니다.
+6. invoke() 과정에서 저장한 결과는 query()로 찾습니다.
 
 
 ![SCORE 동작](./images/Peer_SCORE.png)
 
-내부에 여러 실제 작업들에 대한 함수들이 있고 이것을 JSON-RPC 방식으로 호출한다.(Python으로 작성되어 있음)
-작업된 결과는 SCORE DB에 저장한다.(NoSQL 방식으로 Key-value로 저장)
+내부에 여러 실제 작업들에 대한 함수들이 있고 이것을 JSON-RPC 방식으로 호출합니다.(Python으로 작성되어 있음)
+작업된 결과는 SCORE DB에 저장합니다.(NoSQL 방식으로 Key-value로 저장)
 * invoke() : 검증되고 합의된 transaction 을 가지고 실제 계약 업무를 실행하는 작업
 * query() : SCORE DB에 저장된 결과를 읽어오는 작업
-* 내부에 여러 실제 작업들에 대한 함수들이 있고 이것을 JSON-RPC 방식으로 호출한다.
-* 실제 구현은 Python으로 작성되어 있다.
+* 내부에 여러 실제 작업들에 대한 함수들이 있고 이것을 JSON-RPC 방식으로 호출합니다.
+* 실제 구현은 Python으로 작성되어 있습니다.
 * 작업된 결과는 SCORE DB에 저장한다.
   - NoSQL 방식으로 Key-value로 저장
 * 외부에 노출된 함수

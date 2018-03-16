@@ -4,7 +4,7 @@
 ## 목적
 자신의 컴퓨터상에서 Docker를 이용하여 RadioStation과 Peer 2개로 구성된 네트워크 환경을 구성하고 정상적으로 동작하는지 테스트를 합니다. 다음의 그림과 같은 구조로 네트워크가 구성이 됩니다.
 
-![RadioStation & 2 peer](images/1Radio2Peer.png)
+![RadioStation & 2 peer](images/1R2P.png)
 
 ## 디렉토리 구성
 이 문서의 내용을 따라하게 되면 다음과 같은 디렉토리 구성이 만들어지게 됩니다.

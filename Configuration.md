@@ -1,6 +1,6 @@
 ## 설정 가이드
 ### loopchain network 설정 유의 사항
-* RadioStation을 제일 먼저 실행시키고 Peer들을 실행하여 주세요.
+* RadioStation을 제일 먼저 실행시키고 Peer들을 실행하셔야 합니다.
 * 모든 Peer들은 N:N으로 연결됩니다. 따라서, 모든 Peer들이 서로 IP:Port로 연결할 수 있어야 합니다.
 * RadioStation 이나 Peer에서 외부 Host file과 연결을 해주실 폴더들이 있습니다. 이 설정이 없으면 Docker container 가 죽었을 때에 데이터를 잃어버리실 수가 있습니다.
   * **"/storage"**:  RadioStation, Peer들의 데이터를 보관하는 폴더
@@ -65,8 +65,13 @@ LOOPCHAIN\_LOG\_LEVEL을 이용하세요. 아래 중 하나의 String값을 가�
 
 #### SCORE 불러오는 Repository URL 바꾸기
 DEFAULT\_SCORE\_HOST:현재 Blockchain 서비스에서 SCORE를 가져오기 위해 사용할 Git repository의 URL을 설정해주면 됩니다.
-
-_예제 추가 필요_
+Docker로 Peer를 실행할 때의 `DEFAULT_SCORE_HOST`옵션으로 SCORE를 가져올 Git service URL을 지정합니다.
+```
+$ docker run -d --name peer0 \
+   .....
+   -e "DEFAULT_SCORE_HOST=github.com" \
+   .....
+```
 
 #### Multichannel
 
@@ -152,9 +157,6 @@ Multichannel을 사용하기 위해서는 SCORE와 Peer의 정보에 대해서 �
   ```
   $ ./peer.py -o peer_config.json
   ```
-
-
-
 
 
 
