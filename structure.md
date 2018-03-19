@@ -1,6 +1,3 @@
-
-
-
 ## loopchain의 기본 구조
 
 ### 기본 구조도
@@ -18,8 +15,8 @@
 * Peer들의 인증서를 설치시 넣어주고 설정파일에서 이를 읽어서 처리하게 하고 있습니다. KMS(Key management system)지원하는 기능도 Enterprise용으로 지원합니다.
 
 ### Peer
-* 블록 생성, 블럭관리, 트랜젝션 생성, 조회, 원장 조회등의 기능을 처리합니다..
-* Peer가 생성될 때에 RadioStation과 연결한다. 시작할 때에 RadioStation의 접속정보(IP:Port)를 가지고 연결합니다.
+* 블록 생성, 블록 관리, 트랜잭션 생성, 조회, 원장 조회 등의 기능을 처리합니다.
+* Peer가 생성될 때에 RadioStation과 연결한다. 시작할 때에 RadioStation의 접속 정보(IP:Port)를 가지고 연결합니다.
 * **가장 먼저 RadioStation에 연결되는 Peer가 Leader Peer가 됩니다.**
 * 주의 : 최소 4개 이상의 Peer가 필요합니다.
 
