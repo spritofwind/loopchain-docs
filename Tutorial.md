@@ -229,18 +229,17 @@ Docker CE(Community Edition)X86-64, Docker EE(Enterprise edition) X86-64를 운�
 
 자세한 정보는 Docker 홈페이지의 <https://docs.docker.com/install/> 페이지를 참조하여서 설치하시면 됩니다.
 
-TIP:
-```
-Docker 사용자 설정
+* TIP : Docker 사용자 설정
 
-Add the docker group if it doesn't already exist:
-$ sudo groupadd docker
+  ```
+  Add the docker group if it doesn't already exist:
+  $ sudo groupadd docker
 
-Add the connected user "$USER" to the docker group. Change the user name to match your preferred user if you do not want to use your current user:
-$ sudo gpasswd -a $USER docker
+  Add the connected user "$USER" to the docker group. Change the user name to match your preferred user if you do not want to use your current user:
+  $ sudo gpasswd -a $USER docker
 
-Either do a "newgrp docker" or log out/in to activate the changes to groups.
-```
+  Either do a "newgrp docker" or log out/in to activate the changes to groups.
+  ```
 
 #### Windows / Mac에서 Docker 설치하기
 
@@ -291,6 +290,8 @@ $ docker pull loopchain/looprs
 $ docker pull loopchain/looppeer
 $ docker pull loopchain/loopchain-fluentd
 ```
+
+
 ### Docker image를 이용하여서 로컬 컴퓨터에서 loopchain 네트워크 구성
 1. [**Local computer에서 RadioStation과 1개의 Peer로 Blockchain network 구성하기**](./Tutorial_1R1P.md)
 2. [**Local computer에서 RadioStation과 2개의 Peer로 Blockchain network 구성하기**](./Tutorial_1R2P.md)
