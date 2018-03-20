@@ -14,4 +14,4 @@
 # Reference
 * RESTful API
   1. [RadioStation - RESTful API](./Radiostation-RESTful_API.md)
-  2. [Peer - RESTful API](./peer-RESTful_API.md)
+  2. [Peer - RESTful API](./Peer-RESTful_API.md)
