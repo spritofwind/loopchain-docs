@@ -127,9 +127,9 @@ $ mv rs_conf.json ./conf
    - LOOPCHAIN_DEFAULT_CHANNEL: 해당 peer가 channel_manage_data.json에서 설정한 channel중에 별도로 지정하지 않고 request가 들어오면 기본적으로 사용할 channel을 정합니다.
    - DEFAULT_SCORE_BRANCH: SCORE를 사용할 때, 어떤 branch의 것을 이용 할지를 정합니다. 기본값은 master입니다. 참고로 SCORE는 git repository로 원격 git repository의 것을 clone해서 쓰거나 따로 파일로 읽어오게 해야 합니다.
 
- 2. 작성된 `peer_conf.json`를 `/conf` 디렉토리로 이동합니다.
+ 2. 작성된 `peer_conf0.json`를 `/conf` 디렉토리로 이동합니다.
 ```
-$ mv peer_conf.json ./conf
+$ mv peer_conf0.json ./conf
 ```
 
 #### `peer_conf1.json` 작성
@@ -147,7 +147,7 @@ $ mv peer_conf.json ./conf
 
  2. 작성된 `peer_conf1.json`를 `/conf` 디렉토리로 이동합니다.
 ```
-$ mv peer_conf.json ./conf
+$ mv peer_conf1.json ./conf
 ```
 
 
@@ -254,7 +254,7 @@ $
 ### RadioStation의 Channel1에 접속된 Peer들의 정보 출력
 `curl http://localhost:9002/api/v1/peer/list?channel=channel1 | python -m json.tool` 명령어를 입력합니다. 정상적으로 동작하고 있다면 다음과 비슷한 메세지가 출력이 될 것입니다.
 ```
-$ $ curl http://localhost:9002/api/v1/peer/list?channel=channel1 | python -m json.tool
+$ curl http://localhost:9002/api/v1/peer/list?channel=channel1 | python -m json.tool
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100  1573  100  1573    0     0  64583      0 --:--:-- --:--:-- --:--:-- 65541
@@ -316,7 +316,7 @@ $
 `curl http://localhost:9000/api/v1/status/peer?channel=channel1 | python -m json.tool` 명령어를 입력합니다. 정상적으로 동작하고 있다면 다음과 비슷한 메세지가 출력이 될 것입니다.
 
 ```
-$ $ curl http://localhost:9000/api/v1/status/peer?channel=channel1 | python -m json.tool
+$ curl http://localhost:9000/api/v1/status/peer?channel=channel1 | python -m json.tool
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100   264  100   264    0     0  19717      0 --:--:-- --:--:-- --:--:-- 20307

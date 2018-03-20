@@ -1,4 +1,4 @@
-## Github으로부터 설치 - MacOS 기준
+## GitHub으로부터 설치 - MacOS 기준
 이 문서에서는 MacOS를 기준으로 먼저 설명을 하도록 하겠습니다. 다른 운영체제에서의 설치 방법에 대해서는 추후에 추가될 예정입니다.
 
 ### Python 설치
@@ -53,7 +53,7 @@ See: https://docs.brew.sh/Homebrew-and-Python
 $
 ```
 
-Python3가 설치완료가 정상적으로 되었는지 버전을 확인합니다.
+Python3가 설치 완료가 정상적으로 되었는지 버전을 확인합니다.
 ```
 $ python3 -V
 Python 3.6.4
@@ -66,7 +66,8 @@ Python 3.6.4
 ### 사용자 환경 구축
 
 1. 먼저 Github에 공개되어 있는  [**loopchain 프로젝트**](https://github.com/theloopkr/loopchain.git)를 clone 합니다.
-2. 프로젝트 폴더로 이동한 다음에 터미널창에서 다음의 명령어로 사용자 환경을 구축합니다.
+2. 터미널에서 프로젝트 폴더로 이동한 다음에 아래의 명령어로 사용자 환경을 구축합니다.
+
 ```
 $ virtualenv -p python3 .  # Create a virtual environment
 $ source bin/activate    # Enter the virtual environment
@@ -95,15 +96,15 @@ $ ./run_test.sh
   * 반드시 존재해야 하는 필수 파일입니다.
 * **./loopchain/configure_user.py**
   * 이 파일은 loopchain의 사용자 정의 설정을 기록하는 파일입니다.
-  * 필요하다면 추가할수 있는 파일이고 필수 파일은 아닙니다.
+  * 필요하다면 추가 할 수 있는 파일이고 필수 파일은 아닙니다.
   * 이 파일은 configure_default.py 파일 보다는 높은 우선 순위를 가지고 있습니다.
   * 개발 환경에 따라 변화하는 환경설정을 기록할 수 있습니다.
   * 예를 들어서 "IP_LOCAL"의 값을 바꾸고 싶다면 configure_user.py 파일에 바꾸기 원하는 환경 설정을 추가하십시오 : IP_LOCAL = '123.456.789.10'
 * **./loopchain/configure.json**
-  * 이 파일은 개발 환경에 따라서 사용자 정의할수 있는 환경설정 파일입니다.
+  * 이 파일은 개발 환경에 따라서 사용자 정의할 수 있는 환경설정 파일입니다.
   * json 형식에 따라서 환경 설정 파일을 기록할 수 있습니다.
   * 이 파일은 모든 설정 파일보다 우선 순위가 높습니다(configure_default.py, configure_user.py, etc.).
-  * peer.py 혹은 radiostation.py를 실행시킬 때 -o -o {JSON FILE PATH} 혹은 --configure_file_path {JSON FILE PATH} option으로 적용시킬수 있습니다.
+  * peer.py 혹은 radiostation.py를 실행시킬 때 -o -o {JSON FILE PATH} 혹은 --configure_file_path {JSON FILE PATH} option으로 적용시킬 수 있습니다.
 
 ### Deplyment
 
@@ -133,7 +134,7 @@ $ ./run_test.sh
   $ source bin/activate  # Open python virtual workspace.
   $ ./peer.py            # Launch peer.
   ```
-  추가적인 설정을 "configure.json"파일에 작성을 하였고 이를 이용해서 peer를 실행시킨 다면 다음과 같은 명령어 입력으로 peer를 실행 할수 있습니다. (configure.json파일의 위치는 loopchain프로젝트 안에 있는 loopchain 폴더 안에 있습니다. )
+  추가적인 설정을 "configure.json"파일에 작성을 하였고 이를 이용해서 peer를 실행시킨 다면 다음과 같은 명령어 입력으로 peer를 실행 할 수 있습니다. (configure.json파일의 위치는 loopchain프로젝트 안에 있는 loopchain 폴더 안에 있습니다. )
   ```
   $ ./peer.py -o ./loopchain/configure.json
   ```
@@ -156,6 +157,7 @@ $ ./run_test.sh
   각 peer는 RadioStation에 연결될 때 7100 port부터 시작되는 새로운 포트를 수신합니다. 새 peer가 연결될 때마다 RadioStation은 기존 peer 목록을 새 peer에 전달하고 기존 peer에 새로운 peer가 추가되었음을 알립니다.
 
 3.**각 peer들의 상태 체크**
+
   RESTful API를 이용하여서 RadioStation 및 각 peer의 상태를 확인할 수 있습니다.
   ```
   $ curl http://localhost:9002/api/v1/peer/list  # Shows a list of peers that are currently configuring the blockchain network in Radiostation.
@@ -164,6 +166,7 @@ $ ./run_test.sh
   ```
 
 4.**새로운 Transaction 생성**
+
   RESTful API를 사용하여서 peer0에 새로운 Transaction을 보냅니다.
   ```
   $ curl -H "Content-Type: application/json" -d '{"data":"hello"}' http://localhost:9000/api/v1/transactions

@@ -1,20 +1,20 @@
 ## Local computer에서 SCORE를 불러오는 Tutorial
 
-### 요약
+### 목적
  이 Tutorial에서는 사용자의 컴퓨터에서 Docker로 loopchain을 실행하면서 Github에 있는 SCORE를 사용하는 것을 실습하여 봅니다.
 
 
 ### SCORE 저장소 생성
 
-#### 1. Github에서 SCORE sample을 form 해오기
-Github에서 SCORE Sample 프로젝트(https://github.com/theloopkr/contract_sample) 를 fork 하여서 SCORE 개발 환경을 위한 테스트용 SCORE 저장소를 생성합니다.
+#### 1. GitHub에서 SCORE sample을 fork 해오기
+GitHub에서 SCORE Sample 프로젝트(https://github.com/theloopkr/contract_sample) 를 자신의 계정으로 fork 하여서 SCORE 개발 환경을 위한 테스트용 SCORE 저장소를 생성합니다.
  ![github](/images/github_contract-sample.png)
 
 #### 2. SCORE 저장소와 SSH통신을 위해 SSH키를 생성하기
 
  `ssh-keygen`명령어를 사용하셔서 `id_tutorial`이라는 이름으로 생성합니다.
 
-  아래 화면을 참고하시고 Github의 자신의 이메일주소로 SSH키를 생성하셔야 합니다. 상세한 내용은 [외부 링크](  https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/)를 참고해주세요. 만약 Sierra 10.12.2 혹은 그 이후의 MacOS를 사용하시는 분들은 링크의 내용을 참고하셔서 추가적으로 진행하셔야 하는 내용이 있으니 꼭 확인하시고 따라 하십시오.
+  아래 화면을 참고하시고 GitHub의 자신의 이메일주소로 SSH키를 생성하셔야 합니다. 상세한 내용은 [외부 링크](  https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/)를 참고해주세요. 만약 Sierra 10.12.2 혹은 그 이후의 MacOS를 사용하시는 분들은 링크의 내용을 참고하셔서 추가적으로 진행하셔야 하는 내용이 있으니 꼭 확인하시고 따라 하십시오.
 
 
   ```
@@ -29,11 +29,11 @@ Github에서 SCORE Sample 프로젝트(https://github.com/theloopkr/contract_sam
 
   ```
 
-#### 3. Github에 Deployment key를 등록하기
+#### 3. GitHub에 Deployment key를 등록하기
 
  앞서 Fork를 뜬 SCORE 저장소에 SSH public key 내용을 (예:id_tutorial.pub)를 등록합니다.
 
-  * Public key의 내용을 환영합니다.
+  * Public key의 내용을 확인합니다.
   ```
   $ cat .ssh/id_tutorial.pub
   ssh-rsa
@@ -51,8 +51,7 @@ Github에서 SCORE Sample 프로젝트(https://github.com/theloopkr/contract_sam
 
 #### 1. RadioStation 설정 -   SCORE 저장소 경로 설정
 
- ```channel_manage_data.json```을 열어서 ```score_package```의 값으로
-``` "{your_github_id}/contract_sample" ```라고 주세요.
+ ```channel_manage_data.json```을 열어서 ```score_package```의 값으로 ``` "{your_github_id}/contract_sample" ```라고 수정합니다.
 
   **```channel_manage_data.json```**
   ```
@@ -109,7 +108,6 @@ Github에서 SCORE Sample 프로젝트(https://github.com/theloopkr/contract_sam
   ```
   $ ./start.sh
   ```
-
 2. peer 목록 조회
 ```
 $ curl http://localhost:9002/api/v1/peer/list | python -m json.tool
@@ -139,7 +137,6 @@ $ curl http://localhost:9002/api/v1/peer/list | python -m json.tool
 ```
   * 현재 Blockchain network에 연결된 Peer들을 보여줍니다.
   * `connected_peer_count`와 `registered_peer_count`의 값이 같아야 합니다.
-
 3. Peer 상태 조회
 ```
 $ curl http://localhost:9000/api/v1/status/peer | python -m json.tool
@@ -157,7 +154,6 @@ $ curl http://localhost:9000/api/v1/status/peer | python -m json.tool
 }
 ```
  Peer의 block들의 높이, 상태, Tx의 갯수등을 보여줍니다.
-
 4. SCORE 버전 조회
   ```
   $ curl http://localhost:9000/api/v1/status/score | python -m json.tool

@@ -1,14 +1,14 @@
 ## 설정 가이드
 ### loopchain network 설정 유의 사항
-* RadioStation을 제일 먼저 실행시키고 Peer들을 실행하셔야 합니다.
+* RadioStation을 제일 먼저 실행시키고 Peer들을 실행 하셔야 합니다.
 * 모든 Peer들은 N:N으로 연결됩니다. 따라서, 모든 Peer들이 서로 IP:Port로 연결할 수 있어야 합니다.
 * RadioStation 이나 Peer에서 외부 Host file과 연결을 해주실 폴더들이 있습니다. 이 설정이 없으면 Docker container 가 죽었을 때에 데이터를 잃어버리실 수가 있습니다.
   * **"/storage"**:  RadioStation, Peer들의 데이터를 보관하는 폴더
   * **"/conf"** : 설정 파일들이 담긴 폴더
   * **"/score"** SCORE를 zip해서 띄울 때에, SCORE 파일이 담긴 zip파일의 위치
-* Multi Channel 설정 / SCORE 설정은 설정파일을 잘 확인해 주세요. 설정파일에 오류가 있으면 찾기 힘듭니다.
-* 서로 다른 Host 들에서 띄울 때는 LOOPCHAIN_HOST 설정을 이용해서 RadioStation이 다른 Node들에게 Peer 목록을 띄울 때, 외부 서버들에서 해당 Node에 접근 할 수 있게 해주세요.
-* **최소 노드 수** : 제대로 된 Blockchain network를 구성하기 위해서 약 **4개 이상의 Node**들을 띄우셔야 합니다. 예제들에서 1개 혹은 2개만 띄운 것은 일종의 예제로 보시면 됩니다.
+* Multi Channel 설정 / SCORE 설정은 설정 파일을 잘 확인해 주세요. 설정 파일에 오류가 있으면 찾기 힘듭니다.
+* 서로 다른 Host 들에서 띄울 때는 LOOPCHAIN_HOST 설정을 이용해서 RadioStation이 다른 Node들에게 Peer 목록을 띄울 때, 외부 서버 들에서 해당 Node에 접근 할 수 있게 해주세요.
+* **최소 노드 수** : 제대로 된 Blockchain network를 구성하기 위해서 약 **4개 이상의 Node**들을 띄우셔야 합니다. 예제에서 1개 혹은 2개만 띄운 것은 일종의 예제로 보시면 됩니다.
 
 ### 포트 열기
 loopchain을 사용하기 위해 다음의 Port가 열려야 합니다.  Port는 설정에서 변경이 가능합니다.
@@ -41,8 +41,8 @@ loopchain을 사용하기 위해 다음의 Port가 열려야 합니다.  Port는
 
 ```$ python3 peer.py -o peer_conf.json .....   ```
 
-이 문서에서 각종 상황별로, 문제별로 어떤 옵션을 가지고 설정 파일을 만드는지 정리하여서 작성할 것입니다.
-자세한 것은 각 상황별 **설정 파일**에서 확인하시면 됩니다.
+이 문서에서 각종 상황 별로, 문제 별로 어떤 옵션을 가지고 설정 파일을 만드는지 정리하여서 작성할 것입니다.
+자세한 것은 각 상황 별 **설정 파일**에서 확인하시면 됩니다.
 
 #### Log level 설정하기
 _해당 내용이 실제 설정파일에 예제가 없음. 이 옵션 값을 설정파일에서 어떻게 사용하는지 내용 추가 필요_
@@ -123,7 +123,7 @@ Multichannel을 사용하기 위해서는 SCORE와 Peer의 정보에 대해서 �
    }
   }
   ```
-2. RadioStation을 설정 파일을 사용하여서 실행합니다.
+2. 설정 파일을 사용하여서 RadioStation을 실행합니다.
   추후에 Docker로 blockchain을 로컬 컴퓨터에서 구현하는 예제에서 자세히 다시 설명이 되겠지만 다음과 같은 순서로 RadioStaion이 설정파일을 읽으면서 실행이 됩니다.
   ```
   $ ./radiostation.py -o rs_config.json
@@ -135,8 +135,8 @@ Multichannel을 사용하기 위해서는 SCORE와 Peer의 정보에 대해서 �
    "ENABLE_CHANNEL_AUTH" : true
   }
   ```
-  각각의 parameter는 다음과 같은 의미가 있습니다.
-    * `CHANNEL_MANAGE_DATA_PATH`: MultiChannel을 위한 환경 설정 파일의 위치와 이름
+  Parameter는 다음과 같은 의미가 있습니다.
+    * `CHANNEL_MANAGE_DATA_PATH`: Multichannel을 위한 환경 설정 파일의 위치와 이름
     * `ENABLE_CHANNEL_AUTH`
         * `true` = channel에 등록된 채널만 join이 가능하다.
         * `false`= 어떤 peer도 등록이 가능하다. 따로 peer 목록이 없는 경우에 사용.
@@ -149,7 +149,7 @@ Multichannel을 사용하기 위해서는 SCORE와 Peer의 정보에 대해서 �
       "DEFAULT_SCORE_BRANCH": "master"
   }
   ```
-  각각의 parameter들은 다음과 같은 의미가 있습니다.
+   Parameter들은 다음과 같은 의미가 있습니다.
     * LOOPCHAIN_DEFAULT_CHANNEL : 이 peer에서 사용하는 기본 채널
     * DEFAULT_SCORE_BRANCH : 사용하는 SCORE의 Branch. 기본값은 master입니다.
 
@@ -167,8 +167,9 @@ USE\_GUNICORN\_HA\_SERVER : 실제 운영단계에 들어가는 Node가 많은 R
 #### Network가 느릴 경우 조절해야 하는 것들
 상황에 따라서 느린 네트워크에 운용을 하게 된다면 여러가지 네트워크 속도에 장애가 있는지 아닌지 확인하고 설정을 바꿔야 합니다.
 
-**Case 1. RadioStaion의 Hart beat의 시간조절**
-RadioStation은 리더 장애를 파악하기 위해 주기적으로 Peer들에게 HeartBeat를 보내고 허용된 횟수만큼 리더가 응답이 없을 경우 리더를 교체하는 과정을 수행합니다. 그러나 네트워크 사정이 설치되는 환경에 따라 다를 것이기 때문에 아래의 변수들을 RadioStation에서 설정해주셔야 합니다.
+**Case 1. RadioStaion의 Hart beat의 시간 조절**
+
+RadioStation은 리더 장애를 파악하기 위해 주기적으로 Peer들에게 Heart Beat를 보내고 허용된 횟수만큼 리더가 응답이 없을 경우 리더를 교체하는 과정을 수행합니다. 그러나 네트워크 사정이 설치되는 환경에 따라 다를 것이기 때문에 아래의 변수들을 RadioStation에서 설정해 주셔야 합니다.
 
 * **SLEEP\_SECONDS\_IN\_RADIOSTATION\_HEARTBEAT** : RadioStation이 Peer의 Status를 확인하는 시간. 단위는 Second. 기본값은 30초.
 * **NO\_RESPONSE\_COUNT\_ALLOW\_BY\_HEARTBEAT**: RadioStation이 Status 확인이 안되는 Leader를 교체할 횟수. 기본값은 5회.
@@ -176,6 +177,7 @@ RadioStation은 리더 장애를 파악하기 위해 주기적으로 Peer들에�
 **"SLEEP\_SECONDS\_IN\_RADIOSTATION\_HEARTBEAT"** X **"NO\_RESPONSE\_COUNT\_ALLOW\_BY\_HEARTBEAT"**  횟수 만큼 리더 응답이 없으면  RadioStation이 리더를 교체합니다.
 
 **Case 2. Peer들의 연결 Timeout 설정하기**
+
 네트워크 상태에 따라서 아래 변수들을 수정해야 할 수 있습니다. 보통의 경우에는 설정할 필요가 없지만 네트워크가 매우 안좋은 상황에는 시도해볼 수 있습니다.
 
 * **GRPC_TIMEOUT**: gRPC 연결하는 시간의 Timeout 한계치. 단위는 Second.
@@ -184,7 +186,7 @@ RadioStation은 리더 장애를 파악하기 위해 주기적으로 Peer들에�
 #### Hardware 성능의 문제로 Block에 담기는 Tx 숫자를 조절
 Blockchain은 검증된 여러 Tx들을 담고 있는 Block들의 연결입니다. 그러나 Hardware와 Network의 제약으로 이를 조절해야 할 경우, 그리고 Tx의 크기가 너무 크게 될 때, 아래의 변수들을 수정해주십시오. 참고로 한개의 Tx안에 담기는 정보가 3MB 이하로 쓰기를 권장합니다.
 
-* MAX\_BLOCK\_TX\_NUM: 블럭의 담기는 트랜잭션의 최대 개수
+* MAX\_BLOCK\_TX\_NUM: 블록의 담기는 트랜잭션의 최대 개수
 * LEADER\_BLOCK\_CREATION\_LIMIT: Leader 의 block 생성 개수. 한 Leader가 이 개수 이상의 Block을 만들면 다른 Peer로 Leader가 변경.
 * BLOCK\_VOTE\_TIMEOUT: Block에 대한 투표 응답을 기다리는 최대 시간. 단위는 Seconds.
 
@@ -202,7 +204,7 @@ loopchain에서 사용하는 키는 다음과 같습니다.
 ##### Channel 별 서명 키 옵션 설정
 loopchain에서는 트랜잭션 생성 및 블록 생성시 각 Peer를 검증하기위하여 공개키 기반 암호화 알고리즘을 통해 인증 서명을 사용합니다.이때 사용하는 알고리즘은 ecdsa secp256k를 사용하고 인증서 형태와 Public key 형태를 지원합니다.
 
-loopchain Peer는 키를 로드 하기 위해 공개 키의 형태와(cert, publickey), 키세트 로드방식, 키 위치등을 설정하여야 합니다. json형태로 옵션을 설정해야 하며 다음 예제는 키 옵션별로 세팅해야 될 세팅을 설명합니다.
+loopchain Peer는 키를 로드 하기 위해 공개 키의 형태와(cert, public key), 키 세트 로드 방식, 키 위치등을 설정하여야 합니다. json형태로 옵션을 설정해야 하며 다음 예제는 키 옵션 별로 세팅해야 될 세팅을 설명합니다.
 
 
 ex)

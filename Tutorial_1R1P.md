@@ -30,10 +30,10 @@
 
 ## 설정 파일 생성
 ###  디렉토리 생성
-먼저 로그서버의 설정 파일 폴더를 생성하고 로그를 따로 저장할 폴더를 생성합니다. 그리고 RadioStation과  Peer의 설정파일을 따로 보관할 폴더를 만듭니다.
+로그 서버의 설정 파일 폴더를 생성하고 로그를 따로 저장할 폴더를 생성합니다. 그리고 RadioStation과  Peer의 설정파일을 따로 보관할 폴더를 만듭니다.
 ```
-$ mkdir -p fluentd/etc.   	# 로그서버의 설정 파일 폴더를 생성.
-$ mkdir logs.			# 로그를 따로 저장할 폴더를 생성.
+$ mkdir -p fluentd/etc   	# 로그 서버의 설정 파일 폴더를 생성.
+$ mkdir logs			# 로그를 따로 저장할 폴더를 생성.
 $ mkdir conf			# RadioStation과  Peer의 설정파일을 따로 보관할 폴더를 생성.
 ```
 
@@ -43,7 +43,6 @@ $ mkdir conf			# RadioStation과  Peer의 설정파일을 따로 보관할 폴�
 log 서버의 설정 파일을 작성하고 설정 파일 위치로 이동합니다. 이것은 모든 log 들을 파일로 남기는 설정입니다.
 
  1. ```fluent.conf```을 아래와 같이 만듭니다.
-
  ```
  <source>
  	@type forward
@@ -65,7 +64,6 @@ log 서버의 설정 파일을 작성하고 설정 파일 위치로 이동합니
  	</store>
  </match>
  ```
-
  2. 작성된 `fluent.conf`를 `fluentd/etc` 디렉토리로 이동합니다.
 ```
 $ mv fluent.conf ./fluentd/etc

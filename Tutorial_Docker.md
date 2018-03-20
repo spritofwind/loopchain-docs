@@ -3,7 +3,7 @@
 ####  Linux에서 Docker 설치하기
 Docker CE(Community Edition)X86-64, Docker EE(Enterprise edition) X86-64를 운용할 수 있는 최신 환경이면 됩니다.
 
-* Docker CE: 무료 사용버전
+* Docker CE: 무료 사용 버전
 * Docker EE: 상용 버전, 무료 Hosted Trial 사용 가능. 각종 OS들에 대한 지원 추가제공.
 * 모든 상황에서 방법이 없으면 [Docker를 Binary로부터 설치할 수 있는 방법](https://docs.docker.com/install/linux/docker-ce/binaries/)이 있습니다.
 
@@ -13,10 +13,10 @@ Docker CE(Community Edition)X86-64, Docker EE(Enterprise edition) X86-64를 운�
 |Devian|O||Stretch (stable) / Raspbian Stretch Jessie 8.0 (LTS) / Raspbian Jessie Wheezy 7.7 (LTS). [Installation Guide](https://docs.docker.com/install/linux/docker-ce/debian/) |
 |Fedora|O||Fedora 24, 25 [Installation Guide](https://docs.docker.com/install/linux/docker-ce/fedora/) |
 |Windows Server 2016||O| [Installation Guide](https://docs.docker.com/install/windows/docker-ee/) |
-|Oracle Linux||O| 7.3 이상 [Installation Guide](https://docs.docker.com/install/linux/docker-ee/oracle/) |
-|Red Hat Enterprise Linux||O|64bit version Redhat Enterprise linux 7 on an X86 or S390x [Installation Guide](https://docs.docker.com/install/linux/docker-ee/rhel/) |
-|SUSE Linux Enterprise server||O|SUSE 12.x version (OpenSUSE지원 안함) [Installation Guide](https://docs.docker.com/install/linux/docker-ee/suse/) |
-|Ubuntu|O|O| EE : Xenial 16.04 (LTS) / Trusty 14.04 (LTS) , CE : Zesty 17.04 / Xenial 16.04 (LTS) / Trusty 14.04 (LTS) [Installation Guide](https://docs.docker.com/install/linux/ubuntu/)|
+|Oracle Linux||O| 7.3 이상. [Installation Guide](https://docs.docker.com/install/linux/docker-ee/oracle/) |
+|Red Hat Enterprise Linux||O|64bit version Redhat Enterprise linux 7 on an X86 or S390x. [Installation Guide](https://docs.docker.com/install/linux/docker-ee/rhel/) |
+|SUSE Linux Enterprise server||O|SUSE 12.x version (OpenSUSE지원 안함). [Installation Guide](https://docs.docker.com/install/linux/docker-ee/suse/) |
+|Ubuntu|O|O| EE : Xenial 16.04 (LTS) / Trusty 14.04 (LTS) , CE : Zesty 17.04 / Xenial 16.04 (LTS) / Trusty 14.04 (LTS). [Installation Guide](https://docs.docker.com/install/linux/ubuntu/)|
 
 자세한 정보는 Docker 홈페이지의 <https://docs.docker.com/install/> 페이지를 참조하여서 설치하시면 됩니다.
 
