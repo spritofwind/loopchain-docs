@@ -17,7 +17,7 @@ loopchain의 현재 상태를 가져옴(block height, total tx등)
 
 
 ## GET /api/v1/status/score?channel={channel name}
-loopchain의 SCORE 상태를 가져옴 (Score version , 배포된 버젼, 스코어 아이디)
+loopchain의 SCORE 상태를 가져옴 (Score version , 배포된 버전, SCORE 아이디)
 
 **Response Body**
 ```
@@ -98,6 +98,7 @@ POST /api/v1/query
 
 ## GET /api/v1/transactions?hash={찾으려는 트랜잭션 해시}&channel={channel_name}
 트랜잭션 해시로 블록체인에 저장된 데이터를 가져옴
+
 **Response Body**
 ```
 {

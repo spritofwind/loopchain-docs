@@ -7,7 +7,7 @@
 
 
 ## 필요 환경
-* 추천 OS : Linux(CentOS 7 이상, Ubuntu), MacOS 10.12 이상, Windows 10
+* 추천 OS : Linux(CentOS 7 이상, Ubuntu), MacOS 10.12 이상
 * Python : v3.6 이상
 * Vituralenv: v15.1.0 이상
 * Docker: 17.x이상

@@ -12,7 +12,6 @@ Docker CE(Community Edition)X86-64, Docker EE(Enterprise edition) X86-64를 운�
 |CentOS|O|O| CentOS 7이상. [Installation Guide](https://docs.docker.com/install/linux/centos/) |
 |Devian|O||Stretch (stable) / Raspbian Stretch Jessie 8.0 (LTS) / Raspbian Jessie Wheezy 7.7 (LTS). [Installation Guide](https://docs.docker.com/install/linux/docker-ce/debian/) |
 |Fedora|O||Fedora 24, 25 [Installation Guide](https://docs.docker.com/install/linux/docker-ce/fedora/) |
-|Windows Server 2016||O| [Installation Guide](https://docs.docker.com/install/windows/docker-ee/) |
 |Oracle Linux||O| 7.3 이상. [Installation Guide](https://docs.docker.com/install/linux/docker-ee/oracle/) |
 |Red Hat Enterprise Linux||O|64bit version Redhat Enterprise linux 7 on an X86 or S390x. [Installation Guide](https://docs.docker.com/install/linux/docker-ee/rhel/) |
 |SUSE Linux Enterprise server||O|SUSE 12.x version (OpenSUSE지원 안함). [Installation Guide](https://docs.docker.com/install/linux/docker-ee/suse/) |

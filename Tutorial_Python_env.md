@@ -154,7 +154,7 @@ $ ./run_test.sh
   $ source bin/activate # Open python virtual workspace.
   $ ./peer.py -p 7101   # Launch peer with 7101 port
   ```
-  각 peer는 RadioStation에 연결될 때 7100 port부터 시작되는 새로운 포트를 수신합니다. 새 peer가 연결될 때마다 RadioStation은 기존 peer 목록을 새 peer에 전달하고 기존 peer에 새로운 peer가 추가되었음을 알립니다.
+  각 peer는 RadioStation에 연결될 때 9100 port부터 시작되는 새로운 포트를 수신합니다. 새 peer가 연결될 때마다 RadioStation은 기존 peer 목록을 새 peer에 전달하고 기존 peer에 새로운 peer가 추가되었음을 알립니다.
 
 3.**각 peer들의 상태 체크**
 
