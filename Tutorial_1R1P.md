@@ -42,7 +42,7 @@ $ mkdir conf			# RadioStation과  Peer의 설정파일을 따로 보관할 폴�
 #### log 서버의 설정
 log 서버의 설정 파일을 작성하고 설정 파일 위치로 이동합니다. 이것은 모든 log 들을 파일로 남기는 설정입니다.
 
- 1. ```fluent.conf```을 아래와 같이 만듭니다.
+ 1. `fluent.conf`을 아래와 같이 만듭니다.
  ```
  <source>
  	@type forward
@@ -64,6 +64,7 @@ log 서버의 설정 파일을 작성하고 설정 파일 위치로 이동합니
  	</store>
  </match>
 ```
+
  2. 작성된 `fluent.conf`를 `fluentd/etc` 디렉토리로 이동합니다.
 ```
 $ mv fluent.conf ./fluentd/etc
@@ -103,7 +104,7 @@ mv channel_manage_data.json ./conf
    - LOOPCHAIN_DEFAULT_CHANNEL: RadioStation에서  `channel_manage_data.json`에서 설정한 channel 중에 별도로 지정하지 않고 request가 들어오면 기본적으로 사용할 channel을 정합니다.
    - ENABLE_CHANNEL_AUTH: 정해진 Server들만 각 channel별로 들어올 수 있는 제한을 하는 Option입니다.
 
- 2. 작성된 `rs_conf.json`를 `/conf` 디렉토리로 이동합니다.     
+ 2. 작성된 `rs_conf.json`를 `/conf` 디렉토리로 이동합니다.
 ```
 $ mv rs_conf.json ./conf
 ```
