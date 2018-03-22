@@ -43,7 +43,8 @@ $ mkdir conf			# RadioStation과  Peer의 설정파일을 따로 보관할 폴�
 log 서버의 설정 파일을 작성하고 설정 파일 위치로 이동합니다. 이것은 모든 log 들을 파일로 남기는 설정입니다.
 
  1. `fluent.conf`을 아래와 같이 만듭니다.
- ```
+
+```
  <source>
  	@type forward
  	@id input1
