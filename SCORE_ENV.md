@@ -64,7 +64,7 @@ GitHub에서 SCORE Sample 프로젝트(https://github.com/theloopkr/contract_sam
   ```
 #### 2.  시작 스크립트인 start.sh 스크립트의 peer 부분을 수정
   1. 환경변수 추가 등록 `export SSH_KEY_FOLDER=/Users/{user_id}/.ssh/id_tutorial`
-  2. SSH key 경로설정 `-v "${SSH_KEY_FOLDER}:/root/.ssh/id_tutorial"`
+  2. SSH key 경로설정 `-v ${SSH_KEY_FOLDER}:/root/.ssh/id_rsa`
   3. SCORE 저장소 도메인 설정 `-e "DEFAULT_SCORE_HOST=github.com"`
 
 

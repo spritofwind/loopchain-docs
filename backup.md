@@ -259,25 +259,21 @@ Donghanui-MacBook-Pro:~ donghanlee$
 ```
 
 
+b30dcb6cca7a0978999773a3767f8ee1868e7925686f7b35de653d94cdebcebb
 
-export TAG=latest
+curl http://localhost:9002/api/v1/peer/list | python -m json.tool
 
-docker run -d  --name loop-logger --publish 24224:24224/tcp --volume $(pwd)/fluentd:/fluentd --volume $(pwd)/logs:/logs loopchain/loopchain-fluentd:${TAG}
+curl http://localhost:9000/api/v1/status/peer | python -m json.tool
 
-mkdir -p storageRS
 
-docker run -d --name radio_station -v $(pwd)/conf:/conf -v $(pwd)/storageRS:/.storage -p 7102:7102 -p 9002:9002 --log-driver fluentd --log-opt fluentd-address=localhost:24224 loopchain/looprs:${TAG} python3 radiostation.py -o /conf/rs_conf.json
 
-docker ps --filter name=radio_station
+curl http://localhost:9000/api/v1/status/score | python -m json.tool
 
-mkdir -p storage0
 
-docker run -d --name peer0 -v $(pwd)/conf:/conf -v $(pwd)/storage0:/.storage --link radio_station:radio_station --log-driver fluentd --log-opt fluentd-address=localhost:24224 -p 7100:7100 -p 9000:9000 loopchain/looppeer:${TAG} python3 peer.py -o /conf/peer_conf0.json -p 7100 -r radio_station:7102
+curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc":"2.0","method":"propose","params":{"proposer":"RealEstateAgent" , "counterparties": ["leaseholder","jinho"], "content": "Theloop APT 101-3001, lease for 3 months from 3th April,2018", "quorum": "3"}}'  http://localhost:9000/api/v1/transactions | python -m json.tool
 
-docker ps --filter name=peer0
+curl http://localhost:9000/api/v1/transactions/result?hash=b30dcb6cca7a0978999773a3767f8ee1868e7925686f7b35de653d94cdebcebb | python -m json.tool
 
-mkdir -p storage1
+curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc": "2.0","channel":"channel1","method":"get_user_contracts","id":"11233","params":{"user_id":"jinho"}}' http://localhost:9000/api/v1/query | python -m json.tool
 
-docker run -d --name peer1 -v $(pwd)/conf:/conf -v $(pwd)/storage1:/.storage --link radio_station:radio_station --log-driver fluentd --log-opt fluentd-address=localhost:24224 -p 7200:7200 -p 9100:9100 loopchain/looppeer:${TAG} python3 peer.py -o /conf/peer_conf1.json -p 7200 -r radio_station:7102
-
-docker ps --filter name=peer1
+curl http://localhost:9000/api/v1/status/peer | python -m json.tool
