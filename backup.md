@@ -257,3 +257,27 @@ Read the analytics documentation (and how to opt-out) here:
 Donghanui-MacBook-Pro:~ donghanlee$
 
 ```
+
+
+
+export TAG=latest
+
+docker run -d  --name loop-logger --publish 24224:24224/tcp --volume $(pwd)/fluentd:/fluentd --volume $(pwd)/logs:/logs loopchain/loopchain-fluentd:${TAG}
+
+mkdir -p storageRS
+
+docker run -d --name radio_station -v $(pwd)/conf:/conf -v $(pwd)/storageRS:/.storage -p 7102:7102 -p 9002:9002 --log-driver fluentd --log-opt fluentd-address=localhost:24224 loopchain/looprs:${TAG} python3 radiostation.py -o /conf/rs_conf.json
+
+docker ps --filter name=radio_station
+
+mkdir -p storage0
+
+docker run -d --name peer0 -v $(pwd)/conf:/conf -v $(pwd)/storage0:/.storage --link radio_station:radio_station --log-driver fluentd --log-opt fluentd-address=localhost:24224 -p 7100:7100 -p 9000:9000 loopchain/looppeer:${TAG} python3 peer.py -o /conf/peer_conf0.json -p 7100 -r radio_station:7102
+
+docker ps --filter name=peer0
+
+mkdir -p storage1
+
+docker run -d --name peer1 -v $(pwd)/conf:/conf -v $(pwd)/storage1:/.storage --link radio_station:radio_station --log-driver fluentd --log-opt fluentd-address=localhost:24224 -p 7200:7200 -p 9100:9100 loopchain/looppeer:${TAG} python3 peer.py -o /conf/peer_conf1.json -p 7200 -r radio_station:7102
+
+docker ps --filter name=peer1

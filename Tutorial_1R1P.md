@@ -267,7 +267,7 @@ $
 ```
 
 ### log가 저장되고 있는지 확인.
-현재 튜토리얼에서는 /logs폴더에 RadioStation과 Peer0의 로그가 저장되고 있습니다. 이를 확인하기 위해서 /logs 폴더안에 파일들이 생성되고 있는지 확인합니다.
+현재 튜토리얼에서는 /logs폴더에 RadioStation과 Peer0의 로그가 저장되고 있습니다. 이를 확인하기 위해서 /logs 폴더 안에 파일들이 생성되고 있는지 확인합니다.
 ```
 $ ls $(pwd)/logs/
 data.20180227_0.log.gz				data.b5666a1e8575e5ccf80ac068a1b617503.log	data.log time_slice_format %Y%m%d

@@ -12,6 +12,8 @@ export STORAGE_PEER_0=$(pwd)/storage0
 export STORAGE_PEER_1=$(pwd)/storage1
 export SSH_KEY_FOLDER=/Users/donghanlee/.ssh/id_tutorial2
 
+
+
 ##############################################
 #       로그 및 데이터 디렉토리 생성
 ##############################################
@@ -58,28 +60,29 @@ python3 radiostation.py -o /conf/rs_conf.json
 #           Peer0 실행
 ##############################################
 docker run -d --name peer0 \
--v $(pwd)/conf:/conf \
--v $(pwd)/storage0:/.storage \
--v ${SSH_KEY_FOLDER}:/root/.ssh/id_rsa \
--e "DEFAULT_SCORE_HOST=github.com" \
---link radio_station:radio_station \
---log-driver fluentd --log-opt fluentd-address=localhost:24224 \
--p 7100:7100 -p 9000:9000 \
-loopchain/looppeer:${TAG} \
-python3 peer.py -o /conf/peer_conf0.json -p 7100 -r radio_station:7102
+  -v $(pwd)/conf:/conf \
+  -v $(pwd)/storage0:/.storage \
+  -v $(pwd)/score:/score \
+  -v ${SSH_KEY_FOLDER}:/root/.ssh/id_rsa \
+  -e "DEFAULT_SCORE_HOST=github.com" \
+  --link radio_station:radio_station \
+  --log-driver fluentd --log-opt fluentd-address=localhost:24224 \
+  -p 7100:7100 -p 9000:9000  \
+  loopchain/looppeer:${TAG} \
+  python3 peer.py -o /conf/peer_conf0.json  -r radio_station:7102
+
 
 ##############################################
 #           Peer1 실행
 ##############################################
 docker run -d --name peer1 \
--v $(pwd)/conf:/conf \
--v $(pwd)/storage1:/.storage \
--v ${SSH_KEY_FOLDER}:/root/.ssh/id_rsa \
--e "DEFAULT_SCORE_HOST=github.com" \
---link radio_station:radio_station \
---log-driver fluentd --log-opt fluentd-address=localhost:24224 \
--p 7200:7200 -p 9100:9100 \
-loopchain/looppeer:${TAG} \
-python3 peer.py -o /conf/peer_conf1.json -p 7200 -r radio_station:7102
-
-
+  -v $(pwd)/conf:/conf \
+  -v $(pwd)/storage0:/.storage \
+  -v $(pwd)/score:/score \
+  -v ${SSH_KEY_FOLDER}:/root/.ssh/id_rsa \
+  -e "DEFAULT_SCORE_HOST=github.com" \
+  --link radio_station:radio_station \
+  --log-driver fluentd --log-opt fluentd-address=localhost:24224 \
+  -p 7200:7200 -p 9100:9100  \
+  loopchain/looppeer:${TAG} \
+  python3 peer.py -o /conf/peer_conf1.json  -p 7200 -r radio_station:7102
