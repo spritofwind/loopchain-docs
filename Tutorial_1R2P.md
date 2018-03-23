@@ -20,6 +20,7 @@
 │   └── etc
 │       └── fluent.conf
 ├── logs
+├── storageRS
 ├── storage0
 ├── storage1
 ├── start.sh

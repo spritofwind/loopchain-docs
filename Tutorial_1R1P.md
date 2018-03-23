@@ -19,6 +19,7 @@
 │       └── fluent.conf
 ├── logs
 ├── storage0
+├── storageRS
 ├── start.sh
 ├── stop.sh
 └── delete.sh
