@@ -46,7 +46,7 @@ loopchain/loopchain-fluentd:${TAG}
 ##############################################
 docker run -d --name radio_station \
 -v ${CONF}:/conf \
--v ${STORAGE_RS}/storageRS:/.storage \
+-v ${STORAGE_RS}:/storage \
 -p 7102:7102 \
 -p 9002:9002 \
 --log-driver fluentd --log-opt fluentd-address=localhost:24224 \
@@ -58,7 +58,7 @@ python3 radiostation.py -o /conf/rs_conf.json
 ##############################################
 docker run -d --name peer0 \
 -v $(pwd)/conf:/conf \
--v $(pwd)/storage0:/.storage \
+-v $(pwd)/storage0:/storage \
 --link radio_station:radio_station \
 --log-driver fluentd --log-opt fluentd-address=localhost:24224 \
 -p 7100:7100 -p 9000:9000 \
@@ -70,7 +70,7 @@ python3 peer.py -o /conf/peer_conf0.json -p 7100 -r radio_station:7102
 ##############################################
 docker run -d --name peer1 \
 -v $(pwd)/conf:/conf \
--v $(pwd)/storage1:/.storage \
+-v $(pwd)/storage1:/storage \
 --link radio_station:radio_station \
 --log-driver fluentd --log-opt fluentd-address=localhost:24224 \
 -p 7200:7200 -p 9100:9100 \

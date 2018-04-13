@@ -6,7 +6,7 @@
   - Python Code로 직접 작성할 수 있어 높은 생산성을 가지고 있습니다.
 * Blockchain 프로세스와 별도의 프로세스로 동작하면서 다양한 업무의 지원이 가능합니다.
 * 각 Peer에서 독립적으로 실행되며, Block이 확정되는 시점에서 실행됩니다.
-* Blockchain으로 구성하는 비지니스 로직을 구현합니다.
+* Block 별로 실행하며, Blockchain으로 구성하는 비지니스 로직을 구현합니다.
 * Python 언어로 개발되며, loopchain의 dependency 를 따릅니다.
 
 ## SCORE 구조

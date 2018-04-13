@@ -112,83 +112,82 @@ $ ./run_test.sh
 이전의 "**설정 가이드**"에서 언급을 하였듯이 RadioStation을 제일 먼저 실행시키고 Peer들을 실행합니다.
 
 1.**RadioStation을 실행합니다.**
-  ```
-  $  ./radiostation.py  # Execute RadioStation.
-  ```
-  RadioStation을 실행하면 다음과 같은 로그를 확인할 수 있습니다. 이 로그의 의미는 로컬에서 9002번 포트로 다른 Peer들의 연결을 기다리고 있다는 의미입니다. 이제 RadioStation 서비스를 성공적으로 시작한 것입니다.
-  ```
-  $ ./radiostation.py
-  '2018-03-15 18:19:06,184 DEBUG Popen(['git', 'version'], cwd=/Users/donghanlee/loopchain, universal_newlines=False, shell=None)'
-  '2018-03-15 18:19:06,220 DEBUG Popen(['git', 'version'], cwd=/Users/donghanlee/loopchain, universal_newlines=False, shell=None)'
-  '2018-03-15 18:19:06,564 INFO RadioStation main got argv(list): []'
-  '2018-03-15 18:19:06,565 INFO Set RadioStationService IP: 127.0.0.1'
-  '2018-03-15 18:19:06,602 INFO (Broadcast Process) Start.'
-  '2018-03-15 18:19:06,604 DEBUG (Broadcast Process) Status, param() audience(0)'
-  '2018-03-15 18:19:07,599 DEBUG wait start broadcast process....'
-  '2018-03-15 18:19:07,601 DEBUG Broadcast Process start({"result": "success", "Audience": "0"})'
-  ```
+```
+$  ./radiostation.py  # Execute RadioStation.
+```
+RadioStation을 실행하면 다음과 같은 로그를 확인할 수 있습니다. 이 로그의 의미는 로컬에서 9002번 포트로 다른 Peer들의 연결을 기다리고 있다는 의미입니다. 이제 RadioStation 서비스를 성공적으로 시작한 것입니다.
+```
+$ ./radiostation.py
+'2018-03-15 18:19:06,184 DEBUG Popen(['git', 'version'], cwd=/Users/donghanlee/loopchain, universal_newlines=False, shell=None)'
+'2018-03-15 18:19:06,220 DEBUG Popen(['git', 'version'], cwd=/Users/donghanlee/loopchain, universal_newlines=False, shell=None)'
+'2018-03-15 18:19:06,564 INFO RadioStation main got argv(list): []'
+'2018-03-15 18:19:06,565 INFO Set RadioStationService IP: 127.0.0.1'
+'2018-03-15 18:19:06,602 INFO (Broadcast Process) Start.'
+'2018-03-15 18:19:06,604 DEBUG (Broadcast Process) Status, param() audience(0)'
+'2018-03-15 18:19:07,599 DEBUG wait start broadcast process....'
+'2018-03-15 18:19:07,601 DEBUG Broadcast Process start({"result": "success", "Audience": "0"})'
+```
+
 2.**여러 개의 Peer들을 실행합니다.**
+새로운 터미널 화면을 열고 loopchain 프로젝트 폴더로 이동합니다. 그리고 다음의 명령어를 입력하여서 **첫번째 peer**를 실행합니다.
+```
+$ source bin/activate  # Open python virtual workspace.
+$ ./peer.py            # Launch peer.
+```
+추가적인 설정을 "configure.json"파일에 작성을 하였고 이를 이용해서 peer를 실행시킨 다면 다음과 같은 명령어 입력으로 peer를 실행 할 수 있습니다. (configure.json파일의 위치는 loopchain프로젝트 안에 있는 loopchain 폴더 안에 있습니다. )
+```
+$ ./peer.py -o ./loopchain/configure.json
+```
+다음과 같은 로그를 확인하실수 있습니다.
+```
+...........
+'2017-07-20 16:05:13,480 DEBUG peer list update: 1:192.168.18.153:7100 PeerStatus.connected c3c5f2f0-6d19-11e7-875d-14109fdb09f5 (<class 'str'>)'
+'2017-07-20 16:05:13,480 DEBUG peer_id: c3c5f2f0-6d19-11e7-875d-14109fdb09f5'
+'2017-07-20 16:05:13,480 DEBUG peer_self: <loopchain.baseservice.peer_list.Peer object at 0x106249b00>'
+'2017-07-20 16:05:13,481 DEBUG peer_leader: <loopchain.baseservice.peer_list.Peer object at 0x106249b00>'
+'2017-07-20 16:05:13,481 DEBUG Set Peer Type Block Generator!'
+'2017-07-20 16:05:13,481 INFO LOAD SCORE AND CONNECT TO SCORE SERVICE!'
+```
 
-  새로운 터미널 화면을 열고 loopchain 프로젝트 폴더로 이동합니다. 그리고 다음의 명령어를 입력하여서 **첫번째 peer**를 실행합니다.
-  ```
-  $ source bin/activate  # Open python virtual workspace.
-  $ ./peer.py            # Launch peer.
-  ```
-  추가적인 설정을 "configure.json"파일에 작성을 하였고 이를 이용해서 peer를 실행시킨 다면 다음과 같은 명령어 입력으로 peer를 실행 할 수 있습니다. (configure.json파일의 위치는 loopchain프로젝트 안에 있는 loopchain 폴더 안에 있습니다. )
-  ```
-  $ ./peer.py -o ./loopchain/configure.json
-  ```
-  다음과 같은 로그를 확인하실수 있습니다.
-  ```
-  ...........
-  '2017-07-20 16:05:13,480 DEBUG peer list update: 1:192.168.18.153:7100 PeerStatus.connected c3c5f2f0-6d19-11e7-875d-14109fdb09f5 (<class 'str'>)'
-  '2017-07-20 16:05:13,480 DEBUG peer_id: c3c5f2f0-6d19-11e7-875d-14109fdb09f5'
-  '2017-07-20 16:05:13,480 DEBUG peer_self: <loopchain.baseservice.peer_list.Peer object at 0x106249b00>'
-  '2017-07-20 16:05:13,481 DEBUG peer_leader: <loopchain.baseservice.peer_list.Peer object at 0x106249b00>'
-  '2017-07-20 16:05:13,481 DEBUG Set Peer Type Block Generator!'
-  '2017-07-20 16:05:13,481 INFO LOAD SCORE AND CONNECT TO SCORE SERVICE!'
-  ```
-
-  **두번째 peer**를 동일한 방법으로 실행합니다. 이번에는 RadioStation에 연결하는 다른 포트를 사용해야만 합니다.(동일한 로컬 컴퓨터에서 실행되기 때문에 동일한 포트는 사용이 안됩니다.)
-  ```
-  $ source bin/activate # Open python virtual workspace.
-  $ ./peer.py -p 7101   # Launch peer with 7101 port
-  ```
-  각 peer는 RadioStation에 연결될 때 9100 port부터 시작되는 새로운 포트를 수신합니다. 새 peer가 연결될 때마다 RadioStation은 기존 peer 목록을 새 peer에 전달하고 기존 peer에 새로운 peer가 추가되었음을 알립니다.
+**두번째 peer**를 동일한 방법으로 실행합니다. 이번에는 RadioStation에 연결하는 다른 포트를 사용해야만 합니다.(동일한 로컬 컴퓨터에서 실행되기 때문에 동일한 포트는 사용이 안됩니다.)
+```
+$ source bin/activate # Open python virtual workspace.
+$ ./peer.py -p 7101   # Launch peer with 7101 port
+```
+각 peer는 RadioStation에 연결될 때 9100 port부터 시작되는 새로운 포트를 수신합니다. 새 peer가 연결될 때마다 RadioStation은 기존 peer 목록을 새 peer에 전달하고 기존 peer에 새로운 peer가 추가되었음을 알립니다.
 
 3.**각 peer들의 상태 체크**
-
-  RESTful API를 이용하여서 RadioStation 및 각 peer의 상태를 확인할 수 있습니다.
-  ```
-  $ curl http://localhost:9002/api/v1/peer/list  # Shows a list of peers that are currently configuring the blockchain network in Radiostation.
-  $ curl http://localhost:9000/api/v1/status/peer # Shows the current status of peer0
-  $ curl http://localhost:9001/api/v1/status/peer # Shows the current status of peer1
-  ```
+RESTful API를 이용하여서 RadioStation 및 각 peer의 상태를 확인할 수 있습니다.
+```
+$ curl http://localhost:9002/api/v1/peer/list  # Shows a list of peers that are currently configuring the blockchain network in Radiostation.
+$ curl http://localhost:9000/api/v1/status/peer # Shows the current status of peer0
+$ curl http://localhost:9001/api/v1/status/peer # Shows the current status of peer1
+```
 
 4.**새로운 Transaction 생성**
+RESTful API를 사용하여서 peer0에 새로운 Transaction을 보냅니다.
+```
+$ curl -H "Content-Type: application/json" -d '{"data":"hello"}' http://localhost:9000/api/v1/transactions
+{"response_code": "0", "tx_hash": "71a3414d77dbdb34b92757ba75e51d9aa498f6a06609419cdf31327da4e9bf38", "more_info": ""}
+$
+```
 
-  RESTful API를 사용하여서 peer0에 새로운 Transaction을 보냅니다.
-  ```
-  $ curl -H "Content-Type: application/json" -d '{"data":"hello"}' http://localhost:9000/api/v1/transactions
-  {"response_code": "0", "tx_hash": "71a3414d77dbdb34b92757ba75e51d9aa498f6a06609419cdf31327da4e9bf38", "more_info": ""}
-  $
-  ```
 5.**새로 생성된 Transaction의 Height를 체크한다**
-  ```
-  $ $ curl http://localhost:9000/api/v1/blocks | python -m json.tool
-    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                   Dload  Upload   Total   Spent    Left  Speed
-  100   404  100   404    0     0  32625      0 --:--:-- --:--:-- --:--:-- 33666
-  {
-      "response_code": 0,
-      "block_hash": "33f84bc5c48339943ec802ecb65e11bdb003c3442e42b1a9581f32459f36f582",
-      "block_data_json": {
-          "prev_block_hash": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
-          "merkle_tree_root_hash": "71a3414d77dbdb34b92757ba75e51d9aa498f6a06609419cdf31327da4e9bf38",
-          "time_stamp": "1521111197115569",
-          "height": "1",
-          "peer_id": "e54b340a-2824-11e8-bf1c-acde48001122"
-      }
-  }
-  $
-  ```
+```
+$ $ curl http://localhost:9000/api/v1/blocks | python -m json.tool
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   404  100   404    0     0  32625      0 --:--:-- --:--:-- --:--:-- 33666
+{
+    "response_code": 0,
+    "block_hash": "33f84bc5c48339943ec802ecb65e11bdb003c3442e42b1a9581f32459f36f582",
+    "block_data_json": {
+        "prev_block_hash": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+        "merkle_tree_root_hash": "71a3414d77dbdb34b92757ba75e51d9aa498f6a06609419cdf31327da4e9bf38",
+        "time_stamp": "1521111197115569",
+        "height": "1",
+        "peer_id": "e54b340a-2824-11e8-bf1c-acde48001122"
+    }
+}
+$
+```
