@@ -1,0 +1,303 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Peer - RESTful API &#8212; loopchain Docs 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="색인" href="genindex.html" />
+    <link rel="search" title="검색" href="search.html" />
+    <link rel="prev" title="RadioStation - RESTful API" href="Radiostation-RESTful_API.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="peer-restful-api">
+<span id="peer-restful-api"></span><h1>Peer - RESTful API<a class="headerlink" href="#peer-restful-api" title="제목 주소">¶</a></h1>
+<div class="section" id="get-api-v1-status-peer-channel-channel-name">
+<span id="get-api-v1-status-peer-channel-channel-name"></span><h2>GET /api/v1/status/peer?channel={channel name}<a class="headerlink" href="#get-api-v1-status-peer-channel-channel-name" title="제목 주소">¶</a></h2>
+<p>loopchain의 현재 상태를 가져옴(block height, total tx등)</p>
+<p><strong>Response Body</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;Service is online: 1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;audience_count&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;consensus&quot;</span><span class="p">:</span> <span class="s2">&quot;siever&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;peer_id&quot;</span><span class="p">:</span> <span class="s2">&quot;ac997810-240b-11e7-b072-a45e60c5e043&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;peer_type&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-api-v1-status-score-channel-channel-name">
+<span id="get-api-v1-status-score-channel-channel-name"></span><h2>GET /api/v1/status/score?channel={channel name}<a class="headerlink" href="#get-api-v1-status-score-channel-channel-name" title="제목 주소">¶</a></h2>
+<p>loopchain의 SCORE 상태를 가져옴 (Score version , 배포된 버전, SCORE 아이디)</p>
+<p><strong>Response Body</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;score/certificate&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;5b95c851bb90219cacce8444b4667eed4af73935&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;all_version&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;5b95c851bb90219cacce8444b4667eed4af73935&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;b40e09a84e2f25d91b10b7b8c89a3f3fbd9309a4&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;67398e1c42929f85002dda25949743c8408a2556&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;61819fefe9a403562815e94e889af6a74fc53715&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;da54c689fb538342ae3190586af2e2cf2311ce96&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;1b13778e65831f90761670bc9139fe5e13162db0&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;29682ba50a586e534d52d647fb65f1a749d59036&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;a222b096ef4a5c6f90c77736ac3914c39f55f2c5&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;9c529558b9636e1d1aca6b2a8807f0ba3df474bf&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;0c601c48e034dffa5b3a3f4336e15f285a45f3a9&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;3447ef8db315a4addd499b620562576e10b3907d&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;82f4f85786ef73e0d020244c1697c6918fca20ec&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;81e7c40f5aab0546be6bb1398e8016f5a7e1a120&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;a41b3e0dcaeca653e26f11b4c75e5c15766f761e&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;5ead8aba390687a2b0768f60711a170c998e40aa&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;d3924a4336fb7a2ed1d86f22d57c488b4be8432f&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;d7d02cf9825ad879eb0e79f6f6ac1b81738e52aa&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;7d590db788c0a81a7caeb938b8204a737d63dd71&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;a62cf913ffdc8b497b1f6ecfd6d0d731d02506db&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;5edd70fda15601035254c62157a6717b950e16ae&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;084dc91f607ffe5a8d6cfa5f366a3706e8cd6b2b&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;5bc674d2e5508165592f93a56bb24d7c46a679fc&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;4701abc7c666f59559fea3d818687649f30708e7&quot;</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="post-api-v1-query">
+<span id="post-api-v1-query"></span><h2>POST /api/v1/query<a class="headerlink" href="#post-api-v1-query" title="제목 주소">¶</a></h2>
+<p>스코어가 실행된 결과 조회</p>
+<p><strong>Request Body</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">POST</span> <span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">query</span>
+<span class="p">{</span>
+    <span class="s2">&quot;jsonrpc&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;channel&quot;</span><span class="p">:</span> <span class="s2">&quot;channel_name&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;get_name&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;test_query&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Content-Type : application/json</li>
+<li>Request-body : Raw 데이터로써, JSON형태의 데이터<ul>
+<li>jsonrpc : 반드시 2.0으로 설정</li>
+<li>method : SCORE안에 호출할 Function 이름</li>
+<li>params : JSON으로 구성된 SCORE안에 호출할 Function의 parameters.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Response Body</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;response_code&quot;</span><span class="p">:</span> <span class="s2">&quot;int : RES_CODE&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;jsonrpc&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;code&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;godong&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;test_query&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Content-Type : application/json</li>
+<li>response_code :</li>
+<li>Request-body : Raw 데이터로써, JSON형태의 데이터<ul>
+<li>jsonrpc : 반드시 2.0으로 설정.</li>
+<li>code : SCORE안에서 실행한 결과.</li>
+<li>response : 결과로 넘어오는 JSON body</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="get-api-v1-transactions-hash-channel-channel-name">
+<span id="get-api-v1-transactions-hash-channel-channel-name"></span><h2>GET /api/v1/transactions?hash={찾으려는 트랜잭션 해시}&amp;channel={channel_name}<a class="headerlink" href="#get-api-v1-transactions-hash-channel-channel-name" title="제목 주소">¶</a></h2>
+<p>트랜잭션 해시로 블록체인에 저장된 데이터를 가져옴</p>
+<p><strong>Response Body</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="s2">&quot;response_code&quot;</span> <span class="p">:</span> <span class="s2">&quot;int : RES_CODE&quot;</span><span class="p">,</span>
+   <span class="s2">&quot;data&quot;</span> <span class="p">:</span> <span class="s2">&quot;트랜잭션 생성 시 보낸 데이터&quot;</span><span class="p">,</span>
+   <span class="s2">&quot;meta&quot;</span> <span class="p">:</span> <span class="p">{</span>
+       <span class="s2">&quot;peer_id&quot;</span> <span class="p">:</span> <span class="s2">&quot;트랜잭션을 생성한 피어 아이디&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;score_id&quot;</span> <span class="p">:</span> <span class="s2">&quot;실행한 SCORE id&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;score_version&quot;</span> <span class="p">:</span> <span class="s2">&quot;실행한 SCORE version&quot;</span>
+   <span class="p">},</span>
+   <span class="s2">&quot;more_info&quot;</span> <span class="p">:</span> <span class="s2">&quot;추가 정보&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-api-v1-transactions-result-hash-channel-channel-name">
+<span id="get-api-v1-transactions-result-hash-channel-channel-name"></span><h2>GET /api/v1/transactions/result?hash={찾으려는 트랜잭션 해시}&amp;channel={channel_name}<a class="headerlink" href="#get-api-v1-transactions-result-hash-channel-channel-name" title="제목 주소">¶</a></h2>
+<p>Score 실행 결과를 Transaction Hash를 통해 가져옴</p>
+<p><strong>Response Body</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="s2">&quot;response_code&quot;</span> <span class="p">:</span> <span class="s2">&quot;int : RES_CODE&quot;</span><span class="p">,</span>
+   <span class="s2">&quot;response&quot;</span> <span class="p">:</span> <span class="p">{</span>
+       <span class="s2">&quot;code&quot;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">(</span><span class="n">성공</span><span class="p">),</span> <span class="mi">2</span><span class="p">(</span><span class="n">아직</span> <span class="n">commit되지</span> <span class="n">않음</span><span class="p">),</span> <span class="mi">9000</span> <span class="ne">Exception</span>
+       <span class="s2">&quot;message&quot;</span> <span class="p">:</span> <span class="s2">&quot;실패시 실패 메시지&quot;</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="api-v1-transactions">
+<span id="api-v1-transactions"></span><h2>/api/v1/transactions<a class="headerlink" href="#api-v1-transactions" title="제목 주소">¶</a></h2>
+<p>트랜잭션을 생성하여 SCORE를 실행</p>
+<p><strong>Request Body</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;jsonrpc&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;channel&quot;</span><span class="p">:</span> <span class="s2">&quot;channel_name&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;get_bid&quot;</span><span class="p">,</span>   <span class="c1"># SCORE안에 호출할 Function 이름</span>
+    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;test_query&quot;</span><span class="p">,</span>    <span class="c1"># 비동기 응답시 이용할 예정. 현재는 사용 안함.</span>
+    <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span>            <span class="c1"># JSON으로 구성된 SCORE안에 호출할 Function의 parameters.</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;identity&quot;</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Content-Type : application/json</li>
+<li>Request-body : Raw 데이터로써, JSON형태의 데이터</li>
+</ul>
+<p><strong>Response Body</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;response_code&quot;</span> <span class="p">:</span> <span class="s2">&quot;int : RES_CODE&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tx_hash&quot;</span> <span class="p">:</span> <span class="s2">&quot;트랜잭션 해시&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;more_info&quot;</span> <span class="p">:</span> <span class="s2">&quot;추가 정보&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-api-v1-blocks-channel-channel-name">
+<span id="get-api-v1-blocks-channel-channel-name"></span><h2>GET /api/v1/blocks?channel={channel name}<a class="headerlink" href="#get-api-v1-blocks-channel-channel-name" title="제목 주소">¶</a></h2>
+<p>마지막 블록의 hash 데이터를 가져옵니다.</p>
+<p><strong>Response Body</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;response_code&quot;</span> <span class="p">:</span> <span class="s2">&quot;int RES_CODE&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;block_hash&quot;</span> <span class="p">:</span> <span class="s2">&quot;block_hash&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;block_data_json&quot;</span> <span class="p">:</span> <span class="s2">&quot;block_data_json&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-api-v1-blocks-channel-channel-name-hash">
+<span id="get-api-v1-blocks-channel-channel-name-hash"></span><h2>GET /api/v1/blocks?channel={channel name}&amp;hash={찾으려는 블록 해시}<a class="headerlink" href="#get-api-v1-blocks-channel-channel-name-hash" title="제목 주소">¶</a></h2>
+<p>블록 해시에 알맞은 블록에서 헤더 데이터로 filter에 있는 데이터를 가져오고 txFilter에 있는 데이터를 트랜잭션 데이터에 추가하여 블록데이터를 가져옵니다.</p>
+<p><strong>Response Body</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;block_hash&quot;</span> <span class="p">:</span> <span class="s2">&quot;블록 해시&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;block_data_json&quot;</span> <span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;prev_block_hash&quot;</span> <span class="p">:</span> <span class="s2">&quot;이전블록 해시&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;merkle_tree_root_hash&quot;</span> <span class="p">:</span> <span class="s2">&quot;머클 루트&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;time_stamp&quot;</span> <span class="p">:</span> <span class="s2">&quot;블록 생성 시간&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;height&quot;</span> <span class="p">:</span> <span class="s2">&quot;블록 높이&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;peer_id&quot;</span> <span class="p">:</span> <span class="s2">&quot;블록 생성 피어 id&quot;</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;tx_data_json&quot;</span> <span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;tx_hash&quot;</span> <span class="p">:</span> <span class="s2">&quot;트랜잭션 해시&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;timestamp&quot;</span> <span class="p">:</span> <span class="s2">&quot;트랜잭션 생성 시간&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;data_string&quot;</span> <span class="p">:</span> <span class="s2">&quot;트랜잭션에 들어간 데이터&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;peer_id&quot;</span> <span class="p">:</span> <span class="s2">&quot;트랜잭션을 생성한 피어&quot;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">목차</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Peer - RESTful API</a><ul>
+<li><a class="reference internal" href="#get-api-v1-status-peer-channel-channel-name">GET /api/v1/status/peer?channel={channel name}</a></li>
+<li><a class="reference internal" href="#get-api-v1-status-score-channel-channel-name">GET /api/v1/status/score?channel={channel name}</a></li>
+<li><a class="reference internal" href="#post-api-v1-query">POST /api/v1/query</a></li>
+<li><a class="reference internal" href="#get-api-v1-transactions-hash-channel-channel-name">GET /api/v1/transactions?hash={찾으려는 트랜잭션 해시}&amp;channel={channel_name}</a></li>
+<li><a class="reference internal" href="#get-api-v1-transactions-result-hash-channel-channel-name">GET /api/v1/transactions/result?hash={찾으려는 트랜잭션 해시}&amp;channel={channel_name}</a></li>
+<li><a class="reference internal" href="#api-v1-transactions">/api/v1/transactions</a></li>
+<li><a class="reference internal" href="#get-api-v1-blocks-channel-channel-name">GET /api/v1/blocks?channel={channel name}</a></li>
+<li><a class="reference internal" href="#get-api-v1-blocks-channel-channel-name-hash">GET /api/v1/blocks?channel={channel name}&amp;hash={찾으려는 블록 해시}</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="Radiostation-RESTful_API.html" title="이전 장">RadioStation - RESTful API</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>현재 문서</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Peer-RESTful_API.md.txt"
+            rel="nofollow">소스 코드를 보려면</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>빠른 검색</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="바로 가기" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Theloop.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/Peer-RESTful_API.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

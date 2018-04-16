@@ -1,0 +1,628 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Local computer에서 RadioStation과 2개의 Peer로 Blockchain network 구성하기 &#8212; loopchain Docs 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="색인" href="genindex.html" />
+    <link rel="search" title="검색" href="search.html" />
+    <link rel="next" title="설정 가이드" href="Configuration.html" />
+    <link rel="prev" title="Local computer에서 RadioStation과 1개의 Peer로 Blockchain network 구성하기" href="Tutorial_1R1P.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="local-computer-radiostation-2-peer-blockchain-network">
+<span id="local-computer-radiostation-2-peer-blockchain-network"></span><h1>Local computer에서 RadioStation과 2개의 Peer로 Blockchain network 구성하기<a class="headerlink" href="#local-computer-radiostation-2-peer-blockchain-network" title="제목 주소">¶</a></h1>
+<div class="section" id="">
+<span id="id1"></span><h2>목적<a class="headerlink" href="#" title="제목 주소">¶</a></h2>
+<p>자신의 컴퓨터상에서 Docker를 이용하여 RadioStation과 Peer 2개로 구성된 네트워크 환경을 구성하고 정상적으로 동작하는지 테스트를 합니다. 다음의 그림과 같은 구조로 네트워크가 구성이 됩니다.</p>
+<p><img alt="RadioStation &amp; 2 peer" src="_images/1R2P.png" /></p>
+</div>
+<div class="section" id="">
+<span id="id2"></span><h2>디렉토리 구성<a class="headerlink" href="#" title="제목 주소">¶</a></h2>
+<p>이 문서의 내용을 따라하게 되면 다음과 같은 디렉토리 구성이 만들어지게 됩니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>├── conf
+│   ├── channel_manage_data.json
+│   ├── peer_conf0.json
+│   ├── peer_conf1.json
+│   └── rs_conf.json
+├── fluentd
+│   └── etc
+│       └── fluent.conf
+├── logs
+├── storageRS
+├── storage0
+├── storage1
+├── start.sh
+├── stop.sh
+└── delete.sh
+</pre></div>
+</div>
+</div>
+<div class="section" id="">
+<span id="id3"></span><h2>설정 파일 생성<a class="headerlink" href="#" title="제목 주소">¶</a></h2>
+<div class="section" id="">
+<span id="id4"></span><h3>디렉토리 생성<a class="headerlink" href="#" title="제목 주소">¶</a></h3>
+<p>먼저 로그서버의 설정 파일 폴더를 생성하고 로그를 따로 저장할 폴더를 생성합니다. 그리고 RadioStation과  Peer의 설정파일을 따로 보관할 폴더를 만듭니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mkdir -p fluentd/etc.     # 로그서버의 설정 파일 폴더를 생성.
+$ mkdir logs.           # 로그를 따로 저장할 폴더를 생성.
+$ mkdir conf            # RadioStation과  Peer의 설정파일을 따로 보관할 폴더를 생성.
+</pre></div>
+</div>
+</div>
+<div class="section" id="">
+<span id="id5"></span><h3>설정 파일 생성 및 이동<a class="headerlink" href="#" title="제목 주소">¶</a></h3>
+<div class="section" id="log">
+<span id="log"></span><h4>log 서버의 설정<a class="headerlink" href="#log" title="제목 주소">¶</a></h4>
+<p>log 서버의 설정 파일을 작성하고 설정 파일 위치로 이동합니다. 이것은 모든 log 들을 파일로 남기는 설정입니다.</p>
+<ol class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">fluent.conf</span></code>을 아래와 같이 만듭니다.</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">source</span><span class="o">&gt;</span>
+   <span class="nd">@type</span> <span class="n">forward</span>
+   <span class="nd">@id</span> <span class="n">input1</span>
+   <span class="n">port</span> <span class="mi">24224</span>
+   <span class="n">bind</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span>
+<span class="o">&lt;/</span><span class="n">source</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="n">match</span> <span class="o">**&gt;</span> <span class="c1"># Add your log tag to show in &lt;&gt;.</span>
+   <span class="nd">@type</span> <span class="n">copy</span>
+   <span class="o">&lt;</span><span class="n">store</span><span class="o">&gt;</span> <span class="c1"># Add your log tag to show in &lt;&gt;.</span>
+       <span class="nd">@type</span> <span class="n">file</span> <span class="c1"># Leave log file in path.</span>
+       <span class="n">path</span> <span class="o">/</span><span class="n">logs</span><span class="o">/</span><span class="n">data</span><span class="o">.*.</span><span class="n">log</span>
+       <span class="n">symlink_path</span> <span class="o">/</span><span class="n">logs</span><span class="o">/</span><span class="n">data</span><span class="o">.</span><span class="n">log</span> <span class="n">time_slice_format</span> <span class="o">%</span><span class="n">Y</span><span class="o">%</span><span class="n">m</span><span class="o">%</span><span class="n">d</span>
+       <span class="n">time_slice_wait</span> <span class="mi">10</span><span class="n">m</span>
+       <span class="n">time_format</span> <span class="o">%</span><span class="n">Y</span><span class="o">%</span><span class="n">m</span><span class="o">%</span><span class="n">dT</span><span class="o">%</span><span class="n">H</span><span class="o">%</span><span class="n">M</span><span class="o">%</span><span class="n">S</span><span class="o">%</span><span class="n">z</span>
+       <span class="n">compress</span> <span class="n">gzip</span>
+       <span class="n">utc</span>
+   <span class="o">&lt;/</span><span class="n">store</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">match</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<ol class="simple">
+<li>작성된 <code class="docutils literal notranslate"><span class="pre">fluent.conf</span></code>를 <code class="docutils literal notranslate"><span class="pre">fluentd/etc</span></code> 디렉토리로 이동합니다.</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mv fluent.conf ./fluentd/etc
+</pre></div>
+</div>
+</div>
+<div class="section" id="channel-manage-data-json">
+<span id="channel-manage-data-json"></span><h4><code class="docutils literal notranslate"><span class="pre">channel_manage_data.json</span></code> 작성<a class="headerlink" href="#channel-manage-data-json" title="제목 주소">¶</a></h4>
+<p>이 설정 파일은 multichannel을 사용할 때에 설정하는 파일입니다. 해당 파일은 RadioStation에서 사용됩니다.</p>
+<ol class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">channel_manage_data.json</span></code> 파일을 아래와 같이 작성합니다.</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="s2">&quot;channel1&quot;</span><span class="p">:</span> <span class="p">{</span>
+       <span class="s2">&quot;score_package&quot;</span><span class="p">:</span> <span class="s2">&quot;loopchain/default&quot;</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>‘channel1’이라는 channel에서 loopchain/default라는 SCORE를 이용합니다.</li>
+<li>loopchain/default는 기본적으로 각 peer들이 가지고 있는 SCORE 파일입니다.</li>
+</ul>
+<ol class="simple">
+<li>작성된 <code class="docutils literal notranslate"><span class="pre">channel_manage_data.json</span></code>를 <code class="docutils literal notranslate"><span class="pre">/conf</span></code> 디렉토리로 이동합니다.</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mv</span> <span class="n">channel_manage_data</span><span class="o">.</span><span class="n">json</span> <span class="o">./</span><span class="n">conf</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="rs-conf-json">
+<span id="rs-conf-json"></span><h4><code class="docutils literal notranslate"><span class="pre">rs_conf.json</span></code> 작성<a class="headerlink" href="#rs-conf-json" title="제목 주소">¶</a></h4>
+<p>이 설정 파일은 RadioStation의 설정들을 담고 있는 파일입니다.</p>
+<ol class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">rs_conf.json</span></code>파일을 아래와 같이 작성합니다.</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="s2">&quot;CHANNEL_MANAGE_DATA_PATH&quot;</span><span class="p">:</span> <span class="s2">&quot;/conf/channel_manage_data.json&quot;</span><span class="p">,</span>
+   <span class="s2">&quot;LOOPCHAIN_DEFAULT_CHANNEL&quot;</span><span class="p">:</span> <span class="s2">&quot;channel1&quot;</span><span class="p">,</span>
+   <span class="s2">&quot;ENABLE_CHANNEL_AUTH&quot;</span><span class="p">:</span> <span class="n">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>CHANNEL_MANAGE_DATA_PATH: channel_manage_data.json이 어디에 있는지 지정해줍니다.</li>
+<li>LOOPCHAIN_DEFAULT_CHANNEL: RadioStation에서  <code class="docutils literal notranslate"><span class="pre">channel_manage_data.json</span></code>에서 설정한 channel 중에 별도로 지정하지 않고 request가 들어오면 기본적으로 사용할 channel을 정합니다.</li>
+<li>ENABLE_CHANNEL_AUTH: 정해진 Server들만 각 channel별로 들어올 수 있는 제한을 하는 Option입니다.</li>
+</ul>
+<ol class="simple">
+<li>작성된 <code class="docutils literal notranslate"><span class="pre">rs_conf.json</span></code>를 <code class="docutils literal notranslate"><span class="pre">/conf</span></code> 디렉토리로 이동합니다.</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mv rs_conf.json ./conf
+</pre></div>
+</div>
+</div>
+<div class="section" id="peer-conf0-json">
+<span id="peer-conf0-json"></span><h4><code class="docutils literal notranslate"><span class="pre">peer_conf0.json</span></code> 작성<a class="headerlink" href="#peer-conf0-json" title="제목 주소">¶</a></h4>
+<p>이 설정 파일은 Peer0의 설정을 담고 있는 파일입니다.</p>
+<ol class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">peer_conf0.json</span></code> 파일을 아래와 같이 작성합니다.</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="s2">&quot;LOOPCHAIN_DEFAULT_CHANNEL&quot;</span><span class="p">:</span> <span class="s2">&quot;channel1&quot;</span><span class="p">,</span>
+   <span class="s2">&quot;DEFAULT_SCORE_BRANCH&quot;</span><span class="p">:</span> <span class="s2">&quot;master&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>LOOPCHAIN_DEFAULT_CHANNEL: 해당 peer가 channel_manage_data.json에서 설정한 channel중에 별도로 지정하지 않고 request가 들어오면 기본적으로 사용할 channel을 정합니다.</li>
+<li>DEFAULT_SCORE_BRANCH: SCORE를 사용할 때, 어떤 branch의 것을 이용 할지를 정합니다. 기본값은 master입니다. 참고로 SCORE는 git repository로 원격 git repository의 것을 clone해서 쓰거나 따로 파일로 읽어오게 해야 합니다.</li>
+</ul>
+<ol class="simple">
+<li>작성된 <code class="docutils literal notranslate"><span class="pre">peer_conf0.json</span></code>를 <code class="docutils literal notranslate"><span class="pre">/conf</span></code> 디렉토리로 이동합니다.</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mv peer_conf0.json ./conf
+</pre></div>
+</div>
+</div>
+<div class="section" id="peer-conf1-json">
+<span id="peer-conf1-json"></span><h4><code class="docutils literal notranslate"><span class="pre">peer_conf1.json</span></code> 작성<a class="headerlink" href="#peer-conf1-json" title="제목 주소">¶</a></h4>
+<p>이 설정 파일은 Peer1의 설정을 담고 있는 파일입니다.</p>
+<ol class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">peer_conf1.json</span></code> 파일을 아래와 같이 작성합니다.</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="s2">&quot;LOOPCHAIN_DEFAULT_CHANNEL&quot;</span><span class="p">:</span> <span class="s2">&quot;channel1&quot;</span><span class="p">,</span>
+   <span class="s2">&quot;DEFAULT_SCORE_BRANCH&quot;</span><span class="p">:</span> <span class="s2">&quot;master&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>LOOPCHAIN_DEFAULT_CHANNEL: 해당 peer가 channel_manage_data.json에서 설정한 channel중에 별도로 지정하지 않고 request가 들어오면 기본적으로 사용할 channel을 정합니다.</li>
+<li>DEFAULT_SCORE_BRANCH: SCORE를 사용할 때, 어떤 branch의 것을 이용 할지를 정합니다. 기본값은 master입니다. 참고로 SCORE는 git repository로 원격 git repository의 것을 clone해서 쓰거나 따로 파일로 읽어오게 해야 합니다.</li>
+</ul>
+<ol class="simple">
+<li>작성된 <code class="docutils literal notranslate"><span class="pre">peer_conf1.json</span></code>를 <code class="docutils literal notranslate"><span class="pre">/conf</span></code> 디렉토리로 이동합니다.</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mv peer_conf1.json ./conf
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="docker-container">
+<span id="docker-container"></span><h2>Docker Container 실행<a class="headerlink" href="#docker-container" title="제목 주소">¶</a></h2>
+<p>Docker Container를 실행하는 순서는 다음과 같습니다.</p>
+<ol class="simple">
+<li>Log 서버를 실행합니다.</li>
+<li>RadioStation을 실행합니다.</li>
+<li>Peer를 순차적으로 실행합니다.(Peer0, Peer1)</li>
+</ol>
+<div class="section" id="log-server">
+<span id="log-server"></span><h3>Log server 실행<a class="headerlink" href="#log-server" title="제목 주소">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ export TAG=latest     # 환경 변수를 설정합니다.
+
+# Log server 컨테이너를 실행합니다.
+$ docker run -d \
+--name loop-logger \
+--publish 24224:24224/tcp \
+--volume $(pwd)/fluentd:/fluentd \
+--volume $(pwd)/logs:/logs \
+loopchain/loopchain-fluentd:${TAG}
+
+# Log server 컨테이너를 정상적으로 실행되었는지 확인합니다.
+$ docker ps --filter name=loop-logger
+CONTAINER ID        IMAGE                                COMMAND                  CREATED             STATUS              PORTS                                           NAMES
+06d616be61e0        loopchain/loopchain-fluentd:latest   &quot;/bin/entrypoint.sh …&quot;   9 seconds ago       Up 8 seconds        5140/tcp, 24284/tcp, 0.0.0.0:24224-&gt;24224/tcp   loop-logger
+$
+</pre></div>
+</div>
+</div>
+<div class="section" id="radiostation">
+<span id="radiostation"></span><h3>RadioStation 실행<a class="headerlink" href="#radiostation" title="제목 주소">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># RadioStation에서 이용할 데이타 저장 공간을 만듭니다.
+$ mkdir -p storageRS
+
+# RadioStation 컨테이너를 실행합니다.
+$ docker run -d --name radio_station \
+-v $(pwd)/conf:/conf \
+-v $(pwd)/storageRS:/.storage \
+-p 7102:7102 \
+-p 9002:9002 \
+--log-driver fluentd --log-opt fluentd-address=localhost:24224 \
+loopchain/looprs:${TAG} \
+python3 radiostation.py -o /conf/rs_conf.json
+
+# RadioStation 컨테이너가 정상적으로 실행되었는지 확인합니다.
+$ docker ps --filter name=radio_station
+CONTAINER ID        IMAGE                     COMMAND                  CREATED             STATUS              PORTS                                                           NAMES
+c67e3cfa668a        loopchain/looprs:latest   &quot;python3 radiostatio…&quot;   8 seconds ago       Up 8 seconds        0.0.0.0:7102-&gt;7102/tcp, 7100-7101/tcp, 0.0.0.0:9002-&gt;9002/tcp   radio_station
+$
+</pre></div>
+</div>
+</div>
+<div class="section" id="peer0">
+<span id="peer0"></span><h3>Peer0실행<a class="headerlink" href="#peer0" title="제목 주소">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># Peer 0번에서 이용할 데이타 저장 공간을 만듭니다.
+$ mkdir -p storage0
+
+# Peer0 컨테이너를 실행합니다.
+$ docker run -d --name peer0 \
+-v $(pwd)/conf:/conf \
+-v $(pwd)/storage0:/.storage \
+--link radio_station:radio_station \
+--log-driver fluentd --log-opt fluentd-address=localhost:24224 \
+-p 7100:7100 -p 9000:9000 \
+loopchain/looppeer:${TAG} \
+python3 peer.py -o /conf/peer_conf0.json -p 7100 -r radio_station:7102
+
+
+
+# Peer0 컨테이너가 정상적으로 실행되었는지 확인합니다.
+$ docker ps --filter name=peer0
+CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS                                                           NAMES
+f18c4e082a30        loopchain/looppeer:latest   &quot;python3 peer.py -o …&quot;   7 minutes ago       Up 7 minutes        0.0.0.0:7100-&gt;7100/tcp, 0.0.0.0:9000-&gt;9000/tcp, 7101-7102/tcp   peer0
+$
+</pre></div>
+</div>
+</div>
+<div class="section" id="peer1">
+<span id="peer1"></span><h3>Peer1실행<a class="headerlink" href="#peer1" title="제목 주소">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># Peer 1번에서 이용할 데이타 저장 공간을 만듭니다.
+$ mkdir -p storage1
+
+# Peer1 컨테이너를 실행합니다.
+$ docker run -d --name peer1 \
+-v $(pwd)/conf:/conf \
+-v $(pwd)/storage1:/.storage \
+--link radio_station:radio_station \
+--log-driver fluentd --log-opt fluentd-address=localhost:24224 \
+-p 7200:7200 -p 9100:9100 \
+loopchain/looppeer:${TAG} \
+python3 peer.py -o /conf/peer_conf1.json -p 7200 -r radio_station:7102
+
+# Peer1 컨테이너가 정상적으로 실행되었는지 확인합니다.
+$ $ docker ps --filter name=peer1
+CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS                                                                     NAMES
+c10d2938efee        loopchain/looppeer:latest   &quot;python3 peer.py -o …&quot;   7 minutes ago       Up 7 minutes        7100-7102/tcp, 0.0.0.0:7200-&gt;7200/tcp, 9000/tcp, 0.0.0.0:9100-&gt;9100/tcp   peer1
+$
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="">
+<span id="id6"></span><h2>확인하기<a class="headerlink" href="#" title="제목 주소">¶</a></h2>
+<p>제대로 설치되고 실행이 되고 있는지 확인하는 방법은 다음과 같습니다.</p>
+<div class="section" id="radiostation-channel1-peer">
+<span id="radiostation-channel1-peer"></span><h3>RadioStation의 Channel1에 접속된 Peer들의 정보 출력<a class="headerlink" href="#radiostation-channel1-peer" title="제목 주소">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">http://localhost:9002/api/v1/peer/list?channel=channel1</span> <span class="pre">|</span> <span class="pre">python</span> <span class="pre">-m</span> <span class="pre">json.tool</span></code> 명령어를 입력합니다. 정상적으로 동작하고 있다면 다음과 비슷한 메세지가 출력이 될 것입니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ curl http://localhost:9002/api/v1/peer/list?channel=channel1 | python -m json.tool
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  1573  100  1573    0     0  64583      0 --:--:-- --:--:-- --:--:-- 65541
+{
+    &quot;data&quot;: {
+        &quot;connected_peer_count&quot;: 2,
+        &quot;connected_peer_list&quot;: [
+            {
+                &quot;cert&quot;: &quot;MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAE+HQPBowjyJnyinsYjiztl5i6hQ1JiWdpRmyFR1T283M4liQia7weerQQ4Qw6jDVwd+RkwHeenvR0xxovUFCTQg==&quot;,
+                &quot;group_id&quot;: &quot;9f109b10-1b8b-11e8-9ab2-0242ac110004&quot;,
+                &quot;order&quot;: 1,
+                &quot;peer_id&quot;: &quot;9f109b10-1b8b-11e8-9ab2-0242ac110004&quot;,
+                &quot;peer_type&quot;: 1,
+                &quot;status&quot;: 1,
+                &quot;status_update_time&quot;: &quot;2018-03-05 07:21:21.848287&quot;,
+                &quot;target&quot;: &quot;172.17.0.4:7100&quot;
+            },
+            {
+                &quot;cert&quot;: &quot;MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAE+HQPBowjyJnyinsYjiztl5i6hQ1JiWdpRmyFR1T283M4liQia7weerQQ4Qw6jDVwd+RkwHeenvR0xxovUFCTQg==&quot;,
+                &quot;group_id&quot;: &quot;c41c2488-2045-11e8-bae4-0242ac110005&quot;,
+                &quot;order&quot;: 2,
+                &quot;peer_id&quot;: &quot;c41c2488-2045-11e8-bae4-0242ac110005&quot;,
+                &quot;peer_type&quot;: 0,
+                &quot;status&quot;: 1,
+                &quot;status_update_time&quot;: &quot;2018-03-05 07:21:27.220094&quot;,
+                &quot;target&quot;: &quot;172.17.0.5:7200&quot;
+            }
+        ],
+        &quot;registered_peer_count&quot;: 2,
+        &quot;registered_peer_list&quot;: [
+            {
+                &quot;cert&quot;: &quot;MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAE+HQPBowjyJnyinsYjiztl5i6hQ1JiWdpRmyFR1T283M4liQia7weerQQ4Qw6jDVwd+RkwHeenvR0xxovUFCTQg==&quot;,
+                &quot;group_id&quot;: &quot;9f109b10-1b8b-11e8-9ab2-0242ac110004&quot;,
+                &quot;order&quot;: 1,
+                &quot;peer_id&quot;: &quot;9f109b10-1b8b-11e8-9ab2-0242ac110004&quot;,
+                &quot;peer_type&quot;: 1,
+                &quot;status&quot;: 1,
+                &quot;status_update_time&quot;: &quot;2018-03-05 07:21:21.848287&quot;,
+                &quot;target&quot;: &quot;172.17.0.4:7100&quot;
+            },
+            {
+                &quot;cert&quot;: &quot;MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAE+HQPBowjyJnyinsYjiztl5i6hQ1JiWdpRmyFR1T283M4liQia7weerQQ4Qw6jDVwd+RkwHeenvR0xxovUFCTQg==&quot;,
+                &quot;group_id&quot;: &quot;c41c2488-2045-11e8-bae4-0242ac110005&quot;,
+                &quot;order&quot;: 2,
+                &quot;peer_id&quot;: &quot;c41c2488-2045-11e8-bae4-0242ac110005&quot;,
+                &quot;peer_type&quot;: 0,
+                &quot;status&quot;: 1,
+                &quot;status_update_time&quot;: &quot;2018-03-05 07:21:27.220094&quot;,
+                &quot;target&quot;: &quot;172.17.0.5:7200&quot;
+            }
+        ]
+    },
+    &quot;response_code&quot;: 0
+}
+$
+</pre></div>
+</div>
+</div>
+<div class="section" id="peer0">
+<span id="id7"></span><h3>Peer0의 상태정보를 출력<a class="headerlink" href="#peer0" title="제목 주소">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">http://localhost:9000/api/v1/status/peer?channel=channel1</span> <span class="pre">|</span> <span class="pre">python</span> <span class="pre">-m</span> <span class="pre">json.tool</span></code> 명령어를 입력합니다. 정상적으로 동작하고 있다면 다음과 비슷한 메세지가 출력이 될 것입니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ curl http://localhost:9000/api/v1/status/peer?channel=channel1 | python -m json.tool
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   264  100   264    0     0  19717      0 --:--:-- --:--:-- --:--:-- 20307
+{
+    &quot;audience_count&quot;: &quot;0&quot;,
+    &quot;block_height&quot;: 0,
+    &quot;consensus&quot;: &quot;siever&quot;,
+    &quot;leader_complaint&quot;: 1,
+    &quot;made_block_count&quot;: 0,
+    &quot;peer_id&quot;: &quot;9f109b10-1b8b-11e8-9ab2-0242ac110004&quot;,
+    &quot;peer_target&quot;: &quot;172.17.0.4:7100&quot;,
+    &quot;peer_type&quot;: &quot;1&quot;,
+    &quot;status&quot;: &quot;Service is online: 1&quot;,
+    &quot;total_tx&quot;: 0
+}
+$
+</pre></div>
+</div>
+</div>
+<div class="section" id="peer1">
+<span id="id8"></span><h3>Peer1의 상태정보를 출력<a class="headerlink" href="#peer1" title="제목 주소">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">http://localhost:9100/api/v1/status/peer?channel=channel1</span> <span class="pre">|</span> <span class="pre">python</span> <span class="pre">-m</span> <span class="pre">json.tool</span></code> 명령어를 입력합니다. 정상적으로 동작하고 있다면 다음과 비슷한 메세지가 출력이 될 것입니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ curl http://localhost:9100/api/v1/status/peer?channel=channel1 | python -m json.tool
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   264  100   264    0     0  17546      0 --:--:-- --:--:-- --:--:-- 18857
+{
+    &quot;audience_count&quot;: &quot;0&quot;,
+    &quot;block_height&quot;: 0,
+    &quot;consensus&quot;: &quot;siever&quot;,
+    &quot;leader_complaint&quot;: 1,
+    &quot;made_block_count&quot;: 0,
+    &quot;peer_id&quot;: &quot;c41c2488-2045-11e8-bae4-0242ac110005&quot;,
+    &quot;peer_target&quot;: &quot;172.17.0.5:7200&quot;,
+    &quot;peer_type&quot;: &quot;0&quot;,
+    &quot;status&quot;: &quot;Service is online: 0&quot;,
+    &quot;total_tx&quot;: 0
+}
+$
+</pre></div>
+</div>
+</div>
+<div class="section" id="log">
+<span id="id9"></span><h3>log가 저장되고 있는지 확인.<a class="headerlink" href="#log" title="제목 주소">¶</a></h3>
+<p>현재 튜토리얼에서는 /logs폴더에 RadioStation, Peer0, Peer1의 로그가 저장되고 있습니다. 이를 확인하기 위해서 /logs 폴더안에 파일들이 생성되고 있는지 확인합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ls $(pwd)/logs/
+data.b5669f50a57554db1a74bc2c19ddb6c16.log  data.log time_slice_format %Y%m%d
+data.20180228_0.log.gz              data.20180302_0.log.gz              data.b5669f50a57554db1a74bc2c19ddb6c16.log.meta
+$
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="">
+<span id="id10"></span><h2>실행 스크립트 작성<a class="headerlink" href="#" title="제목 주소">¶</a></h2>
+<p>실제 loopchain 운영의 편의를 위해서 위와 같이 매번 명령어를 직접 입력하기 보다는 실행스크립트 작성이 필요합니다. 다음과 같이 실행스크립트를 작성하고 실행해보자.</p>
+<div class="section" id="start-sh">
+<span id="start-sh"></span><h3>시작 - start.sh (새로운 컨테이너 실행)<a class="headerlink" href="#start-sh" title="제목 주소">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>#!/usr/bin/env bash
+
+##############################################
+#           환경변수등록
+##############################################
+export TAG=latest
+export CONF=$(pwd)/conf
+export LOGS=$(pwd)/logs
+export FLUENTD=$(pwd)/fluentd
+export STORAGE_RS=$(pwd)/storageRS
+export STORAGE_PEER_0=$(pwd)/storage0
+export STORAGE_PEER_1=$(pwd)/storage1
+
+##############################################
+#       로그 및 데이터 디렉토리 생성
+##############################################
+if [ ! -d ${LOGS} ]
+    then    mkdir -p ${LOGS}
+fi
+
+if [ ! -d ${STORAGE_RS} ]
+    then    mkdir -p ${STORAGE_RS}
+fi
+
+if [ ! -d ${STORAGE_PEER_0} ]
+    then    mkdir -p ${STORAGE_PEER_0}
+fi
+
+if [ ! -d ${STORAGE_PEER_1} ]
+    then    mkdir -p ${STORAGE_PEER_1}
+fi
+
+
+##############################################
+#           로그서버실행
+##############################################
+docker run -d \
+--name loop-logger \
+--publish 24224:24224/tcp \
+--volume ${FLUENTD}:/fluentd \
+--volume ${LOGS}:/logs \
+loopchain/loopchain-fluentd:${TAG}
+
+##############################################
+# Radio Station 실행
+##############################################
+docker run -d --name radio_station \
+-v ${CONF}:/conf \
+-v ${STORAGE_RS}/storageRS:/.storage \
+-p 7102:7102 \
+-p 9002:9002 \
+--log-driver fluentd --log-opt fluentd-address=localhost:24224 \
+loopchain/looprs:${TAG} \
+python3 radiostation.py -o /conf/rs_conf.json
+
+##############################################
+#           Peer0 실행
+##############################################
+docker run -d --name peer0 \
+-v $(pwd)/conf:/conf \
+-v $(pwd)/storage0:/.storage \
+--link radio_station:radio_station \
+--log-driver fluentd --log-opt fluentd-address=localhost:24224 \
+-p 7100:7100 -p 9000:9000 \
+loopchain/looppeer:${TAG} \
+python3 peer.py -o /conf/peer_conf0.json -p 7100 -r radio_station:7102
+
+##############################################
+#           Peer1 실행
+##############################################
+docker run -d --name peer1 \
+-v $(pwd)/conf:/conf \
+-v $(pwd)/storage1:/.storage \
+--link radio_station:radio_station \
+--log-driver fluentd --log-opt fluentd-address=localhost:24224 \
+-p 7200:7200 -p 9100:9100 \
+loopchain/looppeer:${TAG} \
+python3 peer.py -o /conf/peer_conf1.json -p 7200 -r radio_station:7102
+</pre></div>
+</div>
+</div>
+<div class="section" id="stop-sh">
+<span id="stop-sh"></span><h3>종료 - stop.sh (실행 중인 컨테이너를 종료)<a class="headerlink" href="#stop-sh" title="제목 주소">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>#!/usr/bin/env bash
+
+docker stop $(docker ps -q --filter name=loop-logger --filter name=radio_station --filter name=peer0 --filter name=peer1)
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-sh">
+<span id="delete-sh"></span><h3>삭제 - delete.sh (종료된 컨테이너를 삭제)<a class="headerlink" href="#delete-sh" title="제목 주소">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>#!/usr/bin/env bash
+
+docker rm -f $(docker ps -aq --filter name=loop-logger --filter name=radio_station --filter name=peer0 --filter name=peer1)
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">목차</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Local computer에서 RadioStation과 2개의 Peer로 Blockchain network 구성하기</a><ul>
+<li><a class="reference internal" href="#">목적</a></li>
+<li><a class="reference internal" href="#">디렉토리 구성</a></li>
+<li><a class="reference internal" href="#">설정 파일 생성</a><ul>
+<li><a class="reference internal" href="#">디렉토리 생성</a></li>
+<li><a class="reference internal" href="#">설정 파일 생성 및 이동</a><ul>
+<li><a class="reference internal" href="#log">log 서버의 설정</a></li>
+<li><a class="reference internal" href="#channel-manage-data-json"><code class="docutils literal notranslate"><span class="pre">channel_manage_data.json</span></code> 작성</a></li>
+<li><a class="reference internal" href="#rs-conf-json"><code class="docutils literal notranslate"><span class="pre">rs_conf.json</span></code> 작성</a></li>
+<li><a class="reference internal" href="#peer-conf0-json"><code class="docutils literal notranslate"><span class="pre">peer_conf0.json</span></code> 작성</a></li>
+<li><a class="reference internal" href="#peer-conf1-json"><code class="docutils literal notranslate"><span class="pre">peer_conf1.json</span></code> 작성</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#docker-container">Docker Container 실행</a><ul>
+<li><a class="reference internal" href="#log-server">Log server 실행</a></li>
+<li><a class="reference internal" href="#radiostation">RadioStation 실행</a></li>
+<li><a class="reference internal" href="#peer0">Peer0실행</a></li>
+<li><a class="reference internal" href="#peer1">Peer1실행</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#">확인하기</a><ul>
+<li><a class="reference internal" href="#radiostation-channel1-peer">RadioStation의 Channel1에 접속된 Peer들의 정보 출력</a></li>
+<li><a class="reference internal" href="#peer0">Peer0의 상태정보를 출력</a></li>
+<li><a class="reference internal" href="#peer1">Peer1의 상태정보를 출력</a></li>
+<li><a class="reference internal" href="#log">log가 저장되고 있는지 확인.</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#">실행 스크립트 작성</a><ul>
+<li><a class="reference internal" href="#start-sh">시작 - start.sh (새로운 컨테이너 실행)</a></li>
+<li><a class="reference internal" href="#stop-sh">종료 - stop.sh (실행 중인 컨테이너를 종료)</a></li>
+<li><a class="reference internal" href="#delete-sh">삭제 - delete.sh (종료된 컨테이너를 삭제)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="Tutorial_1R1P.html" title="이전 장">Local computer에서 RadioStation과 1개의 Peer로 Blockchain network 구성하기</a></li>
+      <li>Next: <a href="Configuration.html" title="다음 장">설정 가이드</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>현재 문서</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Tutorial_1R2P.md.txt"
+            rel="nofollow">소스 코드를 보려면</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>빠른 검색</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="바로 가기" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Theloop.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/Tutorial_1R2P.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

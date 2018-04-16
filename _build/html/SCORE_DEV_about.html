@@ -1,0 +1,251 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>loopchain SCORE 개발에 대하여 &#8212; loopchain Docs 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="색인" href="genindex.html" />
+    <link rel="search" title="검색" href="search.html" />
+    <link rel="next" title="RadioStation - RESTful API" href="Radiostation-RESTful_API.html" />
+    <link rel="prev" title="Local computer에서 SCORE 개발할 수 있는 환경 만들기" href="SCORE_local_DEV_env.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="loopchain-score">
+<span id="loopchain-score"></span><h1>loopchain SCORE 개발에 대하여<a class="headerlink" href="#loopchain-score" title="제목 주소">¶</a></h1>
+<div class="section" id="score">
+<span id="score"></span><h2>SCORE 개발<a class="headerlink" href="#score" title="제목 주소">¶</a></h2>
+<p>SCORE의 개발은 3단계로 나뉘어 집니다.</p>
+<ol class="simple">
+<li>비지니스 모델 타당성 검증</li>
+<li>모델 구현 및 Unit Test</li>
+<li>Integration Test 및 모델 배포</li>
+</ol>
+<div class="section" id="">
+<span id="id1"></span><h3>비지니스 모델 타당성 검증<a class="headerlink" href="#" title="제목 주소">¶</a></h3>
+<p>SCORE 안에서는 다음과 같은 내용을 통한 비지니스 모델은 불가능합니다.</p>
+<ul class="simple">
+<li><strong>랜덤 값에 의존하는 비지니스 모델</strong>: SCORE 안에서 랜덤 값을 생성하거나, 실행하는 모델은 불가하나, 블록의 해시 혹은 트랜잭션을 이용한 랜덤 값 이용은 가능합니다.</li>
+<li><strong>외부의 데이터에 의존성이 있는 비지니스 모델</strong>: SCORE 안에서 다른 사이트를 호출하거나, 외부의 데이터를 요구하는 모델은 아직 불가능하나 향후 고려되고 있습니다.</li>
+<li><strong>시간에 따라 행동하는 혹은 실행시간에 따라 내용이 바뀌는 모델</strong>: 현재 시간(실행시간)은 사용 불가능하며, 블록의 시간 혹은 트랜잭션 시간으로 대체는 가능합니다.</li>
+<li><strong>부동 소수점 처리 불가</strong>: CPU에 따라 부동 소수점 표현 방식이 달라질 수 있으므로 모든 연산은 정수 단위에서 처리해야 합니다.</li>
+<li><strong>내부 변수 재사용 금지</strong>: 특정한 변수를 Cache해 놓았다가 쓰는 것은 금지되어야 합니다.</li>
+</ul>
+</div>
+<div class="section" id="">
+<span id="id2"></span><h3>구현<a class="headerlink" href="#" title="제목 주소">¶</a></h3>
+<ul class="simple">
+<li>SCORE를 작성하거나, 개발할 때는 coverage 90% 이상을 목표로 개발 하여야 하며, 퍼포먼스도 고려되어야 합니다.</li>
+</ul>
+<div class="section" id="">
+<span id="id3"></span><h4>폴더 및 실행 구조<a class="headerlink" href="#" title="제목 주소">¶</a></h4>
+<ul class="simple">
+<li>/ score / 회사명(기관명) / 패키지명 <code class="docutils literal notranslate"><span class="pre">ex)</span> <span class="pre">/score/loopchain/default/</span></code></li>
+<li>deploy 폴더명은 사용 불가</li>
+<li>원격 repository를 사용하지 않을 경우 다음과 같이 가능합니다.<ul>
+<li>회사명(기관명)_패키지명.zip 으로 repository 전체를 압축하여 score에 저장하여 실행</li>
+</ul>
+</li>
+<li>패키지 설명 및 실행에 대한 상세내용은 package.json 파일로 정의하며, package.json 정의에 대한 내용은 <strong><a class="reference external" href="./package_guide.md">다른 가이드</a></strong>에서 설명합니다.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="unit-test">
+<span id="unit-test"></span><h3>Unit Test<a class="headerlink" href="#unit-test" title="제목 주소">¶</a></h3>
+<ul class="simple">
+<li>모든 테스트 코드는 SCORE의 패키지 루트에 있어야 하며, 차후 repository 등록 전에 실행됩니다.</li>
+<li>SCORE와 분리해서 논리적인 별도의 Module을 만들어서 Unit Test를 만들어서 수행해야 합니다.</li>
+</ul>
+</div>
+<div class="section" id="integration-test">
+<span id="integration-test"></span><h3>Integration Test<a class="headerlink" href="#integration-test" title="제목 주소">¶</a></h3>
+<ul class="simple">
+<li>RadioStation / Peer를 실행 합니다.</li>
+<li>POST로 /api/v1/transactions로 아래처럼 데이터를 보냅니다.</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;jsonrpc&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;param1&quot;</span><span class="p">:</span><span class="s2">&quot;value1”</span>
+    <span class="o">...</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>packages.json에서 얻은 정의한 함수의 이름과 데이터에 맞춰 Transaction을 만들어준다.</li>
+<li>형식은 JSON 2.0 RPC방식에 맞춰준다.</li>
+<li>Invoke / Query 모두 같은 방식으로 호출된다.<ul>
+<li>함수 이름으로 구분한다.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="score">
+<span id="id4"></span><h3>SCORE 배포 및 관리<a class="headerlink" href="#score" title="제목 주소">¶</a></h3>
+<div class="section" id="local-develop-folder">
+<span id="local-develop-folder"></span><h4>local develop folder를 사용하는 방법<a class="headerlink" href="#local-develop-folder" title="제목 주소">¶</a></h4>
+<p>1.configure_user.py 파일을 추가합니다. (configure_default.py 와 같은 위치)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ALLOW_LOAD_SCORE_IN_DEVELOP</span> <span class="o">=</span> <span class="s1">&#39;allow&#39;</span>
+<span class="n">DEVELOP_SCORE_PACKAGE_ROOT</span> <span class="o">=</span> <span class="s1">&#39;develop&#39;</span>
+<span class="n">DEFAULT_SCORE_PACKAGE</span> <span class="o">=</span> <span class="s1">&#39;develop/[package]&#39;</span>
+</pre></div>
+</div>
+<p>2./score/develop/[package] 폴더를 만듭니다. [package] 는 원하는 이름으로 작성합니다. (sample 을 사용하는 경우 test_score 로 합니다.)
+3./score/sample-test_score/* 파일을 새로운 폴더로 복사합니다.
+4.loopchain 네트워크를 실행하여 확인합니다.</p>
+</div>
+<div class="section" id="zip">
+<span id="zip"></span><h4>zip 파일을 사용하는 방법<a class="headerlink" href="#zip" title="제목 주소">¶</a></h4>
+<p>1.임의의 폴더에서 score 를 작성합니다. (&quot;local develop folder를 사용하는 방법&quot;에서 작성한 SCORE 복사하여도 됩니다.)
+2.package.json 의 &quot;id&quot; 값을 &quot;[company_name]-[package]&quot; 로 수정합니다.
+3.$ git init . 으로 해당 폴더를 local git repository 로 설정합니다.
+4.$ git add . 으로 폴더의 모든 파일을 repository 에 추가 합니다.
+5.$ git commmit -a 로 SCORE 파일들을 git 에 commit 합니다.
+6.$ zip -r ../[company_name]<em>[package].zip ./ 으로 repository 를 zip 으로 압축합니다.
+7.zip 파일을 /score/ 아래에 둡니다. (/score/[company_name]</em>[package].zip)
+8.configure_user.py 파일을 추가합니다. (configure_default.py 와 같은 위치)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DEFAULT_SCORE_PACKAGE</span> <span class="o">=</span> <span class="s1">&#39;[company_name]/[package]&#39;</span>
+</pre></div>
+</div>
+<p>9.loopchain 네트워크를 실행하여 확인합니다.</p>
+</div>
+<div class="section" id="repository">
+<span id="repository"></span><h4>repository 를 사용하는 방법<a class="headerlink" href="#repository" title="제목 주소">¶</a></h4>
+<ul class="simple">
+<li>SCORE의 배포는 특별히 관리되는 repository 를 사용할 수 있습니다.<ul>
+<li>차후 다수의 repository 를 검색하여, 순위 별로 배포하는 방안도 검토 중입니다.</li>
+</ul>
+</li>
+<li>remote repository 에서 관리하지 않는 스코어는 내부 repository 가 포함된 zip 파일에서 관리 할 수 있습니다.</li>
+<li>peer 에서 스코어의 배포는 다음의 명령어를 사용합니다.<ul>
+<li>Docker에서 실행시</li>
+</ul>
+</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ docker run -d ${DOCKER_LOGDRIVE} \
+--name ${PEER_NAME} --link radio_station:radio_station \
+-p ${PORT}:${PORT}  looppeer:${DOCKER_TAG}  \
+python3 peer.py -c ${DEPLOY_SCORE}  \
+-r radio_station -d -p ${PORT}
+</pre></div>
+</div>
+<ul class="simple">
+<li>Local에서 실행시</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 peer.py -c ${DEPLOY_SCORE}  -r radio_station -d -p ${PORT}
+</pre></div>
+</div>
+<ul class="simple">
+<li>참조<ul>
+<li>DEPLOY_SCORE 는 기관명/패키지명 입니다.</li>
+<li>PEER_NAME은 Peer의 이름을 지칭합니다.</li>
+<li>PORT는 radio_station 의 위치 IP:PORT 로 설정됩니다.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">목차</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">loopchain SCORE 개발에 대하여</a><ul>
+<li><a class="reference internal" href="#score">SCORE 개발</a><ul>
+<li><a class="reference internal" href="#">비지니스 모델 타당성 검증</a></li>
+<li><a class="reference internal" href="#">구현</a><ul>
+<li><a class="reference internal" href="#">폴더 및 실행 구조</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#unit-test">Unit Test</a></li>
+<li><a class="reference internal" href="#integration-test">Integration Test</a></li>
+<li><a class="reference internal" href="#score">SCORE 배포 및 관리</a><ul>
+<li><a class="reference internal" href="#local-develop-folder">local develop folder를 사용하는 방법</a></li>
+<li><a class="reference internal" href="#zip">zip 파일을 사용하는 방법</a></li>
+<li><a class="reference internal" href="#repository">repository 를 사용하는 방법</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="SCORE_local_DEV_env.html" title="이전 장">Local computer에서 SCORE 개발할 수 있는 환경 만들기</a></li>
+      <li>Next: <a href="Radiostation-RESTful_API.html" title="다음 장">RadioStation - RESTful API</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>현재 문서</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/SCORE_DEV_about.md.txt"
+            rel="nofollow">소스 코드를 보려면</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>빠른 검색</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="바로 가기" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Theloop.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/SCORE_DEV_about.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

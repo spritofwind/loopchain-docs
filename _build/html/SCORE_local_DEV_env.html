@@ -1,0 +1,339 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Local computer에서 SCORE 개발할 수 있는 환경 만들기 &#8212; loopchain Docs 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="색인" href="genindex.html" />
+    <link rel="search" title="검색" href="search.html" />
+    <link rel="next" title="loopchain SCORE 개발에 대하여" href="SCORE_DEV_about.html" />
+    <link rel="prev" title="SCORE Tutorial" href="SCORE_ENV.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="local-computer-score">
+<span id="local-computer-score"></span><h1>Local computer에서 SCORE 개발할 수 있는 환경 만들기<a class="headerlink" href="#local-computer-score" title="제목 주소">¶</a></h1>
+<div class="section" id="">
+<span id="id1"></span><h2>1. 목적<a class="headerlink" href="#" title="제목 주소">¶</a></h2>
+<p>이번에는 실제 개발을 한다고 했을 때, 어떻게 개발할 수 있는 환경을 만드는 법을 이야기 하려고 합니다.</p>
+</div>
+<div class="section" id="">
+<span id="id2"></span><h2>2. 프로젝트 구성<a class="headerlink" href="#" title="제목 주소">¶</a></h2>
+<p>아래와 같이 프로젝트를 구성하겠습니다.
+주목해야 하는 것은 score/develop이라는 폴더가 생겼다는 것입니다. 이 폴더 아래에 앞서서 이용했던 contract_score의 코드를 있는 그대로 올려놓을 것 입니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>├── conf
+│   ├── channel_manage_data.json
+│   ├── peer_conf.json
+│   └── rs_conf.json
+├── fluentd
+│   └── etc
+│       └── fluent.conf
+├── score
+│   └── develop
+│       └── contract_score
+├── start.sh
+├── stop.sh
+└── delete.sh
+</pre></div>
+</div>
+<p>이렇게 구성하고 loopchain에게 &quot;score/deveop&quot; 폴더 아래 있는 SCORE 프로젝트를 읽어오라고 할 것입니다.</p>
+</div>
+<div class="section" id="">
+<span id="id3"></span><h2>3. 프로젝트 구성<a class="headerlink" href="#" title="제목 주소">¶</a></h2>
+<div class="section" id="radiostation-channel-manage-data-json">
+<span id="radiostation-channel-manage-data-json"></span><h3>1. RadioStation 설정 - <code class="docutils literal notranslate"><span class="pre">channel_manage_data.json</span></code><a class="headerlink" href="#radiostation-channel-manage-data-json" title="제목 주소">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">score_package</span></code>의 값을 <code class="docutils literal notranslate"><span class="pre">develop/contract_score</span></code>라고 설정합니다. 이 뜻은 `score/develop/contract_score'라는 SCORE프로젝트를 가져오라는 뜻입니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;channel1&quot;</span><span class="p">:</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;score_package&quot;</span><span class="p">:</span> <span class="s2">&quot;develop/contract_score&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="peer-peer-conf-json">
+<span id="peer-peer-conf-json"></span><h3>2. Peer 설정 - <code class="docutils literal notranslate"><span class="pre">peer_conf.json</span></code><a class="headerlink" href="#peer-peer-conf-json" title="제목 주소">¶</a></h3>
+<p>이제 각 peer에서 개발용으로 SCORE를 읽어오라고 설정해야 합니다. 아래 설정들의 의미는 다음과 같습니다.</p>
+<ul class="simple">
+<li>LOOPCHAIN_DEFAULT_CHANNEL : Multichannel의 기능입니다. 각 RESTful request에는 channel_manage_data.json에서 지정한 channel명이 붙어야 합니다. 이 옵션을 주면 여기서 지정한 채널로 reqeust가 들어간다는 의미입니다.</li>
+<li>ALLOW_LOAD_SCORE_IN_DEVELOP : 이 값을 <code class="docutils literal notranslate"><span class="pre">&quot;allow&quot;</span></code> 라고 하면 local에서 읽어와서 SCORE를 실행한다는 의미입니다.</li>
+<li>DEVELOP_SCORE_PACKAGE_ROOT : 앞서 지정한 <code class="docutils literal notranslate"><span class="pre">score</span></code>폴더 아래 어디에서 개발중인 SCORE를 읽어올지 지정합니다. 현재 설정의 의미는 <code class="docutils literal notranslate"><span class="pre">score</span></code>아래 <code class="docutils literal notranslate"><span class="pre">develop</span></code>폴더 아래에서 읽어오라는 의미입니다.</li>
+<li>DEFAULT_SCORE_PACKAGE : <code class="docutils literal notranslate"><span class="pre">develop/contract_score</span></code>라고 줍니다. 이 뜻은 'score라는 폴더 아래에 develop/contract_score'라는 SCORE프로젝트를 가져오라는 뜻입니다.</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;LOOPCHAIN_DEFAULT_CHANNEL&quot;</span> <span class="p">:</span> <span class="s2">&quot;channel1&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;ALLOW_LOAD_SCORE_IN_DEVELOP&quot;</span> <span class="p">:</span> <span class="s2">&quot;allow&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;DEVELOP_SCORE_PACKAGE_ROOT&quot;</span> <span class="p">:</span> <span class="s2">&quot;develop&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;DEFAULT_SCORE_PACKAGE&quot;</span> <span class="p">:</span> <span class="s2">&quot;develop/contract_score&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="peer-start-sh">
+<span id="peer-start-sh"></span><h3>3. 시작 스크립트에서 Peer실행 추가설정 - start.sh<a class="headerlink" href="#peer-start-sh" title="제목 주소">¶</a></h3>
+<p>기존에 있던 SSH key, SCORE저장소 도메인을 지웁니다. 현재 local computer에서 읽어서 처리할 것이기 때문입니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>...
+
+docker run -d --name peer0 \
+  -v $(pwd)/conf:/conf \
+  -v $(pwd)/storage0:/.storage \
+  -v $(pwd)/score:/score \
+  --link radio_station:radio_station \
+  --log-driver fluentd --log-opt fluentd-address=localhost:24224 \
+  -p 7100:7100 -p 9000:9000  \
+  loopchain/looppeer:${TAG} \
+  python3 peer.py -o /conf/peer_conf.json  -r radio_station:7102
+
+...
+</pre></div>
+</div>
+</div>
+<div class="section" id="">
+<span id="id4"></span><h3>4. 실행<a class="headerlink" href="#" title="제목 주소">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ start.sh
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="">
+<span id="id5"></span><h2>4. 테스트<a class="headerlink" href="#" title="제목 주소">¶</a></h2>
+<div class="section" id="peer">
+<span id="peer"></span><h3>1. Peer 목록 조회<a class="headerlink" href="#peer" title="제목 주소">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ curl http://localhost:9002/api/v1/peer/list | python -m json.tool
+
+//결과
+{
+    &quot;data&quot;: {
+        &quot;connected_peer_count&quot;: 1,
+        &quot;connected_peer_list&quot;: [
+            {
+                &quot;cert&quot;: &quot;MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAE+HQPBowjyJnyinsYjiztl5i6hQ1JiWdpRmyFR1T283M4liQia7weerQQ4Qw6jDVwd+RkwHeenvR0xxovUFCTQg==&quot;,
+                &quot;group_id&quot;: &quot;c9850196-e559-11e7-bf35-0242ac110004&quot;,
+                &quot;order&quot;: 1,
+                &quot;peer_id&quot;: &quot;c9850196-e559-11e7-bf35-0242ac110004&quot;,
+                &quot;peer_type&quot;: 1,
+                &quot;status&quot;: 1,
+                &quot;status_update_time&quot;: &quot;2017-12-20 07:46:09.483471&quot;,
+                &quot;target&quot;: &quot;172.17.0.4:7100&quot;
+            }
+        ],
+        &quot;registered_peer_count&quot;: 1,
+        &quot;registered_peer_list&quot;: [
+            {
+                &quot;cert&quot;: &quot;MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAE+HQPBowjyJnyinsYjiztl5i6hQ1JiWdpRmyFR1T283M4liQia7weerQQ4Qw6jDVwd+RkwHeenvR0xxovUFCTQg==&quot;,
+                &quot;group_id&quot;: &quot;c9850196-e559-11e7-bf35-0242ac110004&quot;,
+                &quot;order&quot;: 1,
+                &quot;peer_id&quot;: &quot;c9850196-e559-11e7-bf35-0242ac110004&quot;,
+                &quot;peer_type&quot;: 1,
+                &quot;status&quot;: 1,
+                &quot;status_update_time&quot;: &quot;2017-12-20 07:46:09.483471&quot;,
+                &quot;target&quot;: &quot;172.17.0.4:7100&quot;
+            }
+        ]
+    },
+    &quot;response_code&quot;: 0
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="peer">
+<span id="id6"></span><h3>2. Peer 상태 조회<a class="headerlink" href="#peer" title="제목 주소">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ curl http://localhost:9000/api/v1/status/peer | python -m json.tool
+
+{
+    &quot;audience_count&quot;: &quot;0&quot;,
+    &quot;block_height&quot;: 2,
+    &quot;consensus&quot;: &quot;siever&quot;,
+    &quot;leader_complaint&quot;: 1,
+    &quot;made_block_count&quot;: 2,
+    &quot;peer_id&quot;: &quot;c9850196-e559-11e7-bf35-0242ac110004&quot;,
+    &quot;peer_target&quot;: &quot;172.17.0.4:7100&quot;,
+    &quot;peer_type&quot;: &quot;1&quot;,
+    &quot;status&quot;: &quot;Service is online: 1&quot;,
+    &quot;total_tx&quot;: 2
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="score">
+<span id="score"></span><h3>3. SCORE 버전 조회<a class="headerlink" href="#score" title="제목 주소">¶</a></h3>
+<p>이 부분에서 보면 version이 하나만 나오는 것을 알 수 있습니다. 이것은 local 컴퓨터안에 있는 파일을 가지고 내부에서 git repository를 자체적으로 구성해서 올리기 때문입니다. 이것은 loopchain이 올라올 때, score/develop 폴더 아래 보면 deploy 란 폴더가 있는 것으로 확인 가능합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ curl http://localhost:9000/api/v1/status/score | python -m json.tool
+
+{
+    &quot;all_version&quot;: [
+        &quot;b301ffd2e0cf8fe2541de975e8d3afd281a7170b&quot;
+    ],
+    &quot;id&quot;: &quot;develop/contract_score&quot;,
+    &quot;status&quot;: 0,
+    &quot;version&quot;: &quot;b301ffd2e0cf8fe2541de975e8d3afd281a7170b&quot;
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="score-transaction">
+<span id="score-transaction"></span><h3>4. SCORE Transaction 생성<a class="headerlink" href="#score-transaction" title="제목 주소">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ curl -H &quot;Content-Type: application/json&quot; -X POST -d &#39;{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;propose&quot;,&quot;params&quot;:{&quot;proposer&quot;:&quot;RealEstateAgent&quot; , &quot;counterparties&quot;: [&quot;leaseholder&quot;,&quot;lessor&quot;], &quot;content&quot;: &quot;A아파트 203동 803호를 보증금 1500 월세 70에 계약 2019년 8월 1일까지 임대함, 임대 취소시&quot;, &quot;quorum&quot;: &quot;3&quot;}}&#39;  http://localhost:9000/api/v1/transactions | python -m json.tool
+
+// 결과
+{
+    &quot;more_info&quot;: &quot;&quot;,
+    &quot;response_code&quot;: &quot;0&quot;,
+    &quot;tx_hash&quot;: &quot;3fc5795f1ff0732533f01bb1612911036ab7c620446437e3f2818f9a662e9085&quot;
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="score-transaction-api-v1-transactions-result">
+<span id="score-transaction-api-v1-transactions-result"></span><h3>5. SCORE Transaction 조회 - <code class="docutils literal notranslate"><span class="pre">/api/v1/transactions/result</span> <span class="pre">사용</span></code><a class="headerlink" href="#score-transaction-api-v1-transactions-result" title="제목 주소">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ curl http://localhost:9000/api/v1/transactions/result?hash=3fc5795f1ff0732533f01bb1612911036ab7c620446437e3f2818f9a662e9085 | python -m json.tool
+
+// 결과
+{
+    &quot;response&quot;: {
+        &quot;code&quot;: 0,
+        &quot;jsonrpc&quot;: &quot;2.0&quot;
+    },
+    &quot;response_code&quot;: &quot;0&quot;
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="score-transaction-query">
+<span id="score-transaction-query"></span><h3>6. SCORE Transaction 실행 결과 조회 (Query)<a class="headerlink" href="#score-transaction-query" title="제목 주소">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ curl -H &quot;Content-Type: application/json&quot; -X POST -d &#39;{&quot;jsonrpc&quot;: &quot;2.0&quot;,&quot;channel&quot;:&quot;channel1&quot;,&quot;method&quot;:&quot;get_user_contracts&quot;,&quot;id&quot;:&quot;test_query&quot;,&quot;params&quot;:{&quot;user_id&quot;:&quot;lessor&quot;
+}}&#39; http://localhost:9000/api/v1/query | python -m json.tool
+
+{
+    &quot;response_code&quot;: &quot;0&quot;,
+    &quot;response&quot;: {
+        &quot;jsonrpc&quot;: &quot;2.0&quot;,
+        &quot;code&quot;: 0,
+        &quot;response&quot;: {
+            &quot;user_contracts&quot;: [
+                {
+                    &quot;proposer&quot;: &quot;RealEstateAgent&quot;,
+                    &quot;counterparties&quot;: [
+                        &quot;leaseholder&quot;,
+                        &quot;lessor&quot;
+                    ],
+                    &quot;content&quot;: &quot;A\uc544\ud30c\ud2b8 203\ub3d9 803\ud638\ub97c \ubcf4\uc99d\uae08 1500 \uc6d4\uc138 70\uc5d0 \uacc4\uc57d 2019\ub144 8\uc6d4 1\uc77c\uae4c\uc9c0 \uc784\ub300\ud568, \uc784\ub300 \ucde8\uc18c\
+uc2dc ~~~ &quot;,
+                    &quot;quorum&quot;: &quot;3&quot;,
+                    &quot;approvers&quot;: [
+                        &quot;RealEstateAgent&quot;
+                    ],
+                    &quot;contract_id&quot;: 1
+                }
+            ]
+        },
+        &quot;id&quot;: &quot;test_query&quot;
+    }
+}
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">목차</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Local computer에서 SCORE 개발할 수 있는 환경 만들기</a><ul>
+<li><a class="reference internal" href="#">1. 목적</a></li>
+<li><a class="reference internal" href="#">2. 프로젝트 구성</a></li>
+<li><a class="reference internal" href="#">3. 프로젝트 구성</a><ul>
+<li><a class="reference internal" href="#radiostation-channel-manage-data-json">1. RadioStation 설정 - <code class="docutils literal notranslate"><span class="pre">channel_manage_data.json</span></code></a></li>
+<li><a class="reference internal" href="#peer-peer-conf-json">2. Peer 설정 - <code class="docutils literal notranslate"><span class="pre">peer_conf.json</span></code></a></li>
+<li><a class="reference internal" href="#peer-start-sh">3. 시작 스크립트에서 Peer실행 추가설정 - start.sh</a></li>
+<li><a class="reference internal" href="#">4. 실행</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#">4. 테스트</a><ul>
+<li><a class="reference internal" href="#peer">1. Peer 목록 조회</a></li>
+<li><a class="reference internal" href="#peer">2. Peer 상태 조회</a></li>
+<li><a class="reference internal" href="#score">3. SCORE 버전 조회</a></li>
+<li><a class="reference internal" href="#score-transaction">4. SCORE Transaction 생성</a></li>
+<li><a class="reference internal" href="#score-transaction-api-v1-transactions-result">5. SCORE Transaction 조회 - <code class="docutils literal notranslate"><span class="pre">/api/v1/transactions/result</span> <span class="pre">사용</span></code></a></li>
+<li><a class="reference internal" href="#score-transaction-query">6. SCORE Transaction 실행 결과 조회 (Query)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="SCORE_ENV.html" title="이전 장">SCORE Tutorial</a></li>
+      <li>Next: <a href="SCORE_DEV_about.html" title="다음 장">loopchain SCORE 개발에 대하여</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>현재 문서</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/SCORE_local_DEV_env.md.txt"
+            rel="nofollow">소스 코드를 보려면</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>빠른 검색</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="바로 가기" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Theloop.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/SCORE_local_DEV_env.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

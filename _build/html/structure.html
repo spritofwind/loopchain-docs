@@ -1,0 +1,142 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>loopchain의 기본 구조 &#8212; loopchain Docs 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="색인" href="genindex.html" />
+    <link rel="search" title="검색" href="search.html" />
+    <link rel="next" title="Tutorial" href="Tutorial.html" />
+    <link rel="prev" title="Introduction" href="Introduction.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="loopchain">
+<span id="loopchain"></span><h1>loopchain의 기본 구조<a class="headerlink" href="#loopchain" title="제목 주소">¶</a></h1>
+<div class="section" id="">
+<span id="id1"></span><h2>기본 구조도<a class="headerlink" href="#" title="제목 주소">¶</a></h2>
+<p><img alt="Peer Network" src="_images/PeerNetwork.png" /></p>
+</div>
+<div class="section" id="radiostation">
+<span id="radiostation"></span><h2>RadioStation<a class="headerlink" href="#radiostation" title="제목 주소">¶</a></h2>
+<ul class="simple">
+<li>Peer들의 인증을 담당하고 Peer들의 목록을 관리합니다.</li>
+</ul>
+<div class="section" id="radiostation-peer">
+<span id="radiostation-peer"></span><h3>RadioStation과 Peer의 접속<a class="headerlink" href="#radiostation-peer" title="제목 주소">¶</a></h3>
+<ul class="simple">
+<li>RadioStation과 Peer는 시작할 때에 자신의 인증서/개인키 경로를 입력합니다.</li>
+<li>Peer들의 인증서를 설치시 넣어주고 설정파일에서 이를 읽어서 처리하게 하고 있습니다. KMS(Key management system)지원하는 기능도 Enterprise용으로 지원합니다.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="peer">
+<span id="peer"></span><h2>Peer<a class="headerlink" href="#peer" title="제목 주소">¶</a></h2>
+<ul class="simple">
+<li>블록 생성, 블록 관리, 트랜잭션 생성, 조회, 원장 조회 등의 기능을 처리합니다.</li>
+<li>Peer가 생성될 때에 RadioStation과 연결한다. 시작할 때에 RadioStation의 접속 정보(IP:Port)를 가지고 연결합니다.</li>
+<li><strong>가장 먼저 RadioStation에 연결되는 Peer가 Leader Peer가 됩니다.</strong></li>
+<li>주의 : 최소 4개 이상의 Peer가 필요합니다.</li>
+</ul>
+<div class="section" id="leader-peer">
+<span id="leader-peer"></span><h3>Leader Peer<a class="headerlink" href="#leader-peer" title="제목 주소">¶</a></h3>
+<ul class="simple">
+<li>일정 시간마다 Transaction 들을 모아 Block을 만들고 보낸 다음 검증을 Peer 들에게 받아서 공표합니다.(검증 주기는 설정 가능합니다.)</li>
+<li>다른 Peer를 Subscription(구독)한 다음에 Transaction / Block data를 동기화합니다.</li>
+<li>Leader Peer의 변경은 등록된 Peer의 순서대로 Leader 권한을 줍니다.(Round Robin). (주의: block 생성 개수 기준은 성능에 따라서 변경 가능합니다.)</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">목차</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">loopchain의 기본 구조</a><ul>
+<li><a class="reference internal" href="#">기본 구조도</a></li>
+<li><a class="reference internal" href="#radiostation">RadioStation</a><ul>
+<li><a class="reference internal" href="#radiostation-peer">RadioStation과 Peer의 접속</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#peer">Peer</a><ul>
+<li><a class="reference internal" href="#leader-peer">Leader Peer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="Introduction.html" title="이전 장">Introduction</a></li>
+      <li>Next: <a href="Tutorial.html" title="다음 장">Tutorial</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>현재 문서</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/structure.md.txt"
+            rel="nofollow">소스 코드를 보려면</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>빠른 검색</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="바로 가기" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Theloop.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/structure.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

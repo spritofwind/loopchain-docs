@@ -1,0 +1,168 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Loopchain SCORE package guide &#8212; loopchain Docs 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="색인" href="genindex.html" />
+    <link rel="search" title="검색" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="loopchain-score-package-guide">
+<span id="loopchain-score-package-guide"></span><h1>Loopchain SCORE package guide<a class="headerlink" href="#loopchain-score-package-guide" title="제목 주소">¶</a></h1>
+<div class="section" id="loopchain-score-package-file">
+<span id="loopchain-score-package-file"></span><h2>Loopchain SCORE package file<a class="headerlink" href="#loopchain-score-package-file" title="제목 주소">¶</a></h2>
+<p>package file 은 json 형태로 제공되며, 프록시가 로드 될때 같이 로드하여,
+내부에서 패키지 정보가 필요할 때 해당 내용이 제공됩니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ex</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;loopchain-sample&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;version&quot;</span><span class="p">:</span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;auth&quot;</span><span class="p">:{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;LoopChain Dev Team&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;email&quot;</span><span class="p">:</span><span class="s2">&quot;dev@theloop.co.kr&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;org&quot;</span><span class="p">:</span><span class="s2">&quot;Theloop inc&quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;dependencies&quot;</span><span class="p">:{},</span>
+  <span class="s2">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;LoopChain Sample Score&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;repository&quot;</span><span class="p">:{},</span>
+  <span class="s2">&quot;homepage&quot;</span><span class="p">:</span><span class="s2">&quot;http://www.theloop.co.kr&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;function&quot;</span><span class="p">:{</span>
+    <span class="s2">&quot;query&quot;</span><span class="p">:[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;method&quot;</span><span class="p">:</span><span class="s2">&quot;sample_method&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;params&quot;</span><span class="p">:{</span>
+                <span class="s2">&quot;tx_hash&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;sample Search method&quot;</span>
+          <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;invoke&quot;</span><span class="p">:[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;method&quot;</span><span class="p">:</span><span class="s2">&quot;create_transaction&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;params&quot;</span><span class="p">:{</span>
+                <span class="s2">&quot;sample_data&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;make new transaction&quot;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;main&quot;</span><span class="p">:</span><span class="s2">&quot;default_score&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>id : 패키지의 아이디</li>
+<li>version : 버젼</li>
+<li>auth : 패키지의 작성자<ul>
+<li>name : 작성자 명</li>
+<li>email : 작성자 이메일</li>
+<li>org : 작성자의 회사 혹은 기관명 (풀네임)</li>
+</ul>
+</li>
+<li>dependencies : 패키지 의존성 ( 향후 활용예정 )</li>
+<li>description : 패키지의 설명</li>
+<li>repository : 원격 repository</li>
+<li>homepage : 작성 홈페이지</li>
+<li>function : 스코어 내부 함수의 설명<ul>
+<li>query : 조회 함수의 설명<ul>
+<li>method : 조회 함수명 (proxy 연계)</li>
+<li>params : 조회시 파라미터</li>
+<li>description : 조회함수의 설명</li>
+</ul>
+</li>
+<li>invoke : 실행 함수의 설명<ul>
+<li>method : 실행 함수명 (proxy 연계)</li>
+<li>params : 실행시 파라미터</li>
+<li>description : 실행함수의 설명</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>main : 패키지 실행 파일명</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">목차</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Loopchain SCORE package guide</a><ul>
+<li><a class="reference internal" href="#loopchain-score-package-file">Loopchain SCORE package file</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>현재 문서</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/package_guide.md.txt"
+            rel="nofollow">소스 코드를 보려면</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>빠른 검색</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="바로 가기" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Theloop.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/package_guide.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
