@@ -1,4 +1,4 @@
-## [Introduction](./Introduction.md)
+### [Introduction](./Introduction.md)
 
 
 ## [loopchain의 기본 구조](./structure.md)
