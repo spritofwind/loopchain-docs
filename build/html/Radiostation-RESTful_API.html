@@ -1,0 +1,471 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>RadioStation - RESTful API &mdash; loopchain Docs 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="색인"
+              href="genindex.html"/>
+        <link rel="search" title="검색" href="search.html"/>
+    <link rel="top" title="loopchain Docs 0.0.1 documentation" href="index.html"/>
+        <link rel="next" title="Peer - RESTful API" href="Peer-RESTful_API.html"/>
+        <link rel="prev" title="loopchain SCORE 개발에 대하여" href="score_dev_about.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> loopchain Docs
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">loopchain 소개</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structure.html">loopchain의 기본 구조</a></li>
+</ul>
+<p class="caption"><span class="caption-text">설치 Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial_1R1P.html">Local computer에서 RadioStation과 1개의 Peer로 Blockchain network 구성하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial_1R2P.html">Local computer에서 RadioStation과 2개의 Peer로 Blockchain network 구성하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Configuration.html">설정 가이드</a></li>
+</ul>
+<p class="caption"><span class="caption-text">SCORE(Smart Contract On Reliable Environment)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="score_about.html">SCORE(Smart Contract On Reliable Environment)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="score_env.html">SCORE Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="score_local_dev_env.html">Local computer에서 SCORE 개발할 수 있는 환경 만들기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="score_dev_about.html">loopchain SCORE 개발에 대하여</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">RadioStation - RESTful API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#get-api-v1-peer-list-channel-channel-name">GET /api/v1/peer/list?channel={channel_name}</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-api-v1-peer-leader-channel-channel-name">GET /api/v1/peer/leader?channel={channel_name}</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-api-v1-peer-status-peer-id-peer-id-group-id-peer-group-id-channel-channel-name">GET /api/v1/peer/status?peer_id={Peer의 ID}&amp;group_id={Peer의 group ID}&amp;channel={channel_name}</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-api-v1-conf">GET /api/v1/conf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-api-v1-conf-name-configuration">GET /api/v1/conf?name={Configuration 이름}</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#post-api-v1-conf">POST /api/v1/conf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-api-v1-cert-list-ca">GET /api/v1/cert/list/ca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-api-v1-cert-list-peer">GET /api/v1/cert/list/peer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-api-v1-cert-issue-ca">GET /api/v1/cert/issue/ca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-api-v1-cert-issue-peer">GET /api/v1/cert/issue/peer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Peer-RESTful_API.html">Peer - RESTful API</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://sphinx-rtd-theme.readthedocs.io/en/latest/">  Theme</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">loopchain Docs</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>RadioStation - RESTful API</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Radiostation-RESTful_API.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="radiostation-restful-api">
+<span id="radiostation-restful-api"></span><h1>RadioStation - RESTful API<a class="headerlink" href="#radiostation-restful-api" title="제목 주소">¶</a></h1>
+<div class="section" id="get-api-v1-peer-list-channel-channel-name">
+<span id="get-api-v1-peer-list-channel-channel-name"></span><h2>GET /api/v1/peer/list?channel={channel_name}<a class="headerlink" href="#get-api-v1-peer-list-channel-channel-name" title="제목 주소">¶</a></h2>
+<p>Radio Station에 등록/연결 된 Peer 정보를 가져온다</p>
+<p><strong>Response Body</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;registered_peer_count&quot;</span><span class="p">:</span> <span class="s2">&quot;int: 등록된 Peer의 수&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;connected_peer_count&quot;</span><span class="p">:</span> <span class="s2">&quot;int: 연결된 Peer의 수&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;registered_peer_list&quot;</span><span class="p">:</span> <span class="s2">&quot;등록된 Peer의 정보 목록&quot;</span>
+    <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;order&quot;</span><span class="p">:</span> <span class="s2">&quot;Radio Station에 등록된 Peer에 할당된 고유 순번&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;peer_id&quot;</span><span class="p">:</span> <span class="s2">&quot;Peer ID&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;group_id&quot;</span><span class="p">:</span> <span class="s2">&quot;Peer group의 ID&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;Peer의 IP: Port&#39;로 이루어진 문자열&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;auth&quot;</span><span class="p">:</span> <span class="s2">&quot;Peer의 public key 정보(인증서)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="s2">&quot;Radio station이 Peer에게 발급한 토큰&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;status_update_time&quot;</span><span class="p">:</span> <span class="s2">&quot;Peer의 연결 상태 정보가 업데이트 된 시간&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;int: Radio station과 Peer의 연결 상태. (unknown:0, connected:1, disconnected:2)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;peer_type&quot;</span><span class="p">:</span> <span class="s2">&quot;gRPC proto에 정의된 peer 타입의 문자값 (peer:&quot;</span><span class="mi">0</span><span class="s2">&quot;, leader:&quot;</span><span class="mi">1</span><span class="s2">&quot;)&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;...&quot;</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;connected_peer_list&quot;</span><span class="p">:</span> <span class="s2">&quot;연결된 Peer의 정보 목록&quot;</span>
+    <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;order&quot;</span><span class="p">:</span> <span class="s2">&quot;Radio Station에 등록된 Peer에 할당된 고유 순번&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;peer_id&quot;</span><span class="p">:</span> <span class="s2">&quot;Peer ID&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;group_id&quot;</span><span class="p">:</span> <span class="s2">&quot;Peer group의 ID&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;Peer의 IP: Port&#39;로 이루어진 문자열&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;auth&quot;</span><span class="p">:</span> <span class="s2">&quot;Peer의 public key 정보(인증서)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="s2">&quot;Radio station이 Peer에게 발급한 토큰&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;status_update_time&quot;</span><span class="p">:</span> <span class="s2">&quot;Peer의 연결 상태 정보가 업데이트 된 시간&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;int: Radio station과 Peer의 연결 상태. (unknown:0, connected:1, disconnected:2)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;peer_type&quot;</span><span class="p">:</span> <span class="s2">&quot;gRPC proto에 정의된 peer 타입의 문자값 (peer:&quot;</span><span class="mi">0</span><span class="s2">&quot;, leader:&quot;</span><span class="mi">1</span><span class="s2">&quot;)&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;...&quot;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-api-v1-peer-leader-channel-channel-name">
+<span id="get-api-v1-peer-leader-channel-channel-name"></span><h2>GET /api/v1/peer/leader?channel={channel_name}<a class="headerlink" href="#get-api-v1-peer-leader-channel-channel-name" title="제목 주소">¶</a></h2>
+<p>Leader Peer의 정보를 가져온다</p>
+<p><strong>Response Body</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;response_code&quot;</span><span class="p">:</span> <span class="s2">&quot;int : RES_CODE&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;order&quot;</span><span class="p">:</span> <span class="s2">&quot;Radio Station에 등록된 Peer에 할당된 고유 순번&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;peer_id&quot;</span><span class="p">:</span> <span class="s2">&quot;Peer ID&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;group_id&quot;</span><span class="p">:</span> <span class="s2">&quot;Peer group의 ID&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;Peer의 IP: Port&#39;로 이루어진 문자열&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;auth&quot;</span><span class="p">:</span> <span class="s2">&quot;Peer의 public key 정보(인증서)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="s2">&quot;Radio station이 Peer에게 발급한 토큰&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;status_update_time&quot;</span><span class="p">:</span> <span class="s2">&quot;Peer의 연결 상태 정보가 업데이트 된 시간&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;int: Radio station과 Peer의 연결 상태. (unknown:0, connected:1, disconnected:2)&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-api-v1-peer-status-peer-id-peer-id-group-id-peer-group-id-channel-channel-name">
+<span id="get-api-v1-peer-status-peer-id-peer-id-group-id-peer-group-id-channel-channel-name"></span><h2>GET /api/v1/peer/status?peer_id={Peer의 ID}&amp;group_id={Peer의 group ID}&amp;channel={channel_name}<a class="headerlink" href="#get-api-v1-peer-status-peer-id-peer-id-group-id-peer-group-id-channel-channel-name" title="제목 주소">¶</a></h2>
+<p>Parameter로 전달한 target 정보와 일치하는 Peer의 상태 정보를 가져온다</p>
+<p><strong>Response Body</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;response_code&quot;</span><span class="p">:</span> <span class="s2">&quot;int : RES_CODE&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;made_block_count&quot;</span><span class="p">:</span> <span class="s2">&quot;해당 Peer가 생성한 block의 수&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;Peer의 연결 상태&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;audience_count&quot;</span><span class="p">:</span> <span class="s2">&quot;해당 Peer를 subscription 중인 Peer의 수&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;consensus&quot;</span><span class="p">:</span> <span class="s2">&quot;합의 방식(none:0, default:1, siever:2)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;peer_id&quot;</span><span class="p">:</span> <span class="s2">&quot;Peer의 ID&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;peer_type&quot;</span><span class="p">:</span> <span class="s2">&quot;Leader Peer 여부&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;block_height&quot;</span><span class="p">:</span> <span class="s2">&quot;Blockchain 내에서 생성된 Block 수&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;total_tx&quot;</span><span class="p">:</span> <span class="s2">&quot;int: Blockchain 내에서 생성된 Transaction 수&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;peer_target&quot;</span><span class="p">:</span> <span class="s2">&quot;Peer의 gRPC target 정보&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-api-v1-conf">
+<span id="get-api-v1-conf"></span><h2>GET /api/v1/conf<a class="headerlink" href="#get-api-v1-conf" title="제목 주소">¶</a></h2>
+<p>loopchain의 모든 Configuration 목록을 가져온다.</p>
+<p><strong>Response Body</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;response_code&quot;</span><span class="p">:</span> <span class="s2">&quot;int : RES_CODE&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Configuration 이름&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;String 타입의 Configuration 값&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;int : Configuration 값의 데이터 타입 (string:0, int:1, float:2)&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;...&quot;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-api-v1-conf-name-configuration">
+<span id="get-api-v1-conf-name-configuration"></span><h2>GET /api/v1/conf?name={Configuration 이름}<a class="headerlink" href="#get-api-v1-conf-name-configuration" title="제목 주소">¶</a></h2>
+<p>loopchain의 Configuration 중 특정 값을 Configuration 이름 기준으로 가져온다.</p>
+<p><strong>Response Body</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;response_code&quot;</span><span class="p">:</span> <span class="s2">&quot;int : RES_CODE&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Configuration 이름&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;String 타입의 Configuration 값&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;int : Configuration 값의 데이터 타입 (string:0, int:1, float:2)&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="post-api-v1-conf">
+<span id="post-api-v1-conf"></span><h2>POST /api/v1/conf<a class="headerlink" href="#post-api-v1-conf" title="제목 주소">¶</a></h2>
+<p>loopchain의 특정 Configuration을 설정한다.</p>
+<p><strong>Request Body</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Configuration 이름&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;String 타입의 Configuration 값&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Content-Type : application/json</li>
+<li>Request-body : Raw 데이터로써, JSON형태의 데이터</li>
+</ul>
+<p><strong>Response Body</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;response_code&quot;</span><span class="p">:</span> <span class="s2">&quot;int : RES_CODE&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;message&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-api-v1-cert-list-ca">
+<span id="get-api-v1-cert-list-ca"></span><h2>GET /api/v1/cert/list/ca<a class="headerlink" href="#get-api-v1-cert-list-ca" title="제목 주소">¶</a></h2>
+<p>CA인증서를 발급합니다.</p>
+<p><strong>Response Body</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;response_code&quot;</span><span class="p">:</span> <span class="s2">&quot;int : RES_CODE&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;message&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-api-v1-cert-list-peer">
+<span id="get-api-v1-cert-list-peer"></span><h2>GET /api/v1/cert/list/peer<a class="headerlink" href="#get-api-v1-cert-list-peer" title="제목 주소">¶</a></h2>
+<p>Peer의 인증서를 발급합니다.</p>
+<p><strong>Response Body</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;response_code&quot;</span><span class="p">:</span> <span class="s2">&quot;int : RES_CODE&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;message&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-api-v1-cert-issue-ca">
+<span id="get-api-v1-cert-issue-ca"></span><h2>GET /api/v1/cert/issue/ca<a class="headerlink" href="#get-api-v1-cert-issue-ca" title="제목 주소">¶</a></h2>
+<p>Radio station이 발급한 CA인증서를 가져옵니다.</p>
+<p><strong>Response Body</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;response_code&quot;</span><span class="p">:</span> <span class="s2">&quot;int : RES_CODE&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;cert_type&quot;</span><span class="p">:</span> <span class="s2">&quot;인증서 타입 (signature:0, encryption:1, ca:2)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;subject&quot;</span><span class="p">:</span> <span class="s2">&quot;공개키 주체 정보&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;issuer&quot;</span><span class="p">:</span> <span class="s2">&quot;발급 주체 정보&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;serial_number&quot;</span><span class="p">:</span> <span class="s2">&quot;일련번호&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;not_after&quot;</span><span class="p">:</span> <span class="s2">&quot;인증서 만료일&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cert_pem&quot;</span><span class="p">:</span> <span class="s2">&quot;인증서&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-api-v1-cert-issue-peer">
+<span id="get-api-v1-cert-issue-peer"></span><h2>GET /api/v1/cert/issue/peer<a class="headerlink" href="#get-api-v1-cert-issue-peer" title="제목 주소">¶</a></h2>
+<p>Radio station이 발급한 Peer인증서 목록을 가져옵니다.</p>
+<p><strong>Response Body</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;response_code&quot;</span><span class="p">:</span> <span class="s2">&quot;int : RES_CODE&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;cert_type&quot;</span><span class="p">:</span> <span class="s2">&quot;인증서 타입 (signature:0, encryption:1, ca:2)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;subject&quot;</span><span class="p">:</span> <span class="s2">&quot;공개키 주체 정보&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;issuer&quot;</span><span class="p">:</span> <span class="s2">&quot;발급 주체 정보&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;serial_number&quot;</span><span class="p">:</span> <span class="s2">&quot;일련번호&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;not_after&quot;</span><span class="p">:</span> <span class="s2">&quot;인증서 만료일&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;cert_pem&quot;</span><span class="p">:</span> <span class="s2">&quot;인증서&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;...&quot;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Peer-RESTful_API.html" class="btn btn-neutral float-right" title="Peer - RESTful API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="score_dev_about.html" class="btn btn-neutral" title="loopchain SCORE 개발에 대하여" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Theloop.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

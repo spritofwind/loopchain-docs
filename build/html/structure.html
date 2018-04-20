@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>loopchain의 기본 구조 &mdash; loopchain Docs 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="색인"
+              href="genindex.html"/>
+        <link rel="search" title="검색" href="search.html"/>
+    <link rel="top" title="loopchain Docs 0.0.1 documentation" href="index.html"/>
+        <link rel="next" title="Tutorial" href="Tutorial.html"/>
+        <link rel="prev" title="Introduction" href="Introduction.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> loopchain Docs
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">loopchain 소개</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">loopchain의 기본 구조</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#">기본 구조도</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#radiostation">RadioStation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#radiostation-peer">RadioStation과 Peer의 접속</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#peer">Peer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#leader-peer">Leader Peer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">설치 Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial_1R1P.html">Local computer에서 RadioStation과 1개의 Peer로 Blockchain network 구성하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial_1R2P.html">Local computer에서 RadioStation과 2개의 Peer로 Blockchain network 구성하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Configuration.html">설정 가이드</a></li>
+</ul>
+<p class="caption"><span class="caption-text">SCORE(Smart Contract On Reliable Environment)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="score_about.html">SCORE(Smart Contract On Reliable Environment)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="score_env.html">SCORE Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="score_local_dev_env.html">Local computer에서 SCORE 개발할 수 있는 환경 만들기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="score_dev_about.html">loopchain SCORE 개발에 대하여</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Radiostation-RESTful_API.html">RadioStation - RESTful API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Peer-RESTful_API.html">Peer - RESTful API</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://sphinx-rtd-theme.readthedocs.io/en/latest/">  Theme</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">loopchain Docs</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>loopchain의 기본 구조</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/structure.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="loopchain">
+<span id="loopchain"></span><h1>loopchain의 기본 구조<a class="headerlink" href="#loopchain" title="제목 주소">¶</a></h1>
+<div class="section" id="">
+<span id="id1"></span><h2>기본 구조도<a class="headerlink" href="#" title="제목 주소">¶</a></h2>
+<p><img alt="Peer Network" src="_images/PeerNetwork.png" /></p>
+</div>
+<div class="section" id="radiostation">
+<span id="radiostation"></span><h2>RadioStation<a class="headerlink" href="#radiostation" title="제목 주소">¶</a></h2>
+<ul class="simple">
+<li>Peer들의 인증을 담당하고 Peer들의 목록을 관리합니다.</li>
+</ul>
+<div class="section" id="radiostation-peer">
+<span id="radiostation-peer"></span><h3>RadioStation과 Peer의 접속<a class="headerlink" href="#radiostation-peer" title="제목 주소">¶</a></h3>
+<ul class="simple">
+<li>RadioStation과 Peer는 시작할 때에 자신의 인증서/개인키 경로를 입력합니다.</li>
+<li>Peer들의 인증서를 설치시 넣어주고 설정파일에서 이를 읽어서 처리하게 하고 있습니다. KMS(Key management system)지원하는 기능도 Enterprise용으로 지원합니다.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="peer">
+<span id="peer"></span><h2>Peer<a class="headerlink" href="#peer" title="제목 주소">¶</a></h2>
+<ul class="simple">
+<li>블록 생성, 블록 관리, 트랜잭션 생성, 조회, 원장 조회 등의 기능을 처리합니다.</li>
+<li>Peer가 생성될 때에 RadioStation과 연결한다. 시작할 때에 RadioStation의 접속 정보(IP:Port)를 가지고 연결합니다.</li>
+<li><strong>가장 먼저 RadioStation에 연결되는 Peer가 Leader Peer가 됩니다.</strong></li>
+<li>주의 : 최소 4개 이상의 Peer가 필요합니다.</li>
+</ul>
+<div class="section" id="leader-peer">
+<span id="leader-peer"></span><h3>Leader Peer<a class="headerlink" href="#leader-peer" title="제목 주소">¶</a></h3>
+<ul class="simple">
+<li>일정 시간마다 Transaction 들을 모아 Block을 만들고 보낸 다음 검증을 Peer 들에게 받아서 공표합니다.(검증 주기는 설정 가능합니다.)</li>
+<li>다른 Peer를 Subscription(구독)한 다음에 Transaction / Block data를 동기화합니다.</li>
+<li>Leader Peer의 변경은 등록된 Peer의 순서대로 Leader 권한을 줍니다.(Round Robin). (주의: block 생성 개수 기준은 성능에 따라서 변경 가능합니다.)</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Tutorial.html" class="btn btn-neutral float-right" title="Tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Introduction.html" class="btn btn-neutral" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Theloop.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

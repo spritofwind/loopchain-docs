@@ -1,0 +1,517 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>설정 가이드 &mdash; loopchain Docs 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="색인"
+              href="genindex.html"/>
+        <link rel="search" title="검색" href="search.html"/>
+    <link rel="top" title="loopchain Docs 0.0.1 documentation" href="index.html"/>
+        <link rel="next" title="SCORE(Smart Contract On Reliable Environment)" href="score_about.html"/>
+        <link rel="prev" title="Local computer에서 RadioStation과 2개의 Peer로 Blockchain network 구성하기" href="Tutorial_1R2P.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> loopchain Docs
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">loopchain 소개</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structure.html">loopchain의 기본 구조</a></li>
+</ul>
+<p class="caption"><span class="caption-text">설치 Tutorial</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial_1R1P.html">Local computer에서 RadioStation과 1개의 Peer로 Blockchain network 구성하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial_1R2P.html">Local computer에서 RadioStation과 2개의 Peer로 Blockchain network 구성하기</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">설정 가이드</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#loopchain-network">loopchain network 설정 유의 사항</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#">포트 열기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#">설정 파일</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#log-level">Log level 설정하기</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#peer-ip">Peer의 외부 IP 설정</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#score-repository-url">SCORE 불러오는 Repository URL 바꾸기</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multichannel">Multichannel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#restful">RESTful응답의 성능 높이기</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#network">Network가 느릴 경우 조절해야 하는 것들</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hardware-block-tx">Hardware 성능의 문제로 Block에 담기는 Tx 숫자를 조절</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#keyload">KeyLoad 설정 방법</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#loopchain-key">loopchain Key 구성요소</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#channel">Channel 별 서명 키 옵션 설정</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">SCORE(Smart Contract On Reliable Environment)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="score_about.html">SCORE(Smart Contract On Reliable Environment)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="score_env.html">SCORE Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="score_local_dev_env.html">Local computer에서 SCORE 개발할 수 있는 환경 만들기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="score_dev_about.html">loopchain SCORE 개발에 대하여</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Radiostation-RESTful_API.html">RadioStation - RESTful API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Peer-RESTful_API.html">Peer - RESTful API</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://sphinx-rtd-theme.readthedocs.io/en/latest/">  Theme</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">loopchain Docs</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>설정 가이드</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Configuration.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="">
+<span id="id1"></span><h1>설정 가이드<a class="headerlink" href="#" title="제목 주소">¶</a></h1>
+<div class="section" id="loopchain-network">
+<span id="loopchain-network"></span><h2>loopchain network 설정 유의 사항<a class="headerlink" href="#loopchain-network" title="제목 주소">¶</a></h2>
+<ul class="simple">
+<li>RadioStation을 제일 먼저 실행시키고 Peer들을 실행 하셔야 합니다.</li>
+<li>모든 Peer들은 N:N으로 연결됩니다. 따라서, 모든 Peer들이 서로 IP:Port로 연결할 수 있어야 합니다.</li>
+<li>RadioStation 이나 Peer에서 외부 Host file과 연결을 해주실 폴더들이 있습니다. 이 설정이 없으면 Docker container 가 죽었을 때에 데이터를 잃어버리실 수가 있습니다.<ul>
+<li><strong>&quot;/storage&quot;</strong>:  RadioStation, Peer들의 데이터를 보관하는 폴더</li>
+<li><strong>&quot;/conf&quot;</strong> : 설정 파일들이 담긴 폴더</li>
+<li><strong>&quot;/score&quot;</strong> SCORE를 zip해서 띄울 때에, SCORE 파일이 담긴 zip파일의 위치</li>
+</ul>
+</li>
+<li>Multi Channel 설정 / SCORE 설정은 설정 파일을 잘 확인해 주세요. 설정 파일에 오류가 있으면 찾기 힘듭니다.</li>
+<li>서로 다른 Host 들에서 띄울 때는 LOOPCHAIN_HOST 설정을 이용해서 RadioStation이 다른 Node들에게 Peer 목록을 띄울 때, 외부 서버 들에서 해당 Node에 접근 할 수 있게 해주세요.</li>
+<li><strong>최소 노드 수</strong> : 제대로 된 Blockchain network를 구성하기 위해서 약 <strong>4개 이상의 Node</strong>들을 띄우셔야 합니다. 예제에서 1개 혹은 2개만 띄운 것은 일종의 예제로 보시면 됩니다.</li>
+</ul>
+</div>
+<div class="section" id="">
+<span id="id2"></span><h2>포트 열기<a class="headerlink" href="#" title="제목 주소">¶</a></h2>
+<p>loopchain을 사용하기 위해 다음의 Port가 열려야 합니다.  Port는 설정에서 변경이 가능합니다.</p>
+<p><strong>RadioStation</strong></p>
+<ul class="simple">
+<li>7102: gRPC port</li>
+<li>9002: RESTful port</li>
+</ul>
+<p><strong>Peer</strong></p>
+<ul class="simple">
+<li>7100:gRPC port</li>
+<li>9000: RESTful port</li>
+</ul>
+</div>
+<hr class="docutils" />
+<div class="section" id="">
+<span id="id3"></span><h2>설정 파일<a class="headerlink" href="#" title="제목 주소">¶</a></h2>
+<p>설정파일은 JSON형식으로 된 파일입니다. 예를 들어 아래처럼 만듭니다.</p>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span>{
+  &quot;Variable 1&quot;:&quot;Value1&quot;,
+  &quot;Variable 2&quot;:&quot;Value2&quot;,
+  &quot;Variable 3&quot;:&quot;Value3&quot;,
+  .....
+}
+</pre></div>
+</div>
+<p>특정한 JSON파일을 만들고 그 안에 내용을 작성하고 Peer를 아래와 같이 -o option을 이용하여서  해당 파일을 읽게 해서 peer를 올립니다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">python3</span> <span class="pre">peer.py</span> <span class="pre">-o</span> <span class="pre">peer_conf.json</span> <span class="pre">.....</span></code></p>
+<p>이 문서에서 각종 상황 별로, 문제 별로 어떤 옵션을 가지고 설정 파일을 만드는지 정리하여서 작성할 것입니다.
+자세한 것은 각 상황 별 <strong>설정 파일</strong>에서 확인하시면 됩니다.</p>
+<div class="section" id="log-level">
+<span id="log-level"></span><h3>Log level 설정하기<a class="headerlink" href="#log-level" title="제목 주소">¶</a></h3>
+<p><em>해당 내용이 실제 설정파일에 예제가 없음. 이 옵션 값을 설정파일에서 어떻게 사용하는지 내용 추가 필요</em></p>
+<p>LOOPCHAIN_LOG_LEVEL을 이용하세요. 아래 중 하나의 String값을 가지면 됩니다. 기본값은 &quot;DEBUG&quot;입니다. (제일 많이 모든 로그를 보여줍니다.)</p>
+<blockquote>
+<div>옵션값: CRITICAL ,ERROR , WARNING, INFO , DEBUG (오른쪽에서 왼쪽으로 갈수로 더 많은 로그를 남김)</div></blockquote>
+</div>
+<div class="section" id="peer-ip">
+<span id="peer-ip"></span><h3>Peer의 외부 IP 설정<a class="headerlink" href="#peer-ip" title="제목 주소">¶</a></h3>
+<p><strong>LOOPCHAIN_HOST</strong>에 IP값을 설정합니다.</p>
+<p>기본적으로 Peer는 시작할 때, 해당 Peer가 속한 Network에서 사설 IP(Private IP) 가지고 다른 Peer들과 통신하려고 합니다. 외부와 통신하지 않고 내부 Network로만 동작하는 경우에는 문제가 없습니다. 그러나 상황에 따라서 공용 IP(Public IP)를 가지고 통신하는 것이 나을 수 있습니다.</p>
+<p>예를 들어, Network를 구성하는 Node들이 기존 인터넷 망을 이용하거나 VPN을 이용해서 통신을 하는 경우, Peer의 IP는 기존 인터넷망이나 VPN에서 접근 가능한 IP여야 합니다. 하지만, 안타깝게도 Docker상에서는 이런 상황에서 IP를 가져올 수가 없습니다. 그래서 LOOPCHAIN_HOST를 이용해서 다른 Peer들과 통신을 하기 위해 사용할 공용 IP를 지정할 수 있습니다.</p>
+<p>{
+'LOOPCHAIN_HOST':'$현재 node가 보여주어야 하는 IP'
+}</p>
+</div>
+<div class="section" id="score-repository-url">
+<span id="score-repository-url"></span><h3>SCORE 불러오는 Repository URL 바꾸기<a class="headerlink" href="#score-repository-url" title="제목 주소">¶</a></h3>
+<p>DEFAULT_SCORE_HOST:현재 Blockchain 서비스에서 SCORE를 가져오기 위해 사용할 Git repository의 URL을 설정해주면 됩니다.
+Docker로 Peer를 실행할 때의 <code class="docutils literal notranslate"><span class="pre">DEFAULT_SCORE_HOST</span></code>옵션으로 SCORE를 가져올 Git service URL을 지정합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ docker run -d --name peer0 \
+   .....
+   -e &quot;DEFAULT_SCORE_HOST=github.com&quot; \
+   .....
+</pre></div>
+</div>
+</div>
+<div class="section" id="multichannel">
+<span id="multichannel"></span><h3>Multichannel<a class="headerlink" href="#multichannel" title="제목 주소">¶</a></h3>
+<p>Multichannel을 사용하기 위해서는 SCORE와 Peer의 정보에 대해서 알고 있어야 합니다.</p>
+<ol class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">channel_manage_data.json</span></code>을 수정합니다. channel의 이름, channel에서 실행되는 SCORE의 이름 그리고, channel에 join하는 peer들의 목록을 작성합니다.</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;%CHANNEL_NAME1%&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="o">//</span> <span class="mi">1</span><span class="n">st</span> <span class="n">channel</span> <span class="n">name</span>
+    <span class="s2">&quot;score_package&quot;</span><span class="p">:</span> <span class="s2">&quot;your_score_package&quot;</span><span class="p">,</span> <span class="o">//</span> <span class="n">이</span> <span class="n">채널에서</span> <span class="n">실행되는</span> <span class="n">SCORE의</span> <span class="n">이름</span>
+    <span class="s2">&quot;peers&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">&quot;peer_target&quot;</span><span class="p">:</span> <span class="s2">&quot;%IP%:%PORT%&quot;</span> <span class="o">//</span> <span class="n">채널에</span> <span class="n">포함되는</span> <span class="n">peer의</span> <span class="n">정보</span> <span class="o">&amp;</span> <span class="n">리스트</span>
+      <span class="p">},</span>
+     <span class="o">........</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;%CHANNEL_NAME2%&quot;</span><span class="p">:</span> <span class="p">{</span>  <span class="o">//</span> <span class="mi">2</span><span class="n">nd</span> <span class="n">channel</span> <span class="n">name</span>
+    <span class="s2">&quot;score_package&quot;</span><span class="p">:</span> <span class="s2">&quot;your_score_package&quot;</span><span class="p">,</span> <span class="o">//</span> <span class="n">이</span> <span class="n">채널에서</span> <span class="n">실행되는</span> <span class="n">SCORE의</span> <span class="n">이름</span>
+    <span class="s2">&quot;peers&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">&quot;peer_target&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="o">%</span><span class="n">IP</span><span class="o">%</span><span class="p">:</span><span class="o">%</span><span class="n">PORT</span><span class="o">%</span><span class="s2">&quot;   // 채널에 포함되는 peer의 정보 &amp; 리스트</span>
+      <span class="p">},</span>
+      <span class="o">.......</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>예를 들어서 <code class="docutils literal notranslate"><span class="pre">wework_0</span></code>,<code class="docutils literal notranslate"><span class="pre">wework_1</span></code> 채널이 각각 SCORE <code class="docutils literal notranslate"><span class="pre">score/code1</span></code>,<code class="docutils literal notranslate"><span class="pre">score/code2</span></code>을 사용한다면 다음과 같이 작성이 될 것입니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+ <span class="s2">&quot;wework_0&quot;</span><span class="p">:</span> <span class="p">{</span>
+   <span class="s2">&quot;score_package&quot;</span><span class="p">:</span> <span class="s2">&quot;score/code1&quot;</span><span class="p">,</span>
+   <span class="s2">&quot;peers&quot;</span><span class="p">:</span> <span class="p">[</span>
+     <span class="p">{</span>
+       <span class="s2">&quot;peer_target&quot;</span><span class="p">:</span> <span class="s2">&quot;~~~~&quot;</span>
+     <span class="p">},</span>
+     <span class="o">......</span>
+   <span class="p">]</span>
+ <span class="p">},</span>
+ <span class="s2">&quot;wework_1&quot;</span><span class="p">:</span> <span class="p">{</span>
+   <span class="s2">&quot;score_package&quot;</span><span class="p">:</span> <span class="s2">&quot;score/code2&quot;</span><span class="p">,</span>
+   <span class="s2">&quot;peers&quot;</span><span class="p">:</span> <span class="p">[</span>
+     <span class="p">{</span>
+       <span class="s2">&quot;peer_target&quot;</span><span class="p">:</span> <span class="s2">&quot;~~~~&quot;</span>
+     <span class="p">},</span>
+     <span class="o">........</span>
+   <span class="p">]</span>
+ <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ol class="simple">
+<li>설정 파일을 사용하여서 RadioStation을 실행합니다.
+추후에 Docker로 blockchain을 로컬 컴퓨터에서 구현하는 예제에서 자세히 다시 설명이 되겠지만 다음과 같은 순서로 RadioStaion이 설정파일을 읽으면서 실행이 됩니다.</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./radiostation.py -o rs_config.json
+</pre></div>
+</div>
+<ol class="simple">
+<li>RadioStaion이 실행 될 때 가장 먼저 <code class="docutils literal notranslate"><span class="pre">rs_conf.json</span></code>설정 파일이 먼저 로딩됩니다. <code class="docutils literal notranslate"><span class="pre">rs_conf.json</span></code> 파일에 <code class="docutils literal notranslate"><span class="pre">channel_manage_data.json</span></code>파일의 위치가 있습니다.</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+ <span class="s2">&quot;CHANNEL_MANAGE_DATA_PATH&quot;</span> <span class="p">:</span> <span class="s2">&quot;./channel_manage_data.json&quot;</span><span class="p">,</span>
+ <span class="s2">&quot;ENABLE_CHANNEL_AUTH&quot;</span> <span class="p">:</span> <span class="n">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Parameter는 다음과 같은 의미가 있습니다.
+* <code class="docutils literal notranslate"><span class="pre">CHANNEL_MANAGE_DATA_PATH</span></code>: Multichannel을 위한 환경 설정 파일의 위치와 이름
+* <code class="docutils literal notranslate"><span class="pre">ENABLE_CHANNEL_AUTH</span></code>
+* <code class="docutils literal notranslate"><span class="pre">true</span></code> = channel에 등록된 채널만 join이 가능하다.
+* <code class="docutils literal notranslate"><span class="pre">false</span></code>= 어떤 peer도 등록이 가능하다. 따로 peer 목록이 없는 경우에 사용.</p>
+<ol class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">channel_manage_data.json</span></code>파일에서 MultiChannel에 대한 환경 설정을 읽어옵니다.</li>
+<li>Peer를 설정 파일을 이용하여서 실행합니다.
+<code class="docutils literal notranslate"><span class="pre">peer_config.json</span></code>파일이 peer에서 사용하는 설정 파일입니다.</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;LOOPCHAIN_DEFAULT_CHANNEL&quot;</span> <span class="p">:</span> <span class="s2">&quot;wework_0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DEFAULT_SCORE_BRANCH&quot;</span><span class="p">:</span> <span class="s2">&quot;master&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Parameter들은 다음과 같은 의미가 있습니다.
+* LOOPCHAIN_DEFAULT_CHANNEL : 이 peer에서 사용하는 기본 채널
+* DEFAULT_SCORE_BRANCH : 사용하는 SCORE의 Branch. 기본값은 master입니다.</p>
+<p>터미널에서 다음과 같은 명령어로 실행하면 됩니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./peer.py -o peer_config.json
+</pre></div>
+</div>
+</div>
+<div class="section" id="restful">
+<span id="restful"></span><h3>RESTful응답의 성능 높이기<a class="headerlink" href="#restful" title="제목 주소">¶</a></h3>
+<p>USE_GUNICORN_HA_SERVER : 실제 운영단계에 들어가는 Node가 많은 RESTful API에 대한 Request들을 잘 받을 수 있게 gunicorn web service에서 쓸지 말지 결정해주는 변수입니다. 기본값은 False입니다. 실제 서비스에 올릴 때는 반드시 True로 설정되어야 합니다.</p>
+</div>
+<div class="section" id="network">
+<span id="network"></span><h3>Network가 느릴 경우 조절해야 하는 것들<a class="headerlink" href="#network" title="제목 주소">¶</a></h3>
+<p>상황에 따라서 느린 네트워크에 운용을 하게 된다면 여러가지 네트워크 속도에 장애가 있는지 아닌지 확인하고 설정을 바꿔야 합니다.</p>
+<p><strong>Case 1. RadioStaion의 Hart beat의 시간 조절</strong></p>
+<p>RadioStation은 리더 장애를 파악하기 위해 주기적으로 Peer들에게 Heart Beat를 보내고 허용된 횟수만큼 리더가 응답이 없을 경우 리더를 교체하는 과정을 수행합니다. 그러나 네트워크 사정이 설치되는 환경에 따라 다를 것이기 때문에 아래의 변수들을 RadioStation에서 설정해 주셔야 합니다.</p>
+<ul class="simple">
+<li><strong>SLEEP_SECONDS_IN_RADIOSTATION_HEARTBEAT</strong> : RadioStation이 Peer의 Status를 확인하는 시간. 단위는 Second. 기본값은 30초.</li>
+<li><strong>NO_RESPONSE_COUNT_ALLOW_BY_HEARTBEAT</strong>: RadioStation이 Status 확인이 안되는 Leader를 교체할 횟수. 기본값은 5회.</li>
+</ul>
+<p><strong>&quot;SLEEP_SECONDS_IN_RADIOSTATION_HEARTBEAT&quot;</strong> X <strong>&quot;NO_RESPONSE_COUNT_ALLOW_BY_HEARTBEAT&quot;</strong>  횟수 만큼 리더 응답이 없으면  RadioStation이 리더를 교체합니다.</p>
+<p><strong>Case 2. Peer들의 연결 Timeout 설정하기</strong></p>
+<p>네트워크 상태에 따라서 아래 변수들을 수정해야 할 수 있습니다. 보통의 경우에는 설정할 필요가 없지만 네트워크가 매우 안좋은 상황에는 시도해볼 수 있습니다.</p>
+<ul class="simple">
+<li><strong>GRPC_TIMEOUT</strong>: gRPC 연결하는 시간의 Timeout 한계치. 단위는 Second.</li>
+<li><strong>GRPC_TIMEOUT_BROADCAST_RETRY</strong>: gRPC로 data를 broadcasting하는 시간의 Timeout 한계치. 단위는 Second.</li>
+</ul>
+</div>
+<div class="section" id="hardware-block-tx">
+<span id="hardware-block-tx"></span><h3>Hardware 성능의 문제로 Block에 담기는 Tx 숫자를 조절<a class="headerlink" href="#hardware-block-tx" title="제목 주소">¶</a></h3>
+<p>Blockchain은 검증된 여러 Tx들을 담고 있는 Block들의 연결입니다. 그러나 Hardware와 Network의 제약으로 이를 조절해야 할 경우, 그리고 Tx의 크기가 너무 크게 될 때, 아래의 변수들을 수정해주십시오. 참고로 한개의 Tx안에 담기는 정보가 3MB 이하로 쓰기를 권장합니다.</p>
+<ul class="simple">
+<li>MAX_BLOCK_TX_NUM: 블록의 담기는 트랜잭션의 최대 개수</li>
+<li>LEADER_BLOCK_CREATION_LIMIT: Leader 의 block 생성 개수. 한 Leader가 이 개수 이상의 Block을 만들면 다른 Peer로 Leader가 변경.</li>
+<li>BLOCK_VOTE_TIMEOUT: Block에 대한 투표 응답을 기다리는 최대 시간. 단위는 Seconds.</li>
+</ul>
+</div>
+<div class="section" id="keyload">
+<span id="keyload"></span><h3>KeyLoad 설정 방법<a class="headerlink" href="#keyload" title="제목 주소">¶</a></h3>
+<div class="section" id="loopchain-key">
+<span id="loopchain-key"></span><h4>loopchain Key 구성요소<a class="headerlink" href="#loopchain-key" title="제목 주소">¶</a></h4>
+<p>loopchain에서는 보안 통신, 트랜잭션 서명 등을 위하여 인증서와 키 옵션을 설정해 주어야 합니다.</p>
+<p>loopchain에서 사용하는 키는 다음과 같습니다.</p>
+<ul class="simple">
+<li>Channel 별 서명 키<ul>
+<li>ecdsa secp256k</li>
+<li>X.509 인증서, Public key</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="channel">
+<span id="channel"></span><h4>Channel 별 서명 키 옵션 설정<a class="headerlink" href="#channel" title="제목 주소">¶</a></h4>
+<p>loopchain에서는 트랜잭션 생성 및 블록 생성시 각 Peer를 검증하기위하여 공개키 기반 암호화 알고리즘을 통해 인증 서명을 사용합니다.이때 사용하는 알고리즘은 ecdsa secp256k를 사용하고 인증서 형태와 Public key 형태를 지원합니다.</p>
+<p>loopchain Peer는 키를 로드 하기 위해 공개 키의 형태와(cert, public key), 키 세트 로드 방식, 키 위치등을 설정하여야 합니다. json형태로 옵션을 설정해야 하며 다음 예제는 키 옵션 별로 세팅해야 될 세팅을 설명합니다.</p>
+<p>ex)</p>
+<ul class="simple">
+<li>channel1 = key_file을 통해 load한다면 아래와 같이 해준다.</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;CHANNEL_OPTION&quot;</span> <span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;channel1&quot;</span> <span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;load_cert&quot;</span> <span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">&quot;consensus_cert_use&quot;</span> <span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">&quot;tx_cert_use&quot;</span> <span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">&quot;key_load_type&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;public_path&quot;</span> <span class="p">:</span> <span class="s2">&quot;{public_key path}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;private_path&quot;</span> <span class="p">:</span> <span class="s2">&quot;{private_key path}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;private_password&quot;</span> <span class="p">:</span> <span class="s2">&quot;{private_key password}&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>각 Parameter들의 내용들은 다음과 같습니다.</p>
+<ul class="simple">
+<li>load_cert :load할 인증서의 type 이 cert 면 true, publickey 면 false</li>
+<li>consensus_cert_use: block 및 투표 서명에 사용할 공개키 타입 (true : cert, false : public key)</li>
+<li>tx_cert_use : Transaction서명 및 검증에 사용할 공개키 타입 (true : cert, false : public key)</li>
+<li>key_load_type : 0 (File에서 읽음)</li>
+<li>public_path : Public key가 있는 위치</li>
+<li>private_path : Private key가 있는 위치</li>
+<li>private_password : Private key의 Password.</li>
+</ul>
+<hr class="docutils" />
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="score_about.html" class="btn btn-neutral float-right" title="SCORE(Smart Contract On Reliable Environment)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Tutorial_1R2P.html" class="btn btn-neutral" title="Local computer에서 RadioStation과 2개의 Peer로 Blockchain network 구성하기" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Theloop.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

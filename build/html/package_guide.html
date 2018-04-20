@@ -1,0 +1,314 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Loopchain SCORE package guide &mdash; loopchain Docs 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="색인"
+              href="genindex.html"/>
+        <link rel="search" title="검색" href="search.html"/>
+    <link rel="top" title="loopchain Docs 0.0.1 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> loopchain Docs
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">loopchain 소개</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structure.html">loopchain의 기본 구조</a></li>
+</ul>
+<p class="caption"><span class="caption-text">설치 Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial_1R1P.html">Local computer에서 RadioStation과 1개의 Peer로 Blockchain network 구성하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial_1R2P.html">Local computer에서 RadioStation과 2개의 Peer로 Blockchain network 구성하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Configuration.html">설정 가이드</a></li>
+</ul>
+<p class="caption"><span class="caption-text">SCORE(Smart Contract On Reliable Environment)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="score_about.html">SCORE(Smart Contract On Reliable Environment)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="score_env.html">SCORE Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="score_local_dev_env.html">Local computer에서 SCORE 개발할 수 있는 환경 만들기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="score_dev_about.html">loopchain SCORE 개발에 대하여</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Radiostation-RESTful_API.html">RadioStation - RESTful API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Peer-RESTful_API.html">Peer - RESTful API</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://sphinx-rtd-theme.readthedocs.io/en/latest/">  Theme</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">loopchain Docs</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Loopchain SCORE package guide</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/package_guide.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="loopchain-score-package-guide">
+<span id="loopchain-score-package-guide"></span><h1>Loopchain SCORE package guide<a class="headerlink" href="#loopchain-score-package-guide" title="제목 주소">¶</a></h1>
+<div class="section" id="loopchain-score-package-file">
+<span id="loopchain-score-package-file"></span><h2>Loopchain SCORE package file<a class="headerlink" href="#loopchain-score-package-file" title="제목 주소">¶</a></h2>
+<p>package file 은 json 형태로 제공되며, 프록시가 로드 될때 같이 로드하여,
+내부에서 패키지 정보가 필요할 때 해당 내용이 제공됩니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ex</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;loopchain-sample&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;version&quot;</span><span class="p">:</span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;auth&quot;</span><span class="p">:{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;LoopChain Dev Team&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;email&quot;</span><span class="p">:</span><span class="s2">&quot;dev@theloop.co.kr&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;org&quot;</span><span class="p">:</span><span class="s2">&quot;Theloop inc&quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;dependencies&quot;</span><span class="p">:{},</span>
+  <span class="s2">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;LoopChain Sample Score&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;repository&quot;</span><span class="p">:{},</span>
+  <span class="s2">&quot;homepage&quot;</span><span class="p">:</span><span class="s2">&quot;http://www.theloop.co.kr&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;function&quot;</span><span class="p">:{</span>
+    <span class="s2">&quot;query&quot;</span><span class="p">:[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;method&quot;</span><span class="p">:</span><span class="s2">&quot;sample_method&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;params&quot;</span><span class="p">:{</span>
+                <span class="s2">&quot;tx_hash&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;sample Search method&quot;</span>
+          <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;invoke&quot;</span><span class="p">:[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;method&quot;</span><span class="p">:</span><span class="s2">&quot;create_transaction&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;params&quot;</span><span class="p">:{</span>
+                <span class="s2">&quot;sample_data&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;make new transaction&quot;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;main&quot;</span><span class="p">:</span><span class="s2">&quot;default_score&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>id : 패키지의 아이디</li>
+<li>version : 버젼</li>
+<li>auth : 패키지의 작성자<ul>
+<li>name : 작성자 명</li>
+<li>email : 작성자 이메일</li>
+<li>org : 작성자의 회사 혹은 기관명 (풀네임)</li>
+</ul>
+</li>
+<li>dependencies : 패키지 의존성 ( 향후 활용예정 )</li>
+<li>description : 패키지의 설명</li>
+<li>repository : 원격 repository</li>
+<li>homepage : 작성 홈페이지</li>
+<li>function : 스코어 내부 함수의 설명<ul>
+<li>query : 조회 함수의 설명<ul>
+<li>method : 조회 함수명 (proxy 연계)</li>
+<li>params : 조회시 파라미터</li>
+<li>description : 조회함수의 설명</li>
+</ul>
+</li>
+<li>invoke : 실행 함수의 설명<ul>
+<li>method : 실행 함수명 (proxy 연계)</li>
+<li>params : 실행시 파라미터</li>
+<li>description : 실행함수의 설명</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>main : 패키지 실행 파일명</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Theloop.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,331 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Docker를 사용한 설치 &mdash; loopchain Docs 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="색인"
+              href="genindex.html"/>
+        <link rel="search" title="검색" href="search.html"/>
+    <link rel="top" title="loopchain Docs 0.0.1 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> loopchain Docs
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">loopchain 소개</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structure.html">loopchain의 기본 구조</a></li>
+</ul>
+<p class="caption"><span class="caption-text">설치 Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial_1R1P.html">Local computer에서 RadioStation과 1개의 Peer로 Blockchain network 구성하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial_1R2P.html">Local computer에서 RadioStation과 2개의 Peer로 Blockchain network 구성하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Configuration.html">설정 가이드</a></li>
+</ul>
+<p class="caption"><span class="caption-text">SCORE(Smart Contract On Reliable Environment)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="score_about.html">SCORE(Smart Contract On Reliable Environment)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="score_env.html">SCORE Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="score_local_dev_env.html">Local computer에서 SCORE 개발할 수 있는 환경 만들기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="score_dev_about.html">loopchain SCORE 개발에 대하여</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Radiostation-RESTful_API.html">RadioStation - RESTful API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Peer-RESTful_API.html">Peer - RESTful API</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://sphinx-rtd-theme.readthedocs.io/en/latest/">  Theme</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">loopchain Docs</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Docker를 사용한 설치</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Tutorial_Docker.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="docker">
+<span id="docker"></span><h1>Docker를 사용한 설치<a class="headerlink" href="#docker" title="제목 주소">¶</a></h1>
+<div class="section" id="linux-docker">
+<span id="linux-docker"></span><h2>Linux에서 Docker 설치하기<a class="headerlink" href="#linux-docker" title="제목 주소">¶</a></h2>
+<p>Docker CE(Community Edition)X86-64, Docker EE(Enterprise edition) X86-64를 운용할 수 있는 최신 환경이면 됩니다.</p>
+<ul class="simple">
+<li>Docker CE: 무료 사용 버전</li>
+<li>Docker EE: 상용 버전, 무료 Hosted Trial 사용 가능. 각종 OS들에 대한 지원 추가제공.</li>
+<li>모든 상황에서 방법이 없으면 <a class="reference external" href="https://docs.docker.com/install/linux/docker-ce/binaries/">Docker를 Binary로부터 설치할 수 있는 방법</a>이 있습니다.</li>
+</ul>
+<p>|Platform|Docker CE X86_64|Docker EE X86_64|Note |
+|----|----|----|----|
+|CentOS|O|O| CentOS 7이상. <a class="reference external" href="https://docs.docker.com/install/linux/centos/">Installation Guide</a> |
+|Devian|O||Stretch (stable) / Raspbian Stretch Jessie 8.0 (LTS) / Raspbian Jessie Wheezy 7.7 (LTS). <a class="reference external" href="https://docs.docker.com/install/linux/docker-ce/debian/">Installation Guide</a> |
+|Fedora|O||Fedora 24, 25 <a class="reference external" href="https://docs.docker.com/install/linux/docker-ce/fedora/">Installation Guide</a> |
+|Oracle Linux||O| 7.3 이상. <a class="reference external" href="https://docs.docker.com/install/linux/docker-ee/oracle/">Installation Guide</a> |
+|Red Hat Enterprise Linux||O|64bit version Redhat Enterprise linux 7 on an X86 or S390x. <a class="reference external" href="https://docs.docker.com/install/linux/docker-ee/rhel/">Installation Guide</a> |
+|SUSE Linux Enterprise server||O|SUSE 12.x version (OpenSUSE지원 안함). <a class="reference external" href="https://docs.docker.com/install/linux/docker-ee/suse/">Installation Guide</a> |
+|Ubuntu|O|O| EE : Xenial 16.04 (LTS) / Trusty 14.04 (LTS) , CE : Zesty 17.04 / Xenial 16.04 (LTS) / Trusty 14.04 (LTS). <a class="reference external" href="https://docs.docker.com/install/linux/ubuntu/">Installation Guide</a>|</p>
+<p>자세한 정보는 Docker 홈페이지의 <a class="reference external" href="https://docs.docker.com/install/">https://docs.docker.com/install/</a> 페이지를 참조하여서 설치하시면 됩니다.</p>
+<ul>
+<li><p class="first">TIP : Docker 사용자 설정</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Add the docker group if it doesn&#39;t already exist:
+$ sudo groupadd docker
+
+Add the connected user &quot;$USER&quot; to the docker group. Change the user name to match your preferred user if you do not want to use your current user:
+$ sudo gpasswd -a $USER docker
+
+Either do a &quot;newgrp docker&quot; or log out/in to activate the changes to groups.
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="windows-mac-docker">
+<span id="windows-mac-docker"></span><h2>Windows / Mac에서 Docker 설치하기<a class="headerlink" href="#windows-mac-docker" title="제목 주소">¶</a></h2>
+<p>Docker 홈페이지의 <a class="reference external" href="https://docs.docker.com/install/">https://docs.docker.com/install/</a> 페이지를 참조하여서 설치하시면 됩니다.</p>
+</div>
+<div class="section" id="docker">
+<span id="id1"></span><h2>Docker 동작 확인 하기<a class="headerlink" href="#docker" title="제목 주소">¶</a></h2>
+<p>&quot;docker version&quot; 명령어로 Docker 가 정상 설치되었는지 확인합니다.  다음의 화면을 참고하셔서 확인하십시오.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ docker version
+Client:
+ Version:   17.12.0-ce
+ API version:   1.35
+ Go version:    go1.9.2
+ Git commit:    c97c6d6
+ Built: Wed Dec 27 20:03:51 2017
+ OS/Arch:   darwin/amd64
+
+Server:
+ Engine:
+  Version:  17.12.0-ce
+  API version:  1.35 (minimum version 1.12)
+  Go version:   go1.9.2
+  Git commit:   c97c6d6
+  Built:    Wed Dec 27 20:12:29 2017
+  OS/Arch:  linux/amd64
+  Experimental: true
+$
+</pre></div>
+</div>
+</div>
+<div class="section" id="loopchain-docker-image">
+<span id="loopchain-docker-image"></span><h2>loopchain Docker Image<a class="headerlink" href="#loopchain-docker-image" title="제목 주소">¶</a></h2>
+<div class="section" id="loopchain-docker-image">
+<span id="id2"></span><h3>loopchain Docker Image 종류<a class="headerlink" href="#loopchain-docker-image" title="제목 주소">¶</a></h3>
+<p>loopchain의 Docker image는 다음의 3종류가 있습니다.</p>
+<ul class="simple">
+<li>looprs: RadioStation docker image</li>
+<li>looppeer: Peer docker image</li>
+<li>loopchain-fluentd: log를 저장하기 위해서 수정한 fluentd image</li>
+</ul>
+</div>
+<div class="section" id="docker-image">
+<span id="docker-image"></span><h3>Docker image 받기<a class="headerlink" href="#docker-image" title="제목 주소">¶</a></h3>
+<p>아래 화면과 같이 <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">pull</span></code> 명령을 이용하여서 Docker hub로부터 loopchain docker image들을 다운 받아옵니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ docker pull loopchain/looprs
+$ docker pull loopchain/looppeer
+$ docker pull loopchain/loopchain-fluentd
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="docker-image-loopchain">
+<span id="docker-image-loopchain"></span><h2>Docker image를 이용하여서 로컬 컴퓨터에서 loopchain 네트워크 구성<a class="headerlink" href="#docker-image-loopchain" title="제목 주소">¶</a></h2>
+<ol class="simple">
+<li><a class="reference external" href="./Tutorial_1R1P.md"><strong>Local computer에서 RadioStation과 1개의 Peer로 Blockchain network 구성하기</strong></a></li>
+<li><a class="reference external" href="./Tutorial_1R2P.md"><strong>Local computer에서 RadioStation과 2개의 Peer로 Blockchain network 구성하기</strong></a></li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Theloop.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
